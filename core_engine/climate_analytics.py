@@ -1,16 +1,15 @@
 """
 PRISM-Edge: Environmental Harmony & Climate Response Telemetry Subsystem
 Edge processing for micro-meteorology, flash flood early warning,
-crop pathology detection, and carbon-reduction ledger verification.
+coastal salinity monitoring, and carbon credit verification.
 """
 
 from typing import Dict, List, Any, Optional
-import math
 
 class ClimateResilienceEngine:
     """
     Computes real-time agro-ecological risk indices, drought severity,
-    flood hazard vectors, and carbon sequestration credits from edge sensor mesh.
+    flood hazard vectors, coastal delta salinity, and carbon sequestration credits.
     """
 
     def calculate_micro_climate_risk(self, telemetry: Dict[str, Any]) -> Dict[str, Any]:
@@ -20,7 +19,6 @@ class ClimateResilienceEngine:
         soil_moisture_pct = float(telemetry.get("soil_moisture_pct", 45.0))
         wind_speed_kmh = float(telemetry.get("wind_speed_kmh", 12.0))
 
-        # Heat Index (Steadman formula approximation)
         t = temp_c
         r = humidity_pct
         heat_index = (
@@ -35,7 +33,6 @@ class ClimateResilienceEngine:
             0.000003582 * (t**2) * (r**2)
         ) if temp_c > 26.0 else temp_c
 
-        # Flash Flood Index
         flood_hazard_score = 0.0
         if rainfall_3h_mm > 50.0:
             flood_hazard_score += 60.0
@@ -47,12 +44,10 @@ class ClimateResilienceEngine:
 
         flood_hazard_score = min(100.0, flood_hazard_score)
 
-        # Drought Stress Index (Standardized Precipitation-Evapotranspiration proxy)
         drought_risk_score = 0.0
         if soil_moisture_pct < 20.0 and temp_c > 32.0 and rainfall_3h_mm < 2.0:
             drought_risk_score = min(100.0, (35.0 - soil_moisture_pct) * 3.5 + (temp_c - 30.0) * 4.0)
 
-        # Early Warning Status
         if flood_hazard_score >= 70.0:
             status = "CRITICAL: FLASH FLOOD ALERT"
             action = "Activate community sirens, relocate livestock to elevated flood-shelters, reinforce embankments."
@@ -86,8 +81,31 @@ class ClimateResilienceEngine:
             }
         }
 
+    def evaluate_coastal_salinity_risk(self, water_ec_ds_m: float, soil_ec_ds_m: float) -> Dict[str, Any]:
+        """Assesses coastal groundwater and soil salinity electrical conductivity (dS/m)."""
+        # Normal fresh water < 0.75 dS/m, Severe Salinity > 4.0 dS/m
+        if water_ec_ds_m > 4.0 or soil_ec_ds_m > 8.0:
+            category = "Critical Saline Ingress"
+            urgency = "HIGH"
+            advisory = "Halt conventional freshwater pumping; deploy solar reverse-osmosis filtration; switch to saline-tolerant rice cultivars (BRRI dhan 67 / BINA dhan 10)."
+        elif water_ec_ds_m > 1.5 or soil_ec_ds_m > 4.0:
+            category = "Moderate Saline Intrusion"
+            urgency = "MODERATE"
+            advisory = "Blend rainwater harvesting tanks with shallow aquifers; apply gypsum soil conditioners."
+        else:
+            category = "Optimal Non-Saline"
+            urgency = "LOW"
+            advisory = "Standard freshwater irrigation and sustainable crop rotation."
+
+        return {
+            "salinity_category": category,
+            "water_ec_ds_m": water_ec_ds_m,
+            "soil_ec_ds_m": soil_ec_ds_m,
+            "triage_urgency": urgency,
+            "action_advisory": advisory
+        }
+
     def diagnose_crop_pathology(self, crop_type: str, symptoms: List[str]) -> Dict[str, Any]:
-        """Edge heuristic and spectral classifier for smallholder crop diseases."""
         crop_type = crop_type.lower()
         symptom_set = set(s.lower() for s in symptoms)
 
@@ -125,7 +143,6 @@ class ClimateResilienceEngine:
         return diagnosis
 
     def compute_carbon_green_credits(self, regenerative_actions: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Calculates verified carbon offset points for agroforestry and solar adoption."""
         total_co2_kg_saved = 0.0
         credit_points = 0.0
 
@@ -134,19 +151,16 @@ class ClimateResilienceEngine:
             qty = float(action.get("quantity", 1.0))
 
             if "tree_planted_geo_tagged" in act_type:
-                # 1 tree ~ 22 kg CO2 / yr average
                 total_co2_kg_saved += qty * 22.0
                 credit_points += qty * 10.0
             elif "solar_irrigation_kwh" in act_type:
-                # 1 kWh solar replaces diesel pump ~ 0.85 kg CO2
                 total_co2_kg_saved += qty * 0.85
                 credit_points += qty * 0.5
             elif "organic_biochar_kg" in act_type:
-                # 1 kg biochar sequestered ~ 2.5 kg CO2 eq
                 total_co2_kg_saved += qty * 2.5
                 credit_points += qty * 1.5
 
-        monetary_reward_bdt = credit_points * 2.5 # Micro-payout exchange rate
+        monetary_reward_bdt = credit_points * 2.5
 
         return {
             "total_co2_kg_sequestered": round(total_co2_kg_saved, 2),

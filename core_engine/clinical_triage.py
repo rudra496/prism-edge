@@ -1,15 +1,15 @@
 """
 PRISM-Edge: Clinical Triage & Maternal-Pediatric Decision Support Engine
-Standardized against WHO Integrated Management of Childhood Illness (IMCI)
-and Emergency Obstetric & Neonatal Care (EmONC) guidelines.
+Standardized against WHO Integrated Management of Childhood Illness (IMCI),
+Emergency Obstetric & Neonatal Care (EmONC), and Neonatal APGAR scoring.
 """
 
 from typing import Dict, List, Any, Optional
 
 class ClinicalTriageEngine:
     """
-    Evaluates vital signs, reported symptom vectors, and maternal risk flags
-    to generate deterministic, explainable clinical triage recommendations.
+    Evaluates vital signs, reported symptom vectors, maternal risk flags,
+    postpartum hemorrhage, and neonatal APGAR scores.
     """
 
     def evaluate_maternal_risk(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -24,7 +24,6 @@ class ClinicalTriageEngine:
         urgency = "ROUTINE"
         risk_score = 10.0
 
-        # Preeclampsia / Eclampsia Screening
         if systolic_bp >= 160 or diastolic_bp >= 110:
             danger_flags.append("Severe Hypertension / Critical Preeclampsia Risk")
             urgency = "EMERGENCY"
@@ -63,7 +62,7 @@ class ClinicalTriageEngine:
         if urgency == "EMERGENCY":
             protocols = [
                 "Immediate emergency ambulance dispatch to tertiary referral center.",
-                "Administer loading dose of Magnesium Sulfate if trained CHW present and preeclampsia suspected.",
+                "Administer loading dose of Magnesium Sulfate (4g IV + 10g IM) if trained CHW present.",
                 "Maintain left lateral recumbent positioning and high-flow O2 if available."
             ]
         elif urgency == "URGENT":
@@ -92,30 +91,26 @@ class ClinicalTriageEngine:
         temp_c = child_data.get("temperature_c", 37.0)
         respiratory_rate_bpm = child_data.get("respiratory_rate_bpm", 30)
         symptoms = [s.lower() for s in child_data.get("symptoms", [])]
-        muac_mm = child_data.get("muac_mm", 135) # Mid-Upper Arm Circumference
+        muac_mm = child_data.get("muac_mm", 135)
 
         danger_signs = []
         triage = "GREEN"
 
-        # General Danger Signs
         if "unable_to_drink" in symptoms or "vomiting_everything" in symptoms or "convulsions" in symptoms or "lethargic" in symptoms:
             danger_signs.append("General Danger Sign Present (IMCI Stage 3)")
             triage = "RED"
 
-        # Fast Breathing / Pneumonia
         fast_breathing_threshold = 50 if age_months < 12 else 40
         if respiratory_rate_bpm > fast_breathing_threshold or "chest_indrawing" in symptoms or "stridor" in symptoms:
             danger_signs.append(f"Pneumonia Indicator: Fast Breathing ({respiratory_rate_bpm} bpm)")
             if triage != "RED":
                 triage = "YELLOW"
 
-        # SAM (Severe Acute Malnutrition)
         if muac_mm < 115 or "bilateral_pitting_edema" in symptoms:
             danger_signs.append(f"Severe Acute Malnutrition (MUAC {muac_mm} mm)")
             if triage != "RED":
                 triage = "YELLOW"
 
-        # High Fever
         if temp_c >= 39.0:
             danger_signs.append(f"High Pyrexia ({temp_c}°C)")
             if triage != "RED":
@@ -133,4 +128,35 @@ class ClinicalTriageEngine:
             "clinical_action": actions[triage],
             "muac_classification": "Severe Malnutrition" if muac_mm < 115 else ("Moderate Malnutrition" if muac_mm < 125 else "Adequate"),
             "guideline": "WHO / UNICEF IMCI Integrated Protocol"
+        }
+
+    def evaluate_neonatal_apgar(self, apgar_params: Dict[str, int]) -> Dict[str, Any]:
+        """Calculates 1-min and 5-min APGAR score for newborn resuscitation."""
+        appearance = apgar_params.get("appearance", 2) # 0=blue/pale, 1=pink body/blue extremities, 2=all pink
+        pulse = apgar_params.get("pulse", 2)           # 0=absent, 1=<100 bpm, 2=>100 bpm
+        grimace = apgar_params.get("grimace", 2)       # 0=no response, 1=grimace, 2=cry/pull away
+        activity = apgar_params.get("activity", 2)     # 0=flaccid, 1=some flexion, 2=active motion
+        respiration = apgar_params.get("respiration", 2) # 0=absent, 1=slow/irregular, 2=vigorous cry
+
+        total_score = appearance + pulse + grimace + activity + respiration
+
+        if total_score >= 7:
+            status = "Normal / Reassuring Neonatal Transition"
+            urgency = "ROUTINE"
+            action = "Dry infant, maintain skin-to-skin warmth, initiate immediate breastfeeding."
+        elif total_score >= 4:
+            status = "Moderate Neonatal Depression"
+            urgency = "URGENT"
+            action = "Clear airway, tactile stimulation, administer bag-and-mask positive pressure ventilation with room air."
+        else:
+            status = "Critical Neonatal Asphyxia"
+            urgency = "EMERGENCY"
+            action = "Immediate advanced neonatal resuscitation; continuous positive pressure ventilation, chest compressions, urgent neonatologist referral."
+
+        return {
+            "apgar_total_score": total_score,
+            "neonatal_status": status,
+            "triage_urgency": urgency,
+            "resuscitation_protocol": action,
+            "guideline": "WHO Helping Babies Breathe (HBB) Standard"
         }
