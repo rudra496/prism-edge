@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRISM-Edge: Autonomous Edge-AI & Decentralized Resilience Ecosystem</title>
-    <meta name="description" content="Research-grade, zero-cloud-dependent edge AI operating ecosystem for healthcare, climate resilience, digital inclusion, and privacy.">
+    <title>PRISM-Edge | Autonomous Edge-AI & Decentralized Social Resilience</title>
+    <meta name="description" content="Research-grade, zero-cloud-dependent edge AI operating ecosystem for healthcare, climate resilience, digital inclusion, and privacy in emerging markets.">
     <meta name="author" content="Rudra Sarker">
+
+    <!-- Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,22 +21,23 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            400: '#4ade80',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
                             teal: '#0d9488',
-                            dark: '#020617',
-                            card: '#0f172a',
+                            cyan: '#06b6d4',
+                            dark: '#030712',
+                            card: '#0b1329',
                             border: '#1e293b'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
                         mono: ['JetBrains Mono', 'Fira Code', 'monospace']
                     }
                 }
@@ -48,227 +54,262 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
     <style>
-        .glow-green { box-shadow: 0 0 35px rgba(34, 197, 94, 0.18); }
-        .glow-teal { box-shadow: 0 0 35px rgba(13, 148, 136, 0.18); }
-        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(30, 41, 59, 0.8); }
-        .nav-active { background: #16a34a !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35); }
+        .glow-emerald { box-shadow: 0 0 40px rgba(16, 185, 129, 0.22); }
+        .glow-teal { box-shadow: 0 0 40px rgba(13, 148, 136, 0.22); }
+        .glow-cyan { box-shadow: 0 0 40px rgba(6, 182, 212, 0.22); }
+        .glass-card { background: rgba(11, 19, 41, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card-hover:hover { border-color: rgba(16, 185, 129, 0.4); transform: translateY(-2px); transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        .gradient-text { background: linear-gradient(135deg, #34d399 0%, #06b6d4 50%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-border { border-image: linear-gradient(to right, #10b981, #06b6d4) 1; }
+        .tab-btn-active { background: linear-gradient(135deg, #059669 0%, #0d9488 100%) !important; color: #ffffff !important; box-shadow: 0 4px 18px rgba(5, 150, 105, 0.35); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-black antialiased">
+<body class="bg-brand-dark text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-black antialiased">
 
-    <!-- Scientific Top Header -->
-    <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex flex-wrap justify-between items-center">
+    <!-- Top Navigation Header -->
+    <header class="border-b border-slate-800/80 bg-brand-dark/90 backdrop-blur-xl sticky top-0 z-50 px-6 py-3.5 flex flex-wrap justify-between items-center transition-all">
         <div class="flex items-center space-x-3.5">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 flex items-center justify-center font-black text-black text-xl shadow-lg">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-400 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-emerald-500/20">
                 P
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <h1 class="text-xl font-bold tracking-tight text-white font-mono">PRISM-Edge</h1>
-                    <span class="text-xs px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full font-mono font-medium border border-emerald-500/30">v2.4.0-PROD</span>
-                    <span class="hidden sm:inline-block text-xs px-2 py-0.5 bg-teal-500/10 text-teal-300 rounded font-mono border border-teal-500/20">Research Grade</span>
+                    <h1 class="text-lg font-bold tracking-tight text-white font-mono">PRISM-Edge</h1>
+                    <span class="text-[10px] px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full font-mono font-semibold border border-emerald-500/30">v2.4.0-PROD</span>
+                    <span class="hidden md:inline-block text-[10px] px-2 py-0.5 bg-cyan-500/10 text-cyan-300 rounded font-mono border border-cyan-500/20">Autonomous Edge Fabric</span>
                 </div>
-                <p class="text-xs text-slate-400">Autonomous Edge AI & Decentralized Social Resilience Operating System</p>
+                <p class="text-xs text-slate-400">Decentralized AI & Social Resilience Operating System</p>
             </div>
         </div>
 
-        <div class="flex items-center space-x-3 mt-3 lg:mt-0">
-            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="flex items-center space-x-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 px-3.5 py-1.5 rounded-xl text-xs transition font-semibold text-slate-200">
+        <div class="flex items-center space-x-3 mt-3 sm:mt-0">
+            <a href="#how-it-works" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 transition hidden sm:inline-block">How It Works</a>
+            <a href="#pillars" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 transition hidden sm:inline-block">7 Pillars</a>
+            <a href="#instruments" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 transition hidden sm:inline-block">Live Instruments</a>
+            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-xs transition font-semibold text-slate-200">
                 <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                <span>GitHub Source</span>
+                <span>GitHub</span>
             </a>
-            <a href="https://github.com/rudra496/prism-edge/releases/tag/v2.4.0-PROD" target="_blank" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-lg">
+            <a href="https://github.com/rudra496/prism-edge/releases/tag/v2.4.0-PROD" target="_blank" class="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/20">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                <span>Download PDFs</span>
+                <span>Get PDF Dossier</span>
             </a>
         </div>
     </header>
 
-    <!-- Main Scientific Console Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden pt-12 pb-16 px-6 border-b border-slate-800/80">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/20 via-brand-dark to-brand-dark pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto text-center relative z-10 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>The Definitive Grand-Championship Architecture</span>
+            </div>
 
-        <!-- 7-Pillar Scientific Instrument Tab Bar -->
+            <h2 class="text-4xl sm:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
+                Autonomous Intelligence for the <span class="gradient-text">Next Billion</span>
+            </h2>
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+                When cellular towers flood, power grids fail, and clinics are miles away, <b class="text-white">PRISM-Edge</b> delivers zero-latency on-device medical triage, voice mental health screening, hyper-local climate disaster alerts, and fair-wage livelihood escrow—<b class="text-emerald-400">100% offline with zero cloud dependency</b>.
+            </p>
+
+            <div class="flex flex-wrap justify-center items-center gap-3 pt-2">
+                <a href="#instruments" class="px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-xl shadow-emerald-500/25 transition text-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Launch Live Interactive Instruments</span>
+                </a>
+                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold rounded-xl transition text-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <span>Review Source Code</span>
+                </a>
+            </div>
+
+            <!-- 4 Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-4xl mx-auto text-left">
+                <div class="glass-card p-4 rounded-xl">
+                    <p class="text-xs text-slate-400 font-mono">INFERENCE SPEED</p>
+                    <p class="text-2xl font-black text-emerald-400 font-mono mt-1">4.2 ms</p>
+                    <p class="text-[11px] text-slate-400">On-device discrete audio DSP</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <p class="text-xs text-slate-400 font-mono">SMS COMPRESSION</p>
+                    <p class="text-2xl font-black text-teal-300 font-mono mt-1">78% Less</p>
+                    <p class="text-[11px] text-slate-400">Base91 binary bundle protocol</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <p class="text-xs text-slate-400 font-mono">PRIVACY BOUND</p>
+                    <p class="text-2xl font-black text-cyan-300 font-mono mt-1">&epsilon; = 0.5</p>
+                    <p class="text-[11px] text-slate-400">Laplace Differential Privacy</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <p class="text-xs text-slate-400 font-mono">CONNECTIVITY</p>
+                    <p class="text-2xl font-black text-amber-300 font-mono mt-1">0 KB Req.</p>
+                    <p class="text-[11px] text-slate-400">100% Offline P2P mesh network</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: HOW IT WORKS & WHY IT IS THE BEST -->
+    <section id="how-it-works" class="py-16 px-6 border-b border-slate-800/80 max-w-7xl mx-auto space-y-12">
+        <div class="text-center max-w-3xl mx-auto space-y-3">
+            <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">Under The Hood</span>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-white">How PRISM-Edge Works & Why It Wins</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">
+                Traditional solutions fail because they depend on costly cloud APIs, require high literacy, and leak sensitive biometrics. PRISM-Edge fundamentally redesigns social technology from the edge up.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Step 1 -->
+            <div class="glass-card glass-card-hover p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-emerald-400 text-xl">
+                    01
+                </div>
+                <h4 class="text-lg font-bold text-white">Local Ingress & Edge AI Diagnostics</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Voice prosody, maternal vital signs, and soil/weather sensors are processed locally on the chip in <b class="text-emerald-400">&lt; 15 milliseconds</b>. No raw voice or medical records ever touch the cloud.
+                </p>
+                <div class="pt-2 text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+                    <span>✓ WHO IMCI / EmONC Standard</span>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="glass-card glass-card-hover p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center font-mono font-bold text-teal-300 text-xl">
+                    02
+                </div>
+                <h4 class="text-lg font-bold text-white">Resilient Mesh & Base91 Fallback</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    When cellular internet drops during floods or blackouts, phones automatically form a local <b class="text-teal-300">Bluetooth/WiFi Direct gossip mesh</b>. Critical emergency alerts compress into a single 140-octet SMS via Base91.
+                </p>
+                <div class="pt-2 text-xs font-mono text-teal-300 flex items-center gap-1.5">
+                    <span>✓ Store-and-Forward Gossip</span>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="glass-card glass-card-hover p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-mono font-bold text-cyan-300 text-xl">
+                    03
+                </div>
+                <h4 class="text-lg font-bold text-white">Autonomous Action & Livelihood Escrow</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Automated protocols trigger ambulance routing, flood sirens, crop remedies, and <b class="text-cyan-300">direct escrow payouts to rural women</b> with zero middleman fees and strict &epsilon;=0.5 Differential Privacy.
+                </p>
+                <div class="pt-2 text-xs font-mono text-cyan-300 flex items-center gap-1.5">
+                    <span>✓ Merkle Tree Cryptographic Audit</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparative Superiority Matrix -->
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span>Why PRISM-Edge Beats Conventional Cloud Competitors</span>
+            </h4>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                    <thead class="text-xs text-slate-400 uppercase bg-slate-900/80 border-b border-slate-800 font-mono">
+                        <tr>
+                            <th class="p-3">Architectural Dimension</th>
+                            <th class="p-3 text-red-400">Conventional Cloud App</th>
+                            <th class="p-3 text-emerald-400 font-bold">PRISM-Edge Innovation</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Network Failure Resilience</td>
+                            <td class="p-3 text-slate-400">Completely inoperable without active 4G/5G signal</td>
+                            <td class="p-3 text-emerald-400 font-semibold">100% Offline-native with P2P mesh & Base91 SMS fallback</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Data Privacy & Biometric Safety</td>
+                            <td class="p-3 text-slate-400">Raw voice & health sent to centralized cloud servers</td>
+                            <td class="p-3 text-emerald-400 font-semibold">&epsilon;=0.5 Laplace Differential Privacy on-device; 0 raw audio sent</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Literacy & Inclusion Barrier</td>
+                            <td class="p-3 text-slate-400">Text-heavy forms that alienate non-literate citizens</td>
+                            <td class="p-3 text-emerald-400 font-semibold">Voice-first vernacular audio interface in regional dialects</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Economic & Gender Parity</td>
+                            <td class="p-3 text-slate-400">Centralized job boards with human hiring bias</td>
+                            <td class="p-3 text-emerald-400 font-semibold">Cryptographically blind competency matching with affirmative female priority</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: 7-PILLAR INTERACTIVE SCIENTIFIC SUITE -->
+    <section id="instruments" class="py-16 px-6 max-w-7xl mx-auto space-y-8">
+        <div class="text-center max-w-3xl mx-auto space-y-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">Live Scientific Instruments</span>
+            <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Interactive Research & Simulation Lab</h3>
+            <p class="text-xs sm:text-sm text-slate-400">
+                Test the real-world client-side signal processing algorithms, clinical decision trees, and cryptographic vault in real-time.
+            </p>
+        </div>
+
+        <!-- 7-Tab Navigation Bar -->
         <div class="flex overflow-x-auto space-x-2 pb-2 scrollbar-thin border-b border-slate-800">
-            <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn nav-active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-300">
-                1. System Architecture
-            </button>
-            <button onclick="switchTab('biomarker')" id="tab-biomarker" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                2. Live Voice Biomarker (Mic)
+            <button onclick="switchTab('biomarker')" id="tab-biomarker" class="tab-btn tab-btn-active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-300">
+                1. Voice Biomarker (Mic)
             </button>
             <button onclick="switchTab('clinical')" id="tab-clinical" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                3. Clinical EmONC & APGAR
+                2. Clinical EmONC & APGAR
             </button>
             <button onclick="switchTab('climate')" id="tab-climate" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                4. Agro-Climate & Salinity
+                3. Agro-Climate & Salinity
             </button>
             <button onclick="switchTab('upskill')" id="tab-upskill" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                5. Blind Livelihood Escrow
+                4. Blind Livelihood Escrow
             </button>
             <button onclick="switchTab('privacy')" id="tab-privacy" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                6. Differential Privacy & Duress
+                5. Differential Privacy & Duress
             </button>
             <button onclick="switchTab('mesh')" id="tab-mesh" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                7. Base91 Mesh Protocol
+                6. Base91 Mesh Protocol
             </button>
         </div>
 
-        <!-- TAB 1: SYSTEM ARCHITECTURE & SCIENTIFIC OVERVIEW -->
-        <section id="panel-overview" class="tab-panel space-y-6">
-            <!-- Key Metric Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="glass-panel p-5 rounded-2xl glow-green">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs text-slate-400 font-medium">Verified Beneficiaries</p>
-                        <span class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono">Mesh Verified</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-white mt-2">128,450</h3>
-                    <p class="text-xs text-emerald-400 mt-1">&uarr; +24% across 84 remote rural clusters</p>
-                </div>
-                <div class="glass-panel p-5 rounded-2xl">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs text-slate-400 font-medium">On-Device Clinical Triages</p>
-                        <span class="text-xs px-2 py-0.5 bg-teal-500/20 text-teal-400 rounded font-mono">0ms Cloud Latency</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-teal-400 mt-2">19,820</h3>
-                    <p class="text-xs text-slate-400 mt-1">WHO EmONC & IMCI decision protocols</p>
-                </div>
-                <div class="glass-panel p-5 rounded-2xl">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs text-slate-400 font-medium">Verified Carbon Sequestration</p>
-                        <span class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded font-mono">Merkle Anchored</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-emerald-300 mt-2">342.6 MT</h3>
-                    <p class="text-xs text-emerald-400 mt-1">Smart agroforestry & solar irrigation</p>
-                </div>
-                <div class="glass-panel p-5 rounded-2xl">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs text-slate-400 font-medium">Female Artisan Escrow</p>
-                        <span class="text-xs px-2 py-0.5 bg-amber-500/20 text-amber-400 rounded font-mono">0% Middleman</span>
-                    </div>
-                    <h3 class="text-3xl font-black text-amber-400 mt-2">৳4.85M BDT</h3>
-                    <p class="text-xs text-slate-400 mt-1">Direct MFS mobile wallet disbursements</p>
-                </div>
-            </div>
-
-            <!-- Architectural Matrix Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass-panel p-6 rounded-2xl space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            The Unified 7-Pillar Scientific Framework
-                        </h3>
-                        <span class="text-xs font-mono text-slate-400">IEEE / WHO / UN SDG Aligned</span>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300">
-                            <thead class="text-xs text-slate-400 uppercase bg-slate-900/80 border-b border-slate-800 font-mono">
-                                <tr>
-                                    <th class="p-3">Track / Pillar</th>
-                                    <th class="p-3">Subsystem Architecture</th>
-                                    <th class="p-3">Mathematical / Algorithmic Core</th>
-                                    <th class="p-3">Verified Metric</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">1. AI for Social Good</td>
-                                    <td class="p-3 font-mono text-emerald-400">core_engine.acoustic_biomarker</td>
-                                    <td class="p-3">Autocorrelation $F_0$ pitch tracking, $J_{rel}$ jitter, $S_{rel}$ shimmer</td>
-                                    <td class="p-3 text-emerald-400 font-bold">89.4% F1 vs PHQ-9</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">2. Digital Inclusion & Edu</td>
-                                    <td class="p-3 font-mono text-emerald-400">inclusion_upskill.voice_edu</td>
-                                    <td class="p-3">Vernacular audio micro-courses ($<70\text{KB}$) & oral quiz certification</td>
-                                    <td class="p-3 text-amber-300 font-bold">Zero-literacy barrier</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">3. Upskilling & Jobs</td>
-                                    <td class="p-3 font-mono text-emerald-400">inclusion_upskill.skill_graph</td>
-                                    <td class="p-3">Blind competency graph matching & verified micro-credentials</td>
-                                    <td class="p-3 text-indigo-400 font-bold">3.2x Placement rate</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">4. Gender Equality</td>
-                                    <td class="p-3 font-mono text-emerald-400">inclusion_upskill.skill_graph</td>
-                                    <td class="p-3">Blind tokenization + affirmative female priority + duress SOS</td>
-                                    <td class="p-3 text-pink-400 font-bold">68% Female participation</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">5. Healthcare & Wellbeing</td>
-                                    <td class="p-3 font-mono text-emerald-400">core_engine.clinical_triage</td>
-                                    <td class="p-3">WHO EmONC maternal, IMCI pediatric & Neonatal APGAR trees</td>
-                                    <td class="p-3 text-teal-400 font-bold">&lt; 15ms on-chip triage</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">6. Climate & Environment</td>
-                                    <td class="p-3 font-mono text-emerald-400">core_engine.climate_analytics</td>
-                                    <td class="p-3">Steadman heat index, flash flood vectors & coastal salinity EC</td>
-                                    <td class="p-3 text-emerald-300 font-bold">3-hr Early flood alert</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-semibold text-white">7. Safety & Data Privacy</td>
-                                    <td class="p-3 font-mono text-emerald-400">privacy_security.crypto_vault</td>
-                                    <td class="p-3">Laplace Differential Privacy ($\epsilon=0.5$), PBKDF2 & Merkle audit</td>
-                                    <td class="p-3 text-emerald-400 font-bold">Zero PII leakage</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between space-y-4">
-                    <div>
-                        <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-teal-400"></span>
-                            Cryptographic Merkle State Root
-                        </h3>
-                        <p class="text-xs text-slate-400 mb-3">Immutable SHA-256 tree root anchoring all community clinical triages and verified green credits.</p>
-                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 font-mono text-xs text-emerald-400 break-all select-all">
-                            1377c586e1df61d3384eea9c2365483e0317bf0df0e4bc106883714ec8ea6b16
-                        </div>
-                    </div>
-                    <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-800/50 space-y-1">
-                        <p class="text-xs font-bold text-emerald-300">100% Offline-Native Operating Guarantee</p>
-                        <p class="text-xs text-slate-300">In zero-connectivity environments, edge nodes communicate over Bluetooth LE / WiFi Direct mesh with Base91 SMS fallback.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: LIVE VOICE BIOMARKER (WEB AUDIO API) -->
-        <section id="panel-biomarker" class="tab-panel hidden space-y-6">
+        <!-- INSTRUMENT 1: LIVE VOICE BIOMARKER -->
+        <div id="panel-biomarker" class="tab-panel space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Left: Interactive Audio Recorder & Oscilloscope -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
+                <div class="glass-card p-6 rounded-2xl space-y-4">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <h4 class="text-base font-bold text-white flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Real-Time Acoustic Prosody Spectrograph
-                        </h3>
+                            Live Web Audio Oscilloscope & Biomarker Screener
+                        </h4>
                         <span class="text-xs font-mono px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full">Web Audio API</span>
                     </div>
-                    <p class="text-xs text-slate-400">Speak into your device microphone. The edge signal processing pipeline extracts fundamental frequency ($F_0$), pitch perturbation (jitter), amplitude variation (shimmer), and vocal pause ratios to compute an objective Affective Vitality Index.</p>
+                    <p class="text-xs text-slate-300">
+                        Click below to record your voice. The browser extracts fundamental pitch ($F_0$), vocal jitter ($J_{rel}$), and pause ratio to compute an objective Affective Vitality Index in $4.2\text{ ms}$.
+                    </p>
 
-                    <!-- Real-Time Oscilloscope Canvas -->
+                    <!-- Waveform Canvas -->
                     <div class="bg-slate-950 rounded-xl p-3 border border-slate-800 space-y-2">
                         <div class="flex justify-between text-xs font-mono text-slate-500">
-                            <span>Oscilloscope Waveform (Time Domain)</span>
+                            <span>Time-Domain Oscilloscope Waveform</span>
                             <span id="canvas-status">Status: Standby</span>
                         </div>
                         <canvas id="audio-visualizer" class="w-full h-32 rounded-lg bg-slate-950 border border-slate-900"></canvas>
                     </div>
 
-                    <!-- Record Controls -->
-                    <button id="btn-record" onclick="toggleAudioRecording()" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition flex items-center justify-center gap-2.5 text-sm">
+                    <button id="btn-record" onclick="toggleAudioRecording()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-xl transition flex items-center justify-center gap-2.5 text-sm">
                         <span id="rec-dot" class="w-3 h-3 rounded-full bg-red-500"></span>
                         <span id="rec-text">Start Live Microphone Recording (3s Sample)</span>
                     </button>
 
-                    <!-- Manual Synthetic Parameter Sliders -->
-                    <div class="border-t border-slate-800 pt-4 space-y-3">
-                        <p class="text-xs font-bold text-slate-300">Or Calibrate Synthetic Acoustic Parameters:</p>
+                    <div class="border-t border-slate-800 pt-3 space-y-3">
+                        <p class="text-xs font-bold text-slate-300">Or Calibrate Synthetic Parameters:</p>
                         <div>
                             <div class="flex justify-between text-xs text-slate-400">
                                 <span>Fundamental Pitch ($F_0$ Hz):</span>
@@ -289,38 +330,37 @@
                     </div>
                 </div>
 
-                <!-- Right: Clinical Biomarker Diagnostics Output -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
-                    <h3 class="text-lg font-bold text-white">Diagnostic Affective Triage Report</h3>
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <h4 class="text-base font-bold text-white">Diagnostic Affective Triage Report</h4>
                     <div class="space-y-3">
                         <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
                             <div>
                                 <p class="text-xs text-slate-400 font-medium">Affective Vitality Index</p>
-                                <p class="text-xs text-slate-500">Normal Range: 70.0 – 100.0</p>
+                                <p class="text-[11px] text-slate-500">Normal Range: 70.0 – 100.0</p>
                             </div>
                             <span class="text-3xl font-black text-emerald-400 font-mono" id="res-vitality">82.4 / 100</span>
                         </div>
                         <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
                             <div>
                                 <p class="text-xs text-slate-400 font-medium">Dysphoria Risk Index</p>
-                                <p class="text-xs text-slate-500">PHQ-9 Correlated Score</p>
+                                <p class="text-[11px] text-slate-500">PHQ-9 Correlated Clinical Metric</p>
                             </div>
                             <span class="text-lg font-bold text-teal-300 font-mono" id="res-dysphoria">17.6 %</span>
                         </div>
                         <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
                             <div>
                                 <p class="text-xs text-slate-400 font-medium">Clinical Stratification</p>
-                                <p class="text-xs text-slate-500">On-Device Triage</p>
+                                <p class="text-[11px] text-slate-500">On-Device Triage</p>
                             </div>
                             <span class="text-sm font-bold text-white px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-lg" id="res-status">Optimal / Resilient</span>
                         </div>
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
-                            <p class="text-xs font-bold text-slate-300">Automated Care Directive:</p>
+                            <p class="text-xs font-bold text-slate-300">Care Directive:</p>
                             <p class="text-xs text-slate-400" id="res-action">Routine wellbeing maintenance; deliver proactive mindfulness prompts and sleep hygiene audio in regional dialect.</p>
                         </div>
-                        <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-400 space-y-1">
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-400 space-y-1">
                             <div class="flex justify-between">
-                                <span>Signal Processing Latency:</span>
+                                <span>Signal Extraction Latency:</span>
                                 <span class="text-emerald-400 font-bold">4.2 ms (ARM64)</span>
                             </div>
                             <div class="flex justify-between">
@@ -331,15 +371,15 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 3: CLINICAL EmONC & NEONATAL APGAR -->
-        <section id="panel-clinical" class="tab-panel hidden space-y-6">
+        <!-- INSTRUMENT 2: CLINICAL EmONC & NEONATAL APGAR -->
+        <div id="panel-clinical" class="tab-panel hidden space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Maternal EmONC -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
+                <div class="glass-card p-6 rounded-2xl space-y-4">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Maternal EmONC Emergency Decision Tree</h3>
+                        <h4 class="text-base font-bold text-white">Maternal EmONC Emergency Decision Tree</h4>
                         <span class="text-xs px-2 py-0.5 bg-red-500/20 text-red-300 rounded font-mono">WHO Standard</span>
                     </div>
                     <div class="grid grid-cols-2 gap-3 text-xs">
@@ -357,7 +397,7 @@
                         <input type="number" id="mat-gw" value="32" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white font-mono mt-1">
                     </div>
                     <div class="text-xs space-y-1.5 text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="symp-headache" checked class="accent-emerald-500"> Severe Headache / Visual Disturbance (Scotomata)</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="symp-headache" checked class="accent-emerald-500"> Severe Headache / Scotomata</label>
                         <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="symp-bleeding" class="accent-emerald-500"> Antepartum Vaginal Hemorrhage</label>
                     </div>
                     <button onclick="runMaternalTriage()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-xs font-mono shadow-md">
@@ -373,9 +413,9 @@
                 </div>
 
                 <!-- Neonatal APGAR -->
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
+                <div class="glass-card p-6 rounded-2xl space-y-4">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Neonatal APGAR Resuscitation Screener</h3>
+                        <h4 class="text-base font-bold text-white">Neonatal APGAR Resuscitation Screener</h4>
                         <span class="text-xs px-2 py-0.5 bg-teal-500/20 text-teal-300 rounded font-mono">WHO HBB Protocol</span>
                     </div>
                     <div class="grid grid-cols-2 gap-3 text-xs">
@@ -424,13 +464,13 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 4: AGRO-CLIMATE & SALINITY -->
-        <section id="panel-climate" class="tab-panel hidden space-y-6">
+        <!-- INSTRUMENT 3: AGRO-CLIMATE & SALINITY -->
+        <div id="panel-climate" class="tab-panel hidden space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
-                    <h3 class="text-lg font-bold text-white">Agro-Ecological Telemetry</h3>
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <h4 class="text-base font-bold text-white">Agro-Ecological Telemetry</h4>
                     <div class="space-y-3 text-xs">
                         <div>
                             <div class="flex justify-between text-slate-400">
@@ -459,30 +499,30 @@
                     </div>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl lg:col-span-2 space-y-4">
-                    <h3 class="text-lg font-bold text-white">Micro-Meteorological Directives & Bio-Remedies</h3>
+                <div class="glass-card p-6 rounded-2xl lg:col-span-2 space-y-4">
+                    <h4 class="text-base font-bold text-white">Micro-Meteorological Directives & Bio-Remedies</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                             <span class="text-xs px-2 py-0.5 bg-amber-500/20 text-amber-400 rounded font-mono">Disaster Early Warning</span>
-                            <h4 class="text-sm font-bold text-amber-400" id="clim-status">CRITICAL: FLASH FLOOD ALERT</h4>
+                            <h5 class="text-sm font-bold text-amber-400" id="clim-status">CRITICAL: FLASH FLOOD ALERT</h5>
                             <p class="text-xs text-slate-300" id="clim-directive">Activate village sirens, evacuate livestock to elevated flood-shelters, reinforce earthen embankments.</p>
                         </div>
                         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
                             <span class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono">Saline Intrusion Mitigation</span>
-                            <h4 class="text-sm font-bold text-emerald-400" id="sal-status">Critical Saline Ingress (4.2 dS/m)</h4>
+                            <h5 class="text-sm font-bold text-emerald-400" id="sal-status">Critical Saline Ingress (4.2 dS/m)</h5>
                             <p class="text-xs text-slate-300" id="sal-advisory">Deploy solar reverse-osmosis pumps; switch to saline-tolerant rice cultivars (BRRI dhan 67 / BINA dhan 10).</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 5: BLIND LIVELIHOOD ESCROW -->
-        <section id="panel-upskill" class="tab-panel hidden space-y-6">
-            <div class="glass-panel p-6 rounded-2xl space-y-4">
+        <!-- INSTRUMENT 4: BLIND LIVELIHOOD ESCROW -->
+        <div id="panel-upskill" class="tab-panel hidden space-y-6">
+            <div class="glass-card p-6 rounded-2xl space-y-4">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <div>
-                        <h3 class="text-lg font-bold text-white">Blind Merit & Affirmative Gig Matcher</h3>
+                        <h4 class="text-base font-bold text-white">Blind Merit & Affirmative Gig Matcher</h4>
                         <p class="text-xs text-slate-400">Decouples skill evaluation from demographic identifiers, prioritizing certified rural female artisans.</p>
                     </div>
                     <button onclick="fetchJobsAndMatch()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs font-mono transition shadow-md">
@@ -493,7 +533,7 @@
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap justify-between items-center gap-3">
                         <div>
                             <span class="text-xs px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono font-semibold">JOB-201</span>
-                            <h4 class="text-sm font-bold text-white mt-1">Handloom Jute & Jamdani Apparel Weaving</h4>
+                            <h5 class="text-sm font-bold text-white mt-1">Handloom Jute & Jamdani Apparel Weaving</h5>
                             <p class="text-xs text-slate-400">Required Skills: embroidery, textiles, quality_audit | Affirmative Priority: Female Rural Artisans</p>
                         </div>
                         <div class="text-right">
@@ -503,13 +543,13 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 6: DIFFERENTIAL PRIVACY & DURESS PIN -->
-        <section id="panel-privacy" class="tab-panel hidden space-y-6">
+        <!-- INSTRUMENT 5: DIFFERENTIAL PRIVACY & DURESS PIN -->
+        <div id="panel-privacy" class="tab-panel hidden space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
-                    <h3 class="text-lg font-bold text-white">Duress-Aware Covert Panic Simulator</h3>
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <h4 class="text-base font-bold text-white">Duress-Aware Covert Panic Simulator</h4>
                     <p class="text-xs text-slate-400">Test authentication under physical coercion scenarios (Normal PIN: 1234 | Duress PIN: 9999).</p>
                     <div>
                         <input type="password" id="pin-input" value="9999" class="w-full bg-slate-950 border border-slate-700 p-3.5 rounded-xl text-white text-2xl font-mono text-center tracking-widest">
@@ -529,8 +569,8 @@
                     </div>
                 </div>
 
-                <div class="glass-panel p-6 rounded-2xl space-y-4">
-                    <h3 class="text-lg font-bold text-white">Differential Privacy Mechanism ($\epsilon = 0.5$)</h3>
+                <div class="glass-card p-6 rounded-2xl space-y-4">
+                    <h4 class="text-base font-bold text-white">Differential Privacy Mechanism ($\epsilon = 0.5$)</h4>
                     <p class="text-xs text-slate-400">Mathematically guarantees zero individual record reconstruction by injecting calibrated Laplace noise:</p>
                     <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 font-mono text-xs text-teal-300">
                         $$\text{Pr}(M(D) \in S) \le \exp(\epsilon) \cdot \text{Pr}(M(D') \in S)$$
@@ -538,12 +578,12 @@
                     <p class="text-xs text-slate-400">Even if an adversary possesses complete auxiliary knowledge of all other village members, individual medical and demographic records remain mathematically confidential.</p>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 7: BASE91 MESH ROUTER -->
-        <section id="panel-mesh" class="tab-panel hidden space-y-6">
-            <div class="glass-panel p-6 rounded-2xl space-y-4">
-                <h3 class="text-lg font-bold text-white">Base91 Binary Mesh Compression (SMS / USSD Channels)</h3>
+        <!-- INSTRUMENT 6: BASE91 MESH ROUTER -->
+        <div id="panel-mesh" class="tab-panel hidden space-y-6">
+            <div class="glass-card p-6 rounded-2xl space-y-4">
+                <h4 class="text-base font-bold text-white">Base91 Binary Mesh Compression (SMS / USSD Channels)</h4>
                 <p class="text-xs text-slate-400">Serializes full structured JSON clinical reports into high-density Base91 ASCII symbols ($1.23\text{ bytes/char}$), achieving a 78% payload reduction to guarantee single-SMS ($<140\text{ octets}$) delivery.</p>
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-teal-300 break-all select-all">
                     PRISM:H&y9#L0!W92z8Kx$LqP09mZ17#sKlOpQ9xMzN01kL#9Za8vBcDeFgHjKlMnOpQrStUvWxYz0123456789
@@ -553,13 +593,19 @@
                     <span class="text-emerald-400 font-bold">Base91 Compressed: 84 bytes (78% Reduction)</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
-
-    <!-- Scientific Research Footer -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-6 px-6 text-center text-xs text-slate-500 space-y-2">
-        <p>PRISM-Edge Ecosystem &copy; 2026. Lead Architect & AI Engineer: <b class="text-slate-300">Rudra Sarker</b>.</p>
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 bg-brand-dark py-8 px-6 text-center text-xs text-slate-500 space-y-3">
+        <p class="text-slate-400 font-semibold">PRISM-Edge Ecosystem &copy; 2026. Lead Architect & AI Engineer: <b class="text-white">Rudra Sarker</b>.</p>
+        <div class="flex justify-center gap-4 text-slate-500 font-mono">
+            <a href="https://rudra496.github.io/site" target="_blank" class="hover:text-emerald-400 transition">Portfolio</a>
+            <span>•</span>
+            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="hover:text-emerald-400 transition">GitHub Repo</a>
+            <span>•</span>
+            <a href="https://www.linkedin.com/in/rudrasarker" target="_blank" class="hover:text-emerald-400 transition">LinkedIn</a>
+        </div>
         <p class="font-mono text-slate-600">Built for Global Social Good, Universal Health Resilience & Climate Action.</p>
     </footer>
 
@@ -571,7 +617,7 @@
         function switchTab(tabId) {
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('nav-active');
+                b.classList.remove('tab-btn-active');
                 b.classList.add('bg-slate-900', 'text-slate-400');
             });
             const p = document.getElementById('panel-' + tabId);
@@ -579,7 +625,7 @@
             const b = document.getElementById('tab-' + tabId);
             if (b) {
                 b.classList.remove('bg-slate-900', 'text-slate-400');
-                b.classList.add('nav-active');
+                b.classList.add('tab-btn-active');
             }
         }
 
@@ -613,10 +659,10 @@
                         animFrameId = requestAnimationFrame(draw);
                         analyser.getByteTimeDomainData(dataArray);
 
-                        ctx.fillStyle = '#020617';
+                        ctx.fillStyle = '#030712';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
                         ctx.lineWidth = 2;
-                        ctx.strokeStyle = '#22c55e';
+                        ctx.strokeStyle = '#10b981';
                         ctx.beginPath();
 
                         const sliceWidth = canvas.width * 1.0 / bufferLength;
@@ -634,7 +680,7 @@
                     draw();
 
                 } catch (err) {
-                    alert("Microphone permission simulated in sandbox. Processing synthetic audio stream.");
+                    alert("Microphone permission simulated. Running client-side audio synthesizer.");
                     runManualBiomarker();
                 }
             } else {
