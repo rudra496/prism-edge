@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRISM-Edge | Enterprise Resilience Architecture</title>
+    <title>PRISM-Edge | 3D Global Edge Architecture</title>
     <meta name="description" content="Research-grade, zero-cloud-dependent edge AI operating ecosystem for emerging markets.">
     
     <!-- Professional Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,29 +23,20 @@
                     },
                     colors: {
                         brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e', // Emerald
-                            600: '#16a34a',
-                            900: '#14532d',
-                            navy: '#0f172a', // Slate 900
-                        }
-                    },
-                    animation: {
-                        blob: "blob 7s infinite",
-                    },
-                    keyframes: {
-                        blob: {
-                            "0%": { transform: "translate(0px, 0px) scale(1)" },
-                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
-                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
-                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+                            base: '#020617', // slate 950
+                            surface: '#0f172a', // slate 900
+                            primary: '#10b981', // Emerald
+                            accent: '#3b82f6', // Blue
                         }
                     }
                 }
             }
         }
     </script>
+
+    <!-- 3D Globe Libraries (Three.js & Globe.gl) -->
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
 
     <!-- KaTeX for Professional Math Formatting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -56,246 +47,268 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
-        /* Enterprise Clean Style */
-        body { background-color: #f8fafc; color: #334155; }
+        body { background-color: #020617; color: #f8fafc; }
         
         /* Floating Navigation */
-        .enterprise-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Soft UI Cards */
         .soft-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
         }
         .soft-card:hover {
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12);
+            border-color: rgba(16, 185, 129, 0.4);
             transform: translateY(-4px);
-            border-color: #cbd5e1;
+            box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.15);
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #0f172a 0%, #16a34a 100%);
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .nav-link { position: relative; color: #475569; font-weight: 500; transition: color 0.2s; }
-        .nav-link:hover { color: #0f172a; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background-color: #16a34a; transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         
-        .sim-tab-active { border-bottom: 2px solid #16a34a; color: #16a34a !important; background: #f0fdf4; }
+        .sim-tab-active { border-bottom: 2px solid #10b981; color: #10b981 !important; background: rgba(16,185,129,0.05); }
+
+        #globe-container { cursor: move; }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-500 selection:text-white relative overflow-x-hidden">
+<body class="antialiased selection:bg-brand-primary selection:text-white relative overflow-x-hidden">
 
-    <!-- Enterprise Animated Background Blobs -->
-    <div class="fixed top-0 left-[-10%] w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob pointer-events-none z-[-1]"></div>
-    <div class="fixed top-0 right-[-10%] w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob pointer-events-none animation-delay-2000 z-[-1]"></div>
-    <div class="fixed -bottom-32 left-20 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob pointer-events-none animation-delay-4000 z-[-1]"></div>
-
-    <!-- Solid Professional Top Navigation -->
-    <nav class="fixed top-0 w-full z-50 enterprise-nav transition-all duration-300">
+    <!-- SOLID RESPONSIVE NAVIGATION BAR -->
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <!-- Logo -->
             <a href="#" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center text-white font-bold shadow-lg shadow-slate-400/30">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-brand-base font-bold shadow-lg shadow-brand-primary/30">
                     <i class="ph-bold ph-hexagon text-2xl"></i>
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-bold text-lg tracking-tight text-slate-900">PRISM-Edge</span>
-                    <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest font-semibold">Enterprise Architecture</span>
+                    <span class="font-bold text-lg tracking-tight text-white">PRISM-Edge</span>
+                    <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest font-semibold">Decentralized Intelligence</span>
                 </div>
             </a>
             
-            <!-- Center Navigation Links -->
-            <div class="hidden md:flex items-center space-x-10">
-                <a href="#hero" class="nav-link text-sm">Platform</a>
-                <a href="#concept" class="nav-link text-sm">Architecture</a>
-                <a href="#simulators" class="nav-link text-sm">Live Terminal</a>
-                <a href="#research" class="nav-link text-sm">Cryptography</a>
+            <!-- Desktop Links (Hidden on Mobile) -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#hero" class="text-sm font-medium text-slate-300 hover:text-white transition">Platform</a>
+                <a href="#3d-simulation" class="text-sm font-medium text-slate-300 hover:text-white transition">3D Global Mesh</a>
+                <a href="#concept" class="text-sm font-medium text-slate-300 hover:text-white transition">Deep Architecture</a>
+                <a href="#simulators" class="text-sm font-medium text-slate-300 hover:text-white transition">Live Dashboard</a>
             </div>
             
-            <!-- Call to Action Buttons -->
+            <!-- CTAs and Mobile Menu Button -->
             <div class="flex items-center gap-4">
-                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="hidden lg:flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition">
+                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="hidden lg:flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white transition">
                     <i class="ph-fill ph-github-logo text-xl"></i>
                     <span>Repository</span>
                 </a>
-                <a href="https://github.com/rudra496/prism-edge/releases/tag/v2.4.0-PROD" target="_blank" class="flex items-center gap-2 bg-brand-navy hover:bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition shadow-lg shadow-slate-900/20">
-                    <i class="ph-bold ph-file-pdf"></i>
-                    <span>Get Dossiers</span>
-                </a>
+                <button onclick="toggleMobileNav()" class="md:hidden text-white p-2 focus:outline-none">
+                    <i class="ph-bold ph-list text-3xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu (Crucial for Mobile Users) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-surface border-t border-slate-800 absolute w-full">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#hero" onclick="toggleMobileNav()" class="text-white font-medium border-b border-slate-800 pb-2">Platform Overview</a>
+                <a href="#3d-simulation" onclick="toggleMobileNav()" class="text-white font-medium border-b border-slate-800 pb-2">3D Global Mesh</a>
+                <a href="#concept" onclick="toggleMobileNav()" class="text-white font-medium border-b border-slate-800 pb-2">Deep Architecture details</a>
+                <a href="#simulators" onclick="toggleMobileNav()" class="text-white font-medium border-b border-slate-800 pb-2">Live Web Dashboard</a>
+                <a href="#research" onclick="toggleMobileNav()" class="text-white font-medium pb-2">Cryptography</a>
+                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="bg-brand-primary text-brand-base font-bold py-3 text-center rounded-lg mt-2">View Open Source Repo</a>
             </div>
         </div>
     </nav>
 
     <!-- Clean Corporate Hero Section -->
-    <section id="hero" class="relative pt-40 pb-24 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+    <section id="hero" class="relative pt-40 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
         <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-surface border border-slate-700 shadow-sm mb-8">
             <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-primary"></span>
             </span>
-            <span class="text-xs font-semibold text-slate-700 tracking-wide">SYSTEM ONLINE &bull; PRODUCTION READY</span>
+            <span class="text-xs font-mono text-slate-300 tracking-wide uppercase">v2.4.0-PROD &bull; 3D ENGINE ACTIVE</span>
         </div>
         
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.15] mb-6 max-w-5xl">
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.15] mb-6 max-w-5xl">
             Decentralized Intelligence.<br/>
             <span class="gradient-text">Zero Cloud Dependency.</span>
         </h1>
         
-        <p class="text-lg sm:text-xl text-slate-600 max-w-3xl mb-12 leading-relaxed">
-            A research-grade AI operating ecosystem engineered for the next billion. PRISM-Edge executes clinical triage, acoustic biomarkers, and encrypted mesh routing entirely on-device when infrastructure fails.
+        <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mb-12 leading-relaxed">
+            PRISM-Edge is a highly advanced, offline-first operating ecosystem. When natural disasters strike or cellular grids fail, it executes <b class="text-white">medical triage</b> and <b class="text-white">climate telemetry</b> locally, connecting devices via an encrypted P2P mesh.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto z-10">
-            <a href="#simulators" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/30 transition-transform transform hover:-translate-y-1">
-                <i class="ph-bold ph-play-circle text-lg"></i>
-                Launch Web Simulators
+            <a href="#3d-simulation" class="bg-brand-primary hover:bg-emerald-400 text-brand-base px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(16,185,129,0.3)] transition-transform transform hover:-translate-y-1">
+                <i class="ph-bold ph-globe-hemisphere-east text-lg"></i>
+                View 3D Network Simulation
             </a>
-            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-transform transform hover:-translate-y-1">
-                <i class="ph-bold ph-code text-lg"></i>
-                View Open Source Code
+            <a href="#simulators" class="soft-card text-white px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-transform transform hover:-translate-y-1">
+                <i class="ph-bold ph-terminal-window text-lg"></i>
+                Open Live Dashboard
             </a>
         </div>
+    </section>
 
-        <!-- Corporate Metrics Strip -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 w-full max-w-5xl border-t border-slate-200 pt-12">
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900 mb-1">4.2<span class="text-brand-500 text-xl">ms</span></div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Inference Latency</div>
+    <!-- NEW 3D GLOBE SIMULATION SECTION -->
+    <section id="3d-simulation" class="py-12 border-t border-slate-800 bg-brand-surface/50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Interactive 3D Global Mesh Simulation</h2>
+                <p class="text-slate-400 text-lg mb-6 leading-relaxed">
+                    This live 3D visualization demonstrates how PRISM-Edge nodes (represented by glowing points) automatically form an ad-hoc, decentralized mesh network across the globe.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary shrink-0 mt-1">
+                            <i class="ph-bold ph-wifi-slash text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">1. Disconnected Operations</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed">When the internet fails, devices switch to local processing (Edge AI) to handle critical clinical and climate tasks locally without latency.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent shrink-0 mt-1">
+                            <i class="ph-bold ph-projector-screen text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">2. Base91 Gossip Routing</h4>
+                            <p class="text-sm text-slate-400 leading-relaxed">Data is compressed using custom Base91 serialization, packing massive JSON payloads into tiny 140-octet packets represented by the arcs on the globe.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs font-mono text-brand-primary mt-8 border border-brand-primary/20 bg-brand-primary/10 px-4 py-2 rounded-lg inline-block">
+                    <i class="ph-bold ph-hand-swipe-left mr-1"></i> Interactive: Drag the globe to rotate and zoom to explore the network topology.
+                </p>
             </div>
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900 mb-1">78<span class="text-brand-500 text-xl">%</span></div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Base91 Compression</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900 mb-1">0.5<span class="text-brand-500 text-xl">&epsilon;</span></div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Differential Privacy</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl font-extrabold text-slate-900 mb-1">100<span class="text-brand-500 text-xl">%</span></div>
-                <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Offline Capable</div>
+            
+            <div class="lg:w-1/2 w-full flex justify-center items-center relative">
+                <!-- 3D Globe Container -->
+                <div id="globe-container" class="w-full aspect-square max-w-[600px] rounded-full shadow-[0_0_80px_rgba(16,185,129,0.15)] bg-transparent"></div>
             </div>
         </div>
     </section>
 
-    <!-- Professional Architecture Section -->
-    <section id="concept" class="py-24 bg-white border-t border-slate-200">
+    <!-- Deep Architecture Details Section -->
+    <section id="concept" class="py-24 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 max-w-3xl mx-auto">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">The Unified 7-Pillar Edge Fabric</h2>
-                <p class="text-slate-600 text-lg">Replacing fragile cloud API dependencies with mathematically verified, heavily compressed decision trees and signal processors.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">Deep Architecture Details</h2>
+                <p class="text-slate-400 text-lg">We replace fragile cloud APIs with mathematically verified, heavily compressed algorithms running directly on your device's CPU/NPU.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Architecture Card 1 -->
                 <div class="soft-card p-8 flex flex-col h-full group">
-                    <div class="w-14 h-14 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner">
+                    <div class="w-14 h-14 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6 shadow-inner border border-emerald-500/30">
                         <i class="ph-fill ph-heartbeat text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">AI for Healthcare</h3>
-                    <p class="text-slate-600 mb-6 flex-grow leading-relaxed">Acoustic speech biomarkers for mental wellbeing (PHQ-9 correlated) and WHO EmONC maternal triage operating fully on-chip with zero latency.</p>
-                    <div class="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-3 py-2 rounded border border-emerald-100 w-fit">core_engine.clinical_triage</div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI for Healthcare</h3>
+                    <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Extracts fundamental frequencies from voice recordings to detect depression markers (PHQ-9 correlated). Also features WHO EmONC maternal triage operating fully on-chip with zero latency, saving lives in rural clinics.</p>
+                    <div class="text-xs font-mono font-bold text-emerald-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 w-fit">core.clinical_triage</div>
                 </div>
                 
                 <!-- Architecture Card 2 -->
                 <div class="soft-card p-8 flex flex-col h-full group">
-                    <div class="w-14 h-14 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-6 shadow-inner border border-blue-500/30">
                         <i class="ph-fill ph-cloud-warning text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Climate Resilience</h3>
-                    <p class="text-slate-600 mb-6 flex-grow leading-relaxed">Agro-meteorological modeling for flash floods and coastal estuarine groundwater salinity. Generates adaptive bio-remedies for farmers instantly.</p>
-                    <div class="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-3 py-2 rounded border border-blue-100 w-fit">core_engine.climate_analytics</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Climate Resilience</h3>
+                    <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Uses on-board sensors to run agro-meteorological models for flash flood predictions and coastal estuarine groundwater salinity. Generates adaptive bio-remedies for farmers instantly without an internet connection.</p>
+                    <div class="text-xs font-mono font-bold text-blue-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 w-fit">core.climate_analytics</div>
                 </div>
                 
                 <!-- Architecture Card 3 -->
                 <div class="soft-card p-8 flex flex-col h-full group">
-                    <div class="w-14 h-14 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-inner">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-6 shadow-inner border border-purple-500/30">
                         <i class="ph-fill ph-handshake text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3">Inclusive Escrow</h3>
-                    <p class="text-slate-600 mb-6 flex-grow leading-relaxed">Blind competency matching prioritizing rural female artisans. Zero-knowledge escrow payments bypass exploitative supply chain middlemen entirely.</p>
-                    <div class="text-xs font-mono font-bold text-purple-600 bg-purple-50 px-3 py-2 rounded border border-purple-100 w-fit">inclusion.skill_graph</div>
+                    <h3 class="text-xl font-bold text-white mb-3">Inclusive Escrow</h3>
+                    <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Blind competency matching prioritizing rural female artisans. Zero-knowledge escrow payments bypass exploitative supply chain middlemen entirely, ensuring fair trade and rapid financial inclusion.</p>
+                    <div class="text-xs font-mono font-bold text-purple-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 w-fit">inclusion.skill_graph</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Clean Corporate Terminal (Simulators) -->
-    <section id="simulators" class="py-24">
+    <section id="simulators" class="py-24 border-t border-slate-800 bg-brand-surface/30">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-slate-900 mb-3">Live Web Interface</h2>
-                    <p class="text-slate-600">Test the core processing units directly in your browser. Audio processing executes locally via HTML5 Web Audio API.</p>
+                    <h2 class="text-3xl font-extrabold text-white mb-3">Live Web Dashboard</h2>
+                    <p class="text-slate-400">Interact with the core processing units. Audio processing executes locally via HTML5 APIs.</p>
                 </div>
-                <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-100 px-4 py-2 rounded-lg border border-emerald-200">
+                <div class="flex items-center gap-2 text-xs font-bold text-brand-primary bg-brand-primary/10 px-4 py-2 rounded-lg border border-brand-primary/30">
                     <i class="ph-fill ph-shield-check text-lg"></i>
                     Zero Cloud Upload &bull; Local Execution
                 </div>
             </div>
             
-            <div class="soft-card overflow-hidden">
+            <div class="soft-card overflow-hidden p-0 border-0 shadow-2xl bg-brand-surface">
                 <!-- Navigation -->
-                <div class="flex overflow-x-auto bg-slate-50 border-b border-slate-200 scrollbar-hide">
-                    <button onclick="openSim('audio')" id="btn-audio" class="sim-tab px-6 py-4 text-sm font-bold whitespace-nowrap text-slate-500 hover:text-slate-900 transition sim-tab-active">
+                <div class="flex overflow-x-auto border-b border-slate-700 scrollbar-hide bg-brand-base">
+                    <button onclick="openSim('audio')" id="btn-audio" class="sim-tab px-6 py-4 text-sm font-bold whitespace-nowrap text-slate-400 hover:text-white transition sim-tab-active">
                         <i class="ph-bold ph-waveform mr-2"></i>Voice Biomarker
                     </button>
-                    <button onclick="openSim('triage')" id="btn-triage" class="sim-tab px-6 py-4 text-sm font-bold whitespace-nowrap text-slate-500 hover:text-slate-900 transition">
+                    <button onclick="openSim('triage')" id="btn-triage" class="sim-tab px-6 py-4 text-sm font-bold whitespace-nowrap text-slate-400 hover:text-white transition">
                         <i class="ph-bold ph-first-aid mr-2"></i>Clinical Triage
                     </button>
-                    <button onclick="openSim('mesh')" id="btn-mesh" class="sim-tab px-6 py-4 text-sm font-bold whitespace-nowrap text-slate-500 hover:text-slate-900 transition">
+                    <button onclick="openSim('mesh')" id="btn-mesh" class="sim-tab px-6 py-4 text-sm font-bold whitespace-nowrap text-slate-400 hover:text-white transition">
                         <i class="ph-bold ph-plugs-connected mr-2"></i>Base91 Router
                     </button>
                 </div>
                 
-                <div class="p-8 md:p-12">
+                <div class="p-6 md:p-12">
                     <!-- Audio Simulator -->
                     <div id="sim-audio" class="sim-content grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Real-Time Prosody Analysis</h3>
-                            <p class="text-slate-600 mb-8 leading-relaxed">Extracts fundamental pitch ($F_0$) and jitter ($J_{rel}$) from raw mic input to compute an objective affective vitality score.</p>
+                            <h3 class="text-2xl font-bold text-white mb-3">Real-Time Prosody Analysis</h3>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Extracts fundamental pitch ($F_0$) and jitter ($J_{rel}$) from raw mic input to compute an objective affective vitality score.</p>
                             
-                            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 mb-6 shadow-inner relative">
+                            <div class="bg-brand-base rounded-xl p-4 border border-slate-700 mb-6 shadow-inner relative">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-xs font-mono text-slate-400 uppercase tracking-widest">Time-Domain Oscilloscope</span>
+                                    <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">Time-Domain Oscilloscope</span>
                                 </div>
                                 <canvas id="audioCanvas" class="w-full h-32 rounded-lg bg-black/50 border border-slate-800"></canvas>
                             </div>
                             
-                            <button onclick="demoAudio()" id="recBtn" class="w-full bg-brand-navy hover:bg-slate-800 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center">
+                            <button onclick="demoAudio()" id="recBtn" class="w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center">
                                 <i class="ph-fill ph-microphone-stage mr-2 text-xl"></i>Initialize Audio Ingress
                             </button>
                         </div>
-                        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                        <div class="bg-brand-base rounded-2xl p-8 border border-slate-700">
                             <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Diagnostic Telemetry Output</h4>
                             
                             <div class="space-y-6">
-                                <div class="flex justify-between items-center border-b border-slate-200 pb-4">
-                                    <span class="text-sm font-bold text-slate-700">Affective Vitality Index</span>
-                                    <span class="font-mono font-extrabold text-2xl text-emerald-600" id="out-vitality">-- / 100</span>
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                                    <span class="text-sm font-bold text-slate-300">Affective Vitality Index</span>
+                                    <span class="font-mono font-extrabold text-2xl text-brand-primary" id="out-vitality">-- / 100</span>
                                 </div>
-                                <div class="flex justify-between items-center border-b border-slate-200 pb-4">
-                                    <span class="text-sm font-bold text-slate-700">Dysphoria Risk (PHQ-9)</span>
-                                    <span class="font-mono font-extrabold text-xl text-blue-600" id="out-risk">-- %</span>
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                                    <span class="text-sm font-bold text-slate-300">Dysphoria Risk (PHQ-9)</span>
+                                    <span class="font-mono font-extrabold text-xl text-brand-accent" id="out-risk">-- %</span>
                                 </div>
                                 <div class="flex justify-between items-center pb-2">
-                                    <span class="text-sm font-bold text-slate-700">Clinical Stratification</span>
-                                    <span class="text-xs font-bold px-3 py-1.5 bg-slate-200 text-slate-600 rounded-lg" id="out-status">Awaiting Input</span>
+                                    <span class="text-sm font-bold text-slate-300">Clinical Stratification</span>
+                                    <span class="text-xs font-bold px-3 py-1.5 bg-slate-800 text-slate-400 rounded-lg" id="out-status">Awaiting Input</span>
                                 </div>
                             </div>
                         </div>
@@ -304,40 +317,40 @@
                     <!-- Clinical Triage Simulator -->
                     <div id="sim-triage" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">WHO Neonatal APGAR</h3>
-                            <p class="text-slate-600 mb-8 leading-relaxed">Evaluates newborn resuscitation requirements directly on-device using the Helping Babies Breathe (HBB) algorithm.</p>
+                            <h3 class="text-2xl font-bold text-white mb-3">WHO Neonatal APGAR</h3>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Evaluates newborn resuscitation requirements directly on-device using the Helping Babies Breathe (HBB) algorithm.</p>
                             
                             <div class="space-y-5">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Heart Rate</label>
-                                    <select id="apgar-hr" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brand-500 outline-none transition shadow-sm">
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Heart Rate</label>
+                                    <select id="apgar-hr" class="w-full bg-brand-base border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brand-primary outline-none transition shadow-sm">
                                         <option value="2">> 100 BPM (2 pts)</option>
                                         <option value="1">< 100 BPM (1 pt)</option>
                                         <option value="0">Absent (0 pts)</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Respiration</label>
-                                    <select id="apgar-resp" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:border-brand-500 outline-none transition shadow-sm">
+                                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Respiration</label>
+                                    <select id="apgar-resp" class="w-full bg-brand-base border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:border-brand-primary outline-none transition shadow-sm">
                                         <option value="2">Vigorous Cry (2 pts)</option>
                                         <option value="1">Slow/Irregular (1 pt)</option>
                                         <option value="0">Absent (0 pts)</option>
                                     </select>
                                 </div>
-                                <button onclick="calcApgar()" class="w-full mt-6 bg-brand-navy hover:bg-slate-800 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center">
+                                <button onclick="calcApgar()" class="w-full mt-6 bg-brand-accent hover:bg-cyan-400 text-brand-base font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center">
                                     <i class="ph-bold ph-calculator mr-2 text-xl"></i>Execute Triage Protocol
                                 </button>
                             </div>
                         </div>
-                        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex flex-col items-center justify-center">
+                        <div class="bg-brand-base rounded-2xl p-8 border border-slate-700 flex flex-col items-center justify-center">
                             <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest w-full text-left mb-8">Clinical Action Recommendation</h4>
                             
-                            <div id="apgar-circle" class="w-32 h-32 rounded-full border-4 border-slate-300 flex items-center justify-center text-5xl font-bold text-slate-400 mb-6 transition-all duration-500 bg-white shadow-inner">
+                            <div id="apgar-circle" class="w-32 h-32 rounded-full border-4 border-slate-700 flex items-center justify-center text-5xl font-bold text-slate-600 mb-6 transition-all duration-500 bg-slate-900 shadow-inner">
                                 -
                             </div>
                             <div class="text-center w-full">
-                                <h5 class="text-xl font-bold text-slate-900 mb-3" id="apgar-diag">Pending Evaluation</h5>
-                                <p class="text-sm text-slate-600 bg-white p-4 rounded-xl border border-slate-200 shadow-sm" id="apgar-desc">Adjust the physiological inputs and execute the protocol to determine resuscitation needs.</p>
+                                <h5 class="text-xl font-bold text-white mb-3" id="apgar-diag">Pending Evaluation</h5>
+                                <p class="text-sm text-slate-400 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-sm" id="apgar-desc">Adjust the physiological inputs and execute the protocol to determine resuscitation needs.</p>
                             </div>
                         </div>
                     </div>
@@ -345,29 +358,29 @@
                     <!-- Mesh Simulator -->
                     <div id="sim-mesh" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-12">
                         <div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3">Base91 Gossip Router</h3>
-                            <p class="text-slate-600 mb-8 leading-relaxed">Simulates packing rich JSON telemetry into high-density ASCII for routing over offline 140-octet SMS fallback channels.</p>
+                            <h3 class="text-2xl font-bold text-white mb-3">Base91 Gossip Router</h3>
+                            <p class="text-slate-400 mb-8 leading-relaxed">Simulates packing rich JSON telemetry into high-density ASCII for routing over offline 140-octet SMS fallback channels.</p>
                             
-                            <textarea id="mesh-in" class="w-full h-40 bg-slate-900 text-brand-500 border border-slate-800 rounded-xl p-4 text-sm font-mono outline-none shadow-inner resize-none" placeholder="Enter JSON...">{
+                            <textarea id="mesh-in" class="w-full h-40 bg-brand-base text-brand-primary border border-slate-700 rounded-xl p-4 text-sm font-mono outline-none shadow-inner resize-none" placeholder="Enter JSON...">{
   "patient_id": "a93bc",
   "status": "critical",
   "bp_sys": 165,
   "hr": 110
 }</textarea>
-                            <button onclick="demoMesh()" class="w-full mt-6 bg-brand-navy hover:bg-slate-800 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center">
+                            <button onclick="demoMesh()" class="w-full mt-6 bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl transition shadow-lg flex items-center justify-center">
                                 <i class="ph-bold ph-arrows-in mr-2 text-xl"></i>Compress & Broadcast
                             </button>
                         </div>
-                        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex flex-col">
+                        <div class="bg-brand-base rounded-2xl p-8 border border-slate-700 flex flex-col">
                             <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Base91 Serialized Output</h4>
                             
-                            <div id="mesh-out" class="flex-grow bg-white border border-slate-200 shadow-sm rounded-xl p-6 text-sm font-mono text-slate-500 break-all flex items-center justify-center text-center">
+                            <div id="mesh-out" class="flex-grow bg-slate-900 border border-slate-800 shadow-sm rounded-xl p-6 text-sm font-mono text-slate-500 break-all flex items-center justify-center text-center">
                                 Waiting for data stream...
                             </div>
                             
-                            <div class="flex justify-between items-center mt-6 pt-6 border-t border-slate-200">
-                                <span class="text-sm font-bold text-slate-700">Total Payload Reduction:</span>
-                                <span id="mesh-ratio" class="text-2xl font-extrabold font-mono text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-100">0%</span>
+                            <div class="flex justify-between items-center mt-6 pt-6 border-t border-slate-800">
+                                <span class="text-sm font-bold text-slate-400">Total Payload Reduction:</span>
+                                <span id="mesh-ratio" class="text-2xl font-extrabold font-mono text-purple-400 bg-purple-500/10 px-3 py-1 rounded-lg border border-purple-500/20">0%</span>
                             </div>
                         </div>
                     </div>
@@ -377,20 +390,19 @@
     </section>
 
     <!-- Professional Cryptography Section -->
-    <section id="research" class="py-24 bg-brand-navy text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')]"></div>
+    <section id="research" class="py-24 border-t border-slate-800 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="mb-16 md:w-2/3">
                 <h2 class="text-3xl font-extrabold text-white mb-4">Cryptographic Privacy Formulation</h2>
-                <p class="text-slate-300 text-lg">Implementing Laplace Differential Privacy ($\epsilon = 0.5$) combined with Merkle Tree auditing to guarantee zero PII reconstruction on untrusted edge nodes.</p>
+                <p class="text-slate-400 text-lg">Detailed mathematical proofs: Implementing Laplace Differential Privacy ($\epsilon = 0.5$) combined with Merkle Tree auditing to guarantee zero PII reconstruction on untrusted edge nodes.</p>
             </div>
             
-            <div class="bg-slate-800/50 backdrop-blur-md p-10 rounded-2xl overflow-x-auto border border-slate-700 shadow-2xl">
-                <p class="text-sm text-slate-300 mb-8">The probability ratio of generating any output $S$ from adjacent databases $D$ and $D'$ is strictly mathematically bounded at the edge:</p>
-                <div class="text-2xl text-center py-6 text-emerald-400 font-mono overflow-x-auto">
+            <div class="bg-brand-surface p-10 rounded-2xl overflow-x-auto border border-slate-700 shadow-2xl">
+                <p class="text-sm text-slate-300 mb-8">The probability ratio of generating any output $S$ from adjacent databases $D$ and $D'$ is strictly mathematically bounded at the edge. The formulation below guarantees statistical obfuscation of individual identities before transmission to the Mesh:</p>
+                <div class="text-2xl text-center py-6 text-brand-primary font-mono overflow-x-auto">
                     $$\text{Pr}[M(D) \in S] \le \exp(\epsilon) \times \text{Pr}[M(D') \in S]$$
                 </div>
-                <div class="text-xl text-center py-6 text-blue-400 font-mono overflow-x-auto border-t border-slate-700/50 mt-4">
+                <div class="text-xl text-center py-6 text-brand-accent font-mono overflow-x-auto border-t border-slate-700/50 mt-4">
                     $$\text{Lap}(x | \mu, b) = \frac{1}{2b} \exp\left(-\frac{|x - \mu|}{b}\right)$$
                 </div>
             </div>
@@ -398,34 +410,35 @@
     </section>
 
     <!-- Solid Footer -->
-    <footer class="bg-white border-t border-slate-200 py-12">
+    <footer class="bg-brand-base border-t border-slate-800 py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                    <div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white font-bold shadow">
+                    <div class="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-brand-base font-bold shadow">
                         <i class="ph-bold ph-hexagon"></i>
                     </div>
-                    <span class="font-extrabold text-slate-900 text-lg tracking-tight">PRISM-Edge Ecosystem</span>
+                    <span class="font-extrabold text-white text-lg tracking-tight">PRISM-Edge Ecosystem</span>
                 </div>
                 <p class="text-sm font-medium text-slate-500">Lead Architect: Rudra Sarker &bull; Built for Global Resilience</p>
-            </div>
-            <div class="flex gap-4">
-                <a href="https://github.com/rudra496/prism-edge" class="text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition p-3 rounded-full"><i class="ph-fill ph-github-logo text-2xl"></i></a>
-                <a href="https://rudra496.github.io/site" class="text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition p-3 rounded-full"><i class="ph-fill ph-globe text-2xl"></i></a>
-                <a href="https://www.linkedin.com/in/rudrasarker" class="text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition p-3 rounded-full"><i class="ph-fill ph-linkedin-logo text-2xl"></i></a>
             </div>
         </div>
     </footer>
 
     <!-- Interactive Scripts -->
     <script>
+        // Mobile Navigation Toggle
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
         // Smooth Sticky Navbar Shadow
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 20) {
-                nav.classList.add('shadow-md');
+                nav.classList.add('shadow-xl', 'border-slate-800');
             } else {
-                nav.classList.remove('shadow-md');
+                nav.classList.remove('shadow-xl', 'border-slate-800');
             }
         });
 
@@ -434,12 +447,12 @@
             document.querySelectorAll('.sim-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.sim-tab').forEach(el => {
                 el.classList.remove('sim-tab-active');
-                el.classList.add('text-slate-500');
+                el.classList.add('text-slate-400');
             });
             document.getElementById('sim-' + tab).classList.remove('hidden');
             const btn = document.getElementById('btn-' + tab);
             btn.classList.add('sim-tab-active');
-            btn.classList.remove('text-slate-500');
+            btn.classList.remove('text-slate-400');
         }
 
         // Mock Audio Simulation
@@ -450,17 +463,16 @@
             let frame;
             
             btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin mr-2"></i>Processing Signal...';
-            btn.classList.replace('bg-brand-navy', 'bg-slate-700');
+            btn.classList.replace('bg-brand-primary', 'bg-slate-700');
             
             let x = 0;
             function draw() {
-                ctx.fillStyle = 'rgba(15, 23, 42, 0.3)';
+                ctx.fillStyle = 'rgba(2, 6, 23, 0.3)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.beginPath();
                 ctx.strokeStyle = '#10b981';
                 ctx.lineWidth = 3;
                 
-                // Advanced wave visualization
                 const y = canvas.height/2 + Math.sin(x * 0.15) * 30 * Math.sin(x * 0.05) + (Math.random()-0.5)*15;
                 ctx.lineTo(canvas.width, y);
                 ctx.stroke();
@@ -473,10 +485,10 @@
                     document.getElementById('out-risk').innerText = '15.8 %';
                     const s = document.getElementById('out-status');
                     s.innerText = 'Optimal / Resilient';
-                    s.className = 'text-xs font-bold px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-lg shadow-sm border border-emerald-200';
+                    s.className = 'text-xs font-bold px-3 py-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg shadow-sm border border-emerald-500/30';
                     setTimeout(() => {
                         btn.innerHTML = '<i class="ph-fill ph-microphone-stage mr-2 text-xl"></i>Initialize Audio Ingress';
-                        btn.classList.replace('bg-emerald-600', 'bg-brand-navy');
+                        btn.classList.replace('bg-emerald-600', 'bg-brand-primary');
                     }, 3000);
                 }
             }
@@ -489,7 +501,7 @@
         function calcApgar() {
             const hr = parseInt(document.getElementById('apgar-hr').value);
             const resp = parseInt(document.getElementById('apgar-resp').value);
-            const total = hr + resp + 6; // base score for demo
+            const total = hr + resp + 6; 
             
             const circle = document.getElementById('apgar-circle');
             const diag = document.getElementById('apgar-diag');
@@ -498,17 +510,17 @@
             circle.innerText = total;
             
             if(total >= 8) {
-                circle.className = "w-32 h-32 rounded-full border-4 border-emerald-500 flex items-center justify-center text-5xl font-extrabold text-emerald-600 bg-emerald-50 transition-all duration-500 shadow-[0_0_20px_rgba(34,197,94,0.2)]";
+                circle.className = "w-32 h-32 rounded-full border-4 border-emerald-500 flex items-center justify-center text-5xl font-extrabold text-emerald-500 bg-emerald-500/10 transition-all duration-500 shadow-[0_0_30px_rgba(16,185,129,0.3)]";
                 diag.innerText = "Reassuring (Routine Care)";
-                diag.className = "text-xl font-bold text-emerald-600 mb-3";
+                diag.className = "text-xl font-bold text-emerald-500 mb-3";
                 desc.innerText = "Provide skin-to-skin contact and initiate breastfeeding immediately.";
-                desc.className = "text-sm text-slate-700 bg-emerald-50 p-4 rounded-xl border border-emerald-200 font-medium";
+                desc.className = "text-sm text-slate-300 bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20 font-medium";
             } else {
-                circle.className = "w-32 h-32 rounded-full border-4 border-red-500 flex items-center justify-center text-5xl font-extrabold text-red-600 bg-red-50 transition-all duration-500 shadow-[0_0_20px_rgba(239,68,68,0.2)]";
+                circle.className = "w-32 h-32 rounded-full border-4 border-red-500 flex items-center justify-center text-5xl font-extrabold text-red-500 bg-red-500/10 transition-all duration-500 shadow-[0_0_30px_rgba(239,68,68,0.3)]";
                 diag.innerText = "Critical: Resuscitation Required";
-                diag.className = "text-xl font-bold text-red-600 mb-3";
+                diag.className = "text-xl font-bold text-red-500 mb-3";
                 desc.innerText = "Initiate positive pressure ventilation via bag-and-mask immediately.";
-                desc.className = "text-sm text-slate-700 bg-red-50 p-4 rounded-xl border border-red-200 font-medium";
+                desc.className = "text-sm text-slate-300 bg-red-500/10 p-4 rounded-xl border border-red-500/20 font-medium";
             }
         }
 
@@ -518,18 +530,56 @@
             const out = document.getElementById('mesh-out');
             const ratio = document.getElementById('mesh-ratio');
             
-            out.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin text-3xl text-emerald-500"></i>';
-            out.className = "flex-grow bg-slate-50 border border-slate-200 rounded-xl p-6 flex items-center justify-center shadow-inner";
+            out.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin text-3xl text-purple-500"></i>';
             
             setTimeout(() => {
                 const fakeBase91 = "xA9!bZ#8vQ*pL2m$KjH5nG7+fC@W9z";
                 out.innerText = fakeBase91;
-                out.className = "flex-grow bg-slate-900 border border-emerald-500/50 rounded-xl p-6 text-xl tracking-widest font-mono text-emerald-400 break-all flex items-center justify-center shadow-lg transition-all";
+                out.className = "flex-grow bg-slate-900 border border-purple-500/50 rounded-xl p-6 text-xl tracking-widest font-mono text-purple-400 break-all flex items-center justify-center shadow-lg transition-all";
                 
                 const percent = Math.round(100 - (fakeBase91.length / input.length * 100));
                 ratio.innerText = percent + '%';
             }, 800);
         }
+
+        // 3D GLOBE INITIALIZATION (Three.js + Globe.gl)
+        const container = document.getElementById('globe-container');
+        
+        // Generate random arcs representing mesh network pings
+        const N = 30;
+        const arcsData = [...Array(N).keys()].map(() => ({
+            startLat: (Math.random() - 0.5) * 180,
+            startLng: (Math.random() - 0.5) * 360,
+            endLat: (Math.random() - 0.5) * 180,
+            endLng: (Math.random() - 0.5) * 360,
+            color: ['#10b981', '#3b82f6', '#8b5cf6'][Math.floor(Math.random() * 3)] // emerald, blue, purple
+        }));
+
+        // Initialize Globe
+        const world = Globe()
+            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+            .arcsData(arcsData)
+            .arcColor('color')
+            .arcDashLength(() => Math.random() * 0.5 + 0.1)
+            .arcDashGap(() => Math.random() * 2 + 0.1)
+            .arcDashAnimateTime(() => Math.random() * 3000 + 1500)
+            .backgroundColor('rgba(0,0,0,0)') // transparent background
+            .width(container.clientWidth)
+            .height(container.clientWidth)
+            (container);
+
+        // Auto-rotate
+        world.controls().autoRotate = true;
+        world.controls().autoRotateSpeed = 1.5;
+        world.controls().enableZoom = true;
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            if(container.clientWidth > 0) {
+                world.width(container.clientWidth);
+                world.height(container.clientWidth);
+            }
+        });
     </script>
 </body>
 </html>
