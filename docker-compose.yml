@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  prism-edge:
+    build: .
+    container_name: prism-edge-core
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PRISM_ENV=production
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
