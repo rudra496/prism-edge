@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌍 PRISM-Edge | 3D Global Edge Architecture</title>
-    <meta name="description" content="Research-grade, zero-cloud-dependent edge AI operating ecosystem for emerging markets.">
+    <title>PRISM-Edge | Advanced Autonomous Ecosystem</title>
     
-    <!-- Professional Typography -->
+    <!-- Ultra Modern Fonts: Outfit (Headings) & Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,13 +20,14 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace']
                     },
                     colors: {
                         brand: {
-                            base: '#020617', // slate 950
-                            surface: '#0f172a', // slate 900
+                            base: '#030712', // grayish black
+                            surface: '#111827',
                             primary: '#10b981', // Emerald
                             accent: '#3b82f6', // Blue
                         }
@@ -34,39 +37,28 @@
         }
     </script>
 
-    <!-- 3D Globe Libraries (Three.js & Globe.gl) -->
-    <script src="https://unpkg.com/three"></script>
-    <script src="https://unpkg.com/globe.gl"></script>
-
     <!-- KaTeX for Professional Math Formatting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
     <style>
-        body { background-color: #020617; color: #f8fafc; }
+        body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
         
-        /* MEGA NAVIGATION STYLES */
-        .mega-nav {
-            background: rgba(2, 6, 23, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 2px solid rgba(16, 185, 129, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        .glass-nav {
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         
-        .soft-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .soft-card:hover {
-            border-color: rgba(16, 185, 129, 0.6);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px -10px rgba(16, 185, 129, 0.2);
+        .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform-style: preserve-3d;
         }
 
         .gradient-text {
@@ -75,249 +67,247 @@
             -webkit-text-fill-color: transparent;
         }
         
-        .sim-tab-active { border-bottom: 3px solid #10b981; color: #10b981 !important; background: rgba(16,185,129,0.1); }
+        .sim-tab-active { border-bottom: 3px solid #10b981; color: #10b981 !important; background: rgba(16,185,129,0.05); }
 
         .image-overlay {
-            background: linear-gradient(to top, rgba(15,23,42,1) 0%, rgba(15,23,42,0) 100%);
+            background: linear-gradient(to top, rgba(17,24,39,1) 0%, rgba(17,24,39,0) 100%);
+        }
+
+        /* Numbered Section Styling */
+        .section-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            opacity: 0.05;
+            position: absolute;
+            top: -20px;
+            left: 0;
+            z-index: 0;
+            user-select: none;
         }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-primary selection:text-white relative overflow-x-hidden">
+<body class="antialiased selection:bg-brand-primary selection:text-white">
 
-    <!-- 🛑 ULTRA PROMINENT MEGA NAVIGATION BAR 🛑 -->
-    <nav class="fixed top-0 w-full z-50 mega-nav transition-all duration-300">
+    <!-- SOLID RESPONSIVE NAVIGATION BAR -->
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 shadow-2xl">
         <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-2xl bg-brand-primary flex items-center justify-center text-brand-base font-bold shadow-[0_0_20px_rgba(16,185,129,0.5)] text-3xl">
-                    🌍
+            <a href="#" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-2xl bg-brand-primary flex items-center justify-center text-brand-base font-bold shadow-[0_0_20px_rgba(16,185,129,0.6)] text-2xl transition group-hover:scale-110">
+                    ⬢
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-bold text-2xl tracking-tight text-white">PRISM-Edge</span>
-                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-bold">Decentralized Intelligence</span>
+                    <span class="font-display font-extrabold text-2xl tracking-tight text-white">PRISM-Edge</span>
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-bold">Autonomous Protocol</span>
                 </div>
             </a>
             
-            <!-- Desktop Links (Highly Visible) -->
-            <div class="hidden lg:flex items-center space-x-2 bg-slate-900/50 p-2 rounded-2xl border border-slate-700/50">
-                <a href="#hero" class="px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 rounded-xl transition">🏠 Overview</a>
-                <a href="#3d-simulation" class="px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 rounded-xl transition">🌐 3D Mesh</a>
-                <a href="#concept" class="px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 rounded-xl transition">🏗️ Architecture</a>
-                <a href="#simulators" class="px-4 py-2 text-sm font-bold text-emerald-400 bg-emerald-900/30 hover:bg-emerald-900/50 rounded-xl transition border border-emerald-500/20">💻 Live Demo</a>
+            <div class="hidden lg:flex items-center space-x-1 bg-slate-800/50 p-1.5 rounded-2xl border border-slate-700/50 backdrop-blur-md">
+                <a href="#hero" class="px-5 py-2 text-sm font-semibold text-white hover:bg-slate-700 rounded-xl transition">01. Overview</a>
+                <a href="#concept" class="px-5 py-2 text-sm font-semibold text-white hover:bg-slate-700 rounded-xl transition">02. Architecture</a>
+                <a href="#3d-simulation" class="px-5 py-2 text-sm font-semibold text-white hover:bg-slate-700 rounded-xl transition">03. Mesh Topology</a>
+                <a href="#simulators" class="px-5 py-2 text-sm font-bold text-brand-base bg-emerald-400 hover:bg-emerald-300 rounded-xl transition shadow-lg">04. Live Terminal</a>
             </div>
             
-            <!-- CTAs and Mobile Menu Button -->
             <div class="flex items-center gap-4">
-                <a href="https://github.com/rudra496/prism-edge/releases/tag/v2.4.0-PROD" target="_blank" class="hidden md:flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-xl text-sm font-bold hover:bg-slate-200 transition shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    📥 Download PDF
+                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="hidden md:flex items-center gap-2 text-slate-300 hover:text-white transition font-semibold text-sm">
+                    View Source Code →
                 </a>
                 
-                <!-- MASSIVE MOBILE MENU BUTTON -->
                 <button onclick="toggleMobileNav()" class="lg:hidden text-white bg-slate-800 hover:bg-slate-700 p-3 rounded-xl focus:outline-none border border-slate-600 flex items-center gap-2 shadow-lg">
-                    <span class="font-bold">MENU</span>
-                    <span class="text-2xl">🍔</span>
+                    <span class="font-bold">MENU</span> ☰
                 </button>
             </div>
         </div>
         
-        <!-- MASSIVE DROPDOWN MOBILE NAVIGATION -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-t-2 border-emerald-500 absolute w-full shadow-2xl">
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-t border-slate-700 absolute w-full shadow-2xl">
             <div class="flex flex-col px-6 py-6 space-y-3">
-                <a href="#hero" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">🏠 Platform Overview</a>
-                <a href="#3d-simulation" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">🌐 3D Global Mesh Engine</a>
-                <a href="#concept" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">🏗️ Deep Architecture Specs</a>
-                <a href="#simulators" onclick="toggleMobileNav()" class="text-brand-primary text-lg font-bold bg-emerald-900/20 p-4 rounded-xl border border-emerald-500/30">💻 Launch Live Web Dashboard</a>
-                <a href="#research" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">🔐 Cryptography & Math</a>
-                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="bg-white text-slate-900 text-lg font-extrabold py-4 text-center rounded-xl mt-4 shadow-lg">📂 View Open Source Repo</a>
+                <a href="#hero" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">01. Overview</a>
+                <a href="#concept" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">02. Architecture</a>
+                <a href="#3d-simulation" onclick="toggleMobileNav()" class="text-white text-lg font-bold bg-slate-800 p-4 rounded-xl border border-slate-700">03. Global Mesh Topology</a>
+                <a href="#simulators" onclick="toggleMobileNav()" class="text-brand-base text-lg font-bold bg-emerald-400 p-4 rounded-xl border border-emerald-500">04. Live Terminal Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <!-- Clean Corporate Hero Section -->
-    <section id="hero" class="relative pt-44 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
-        <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-900/30 border border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.2)] mb-8">
-            <span class="relative flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-            </span>
-            <span class="text-sm font-bold text-emerald-400 tracking-wide uppercase">🚀 v2.4.0-PROD &bull; ALL SYSTEMS GO</span>
-        </div>
+    <!-- SECTION 01: HERO (VANTA.JS 3D BACKGROUND) -->
+    <section id="hero" class="relative pt-44 pb-32 px-6 min-h-screen flex flex-col justify-center items-center text-center overflow-hidden">
+        <!-- Vanta.js will mount its 3D canvas right into the background of this section automatically -->
         
-        <h1 class="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white leading-[1.1] mb-8 max-w-5xl">
-            Intelligence that survives<br/>
-            <span class="gradient-text">when the grid dies. ⚡</span>
-        </h1>
-        
-        <p class="text-lg sm:text-2xl text-slate-300 max-w-4xl mb-12 leading-relaxed">
-            PRISM-Edge is a highly advanced, offline-first operating ecosystem. When natural disasters strike or cellular grids fail, it executes <b class="text-emerald-400">medical triage 🩺</b> and <b class="text-emerald-400">climate telemetry ⛈️</b> locally, connecting devices via an encrypted P2P mesh.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto z-10">
-            <a href="#3d-simulation" class="bg-brand-primary hover:bg-emerald-400 text-brand-base px-10 py-5 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-transform transform hover:-translate-y-2">
-                🌍 View 3D Mesh Simulation
-            </a>
-            <a href="#simulators" class="soft-card text-white px-10 py-5 rounded-2xl font-extrabold text-lg flex items-center justify-center gap-3 transition-transform transform hover:-translate-y-2 border-slate-600 bg-slate-800/80">
-                💻 Open Live Dashboard
-            </a>
-        </div>
-    </section>
-
-    <!-- NEW 3D GLOBE SIMULATION SECTION WITH GRAPHICS -->
-    <section id="3d-simulation" class="py-20 border-t-2 border-slate-800 bg-brand-surface relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col xl:flex-row items-center gap-16">
-            <div class="xl:w-1/2">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-6">🌐 3D Global Mesh Simulation</h2>
-                <p class="text-slate-300 text-xl mb-8 leading-relaxed">
-                    This live 3D visualization demonstrates how PRISM-Edge nodes (glowing dots) form an ad-hoc mesh network across the globe. <br><br>When cellular towers fall, our <b class="text-emerald-400">Base91 Gossip Protocol</b> routes critical telemetry locally.
-                </p>
-                
-                <!-- Real Graphic Image of Mesh Network -->
-                <div class="rounded-2xl overflow-hidden border-2 border-slate-700 shadow-[0_0_30px_rgba(59,130,246,0.2)] mb-8 relative">
-                    <img src="assets/img/mesh.jpg" alt="Decentralized Mesh Network Concept" class="w-full h-auto opacity-80 hover:opacity-100 transition-opacity duration-500 object-cover">
-                    <div class="absolute bottom-0 left-0 w-full p-4 bg-slate-900/80 backdrop-blur border-t border-slate-700 flex items-center gap-3">
-                        <span class="text-3xl">📡</span>
-                        <p class="text-sm font-bold text-slate-300">Fig 1: Base91 Payload Routing Topology</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-900/20 border-l-4 border-emerald-500 p-6 rounded-r-xl">
-                    <h4 class="text-emerald-400 font-bold text-lg mb-2">🎮 Interactive Controls</h4>
-                    <p class="text-sm text-slate-300">Drag the globe to rotate. Scroll to zoom. The arcs represent data bouncing between edge nodes via SMS/BLE fallback channels.</p>
-                </div>
+        <div class="relative z-10 flex flex-col items-center" data-aos="fade-up" data-aos-duration="1200">
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-900/40 border border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.3)] mb-8 backdrop-blur-md">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase font-mono">v2.4.0-PROD &bull; NEURAL MESH ACTIVE</span>
             </div>
             
-            <div class="xl:w-1/2 w-full flex justify-center items-center relative">
-                <!-- 3D Globe Container -->
-                <div id="globe-container" class="w-full aspect-square max-w-[700px] rounded-full shadow-[0_0_100px_rgba(16,185,129,0.2)] bg-slate-900/50 border border-slate-800"></div>
+            <h1 class="text-5xl sm:text-7xl md:text-8xl font-display font-extrabold tracking-tight text-white leading-[1.05] mb-8 max-w-5xl">
+                Intelligence that survives<br/>
+                <span class="gradient-text">when the grid dies.</span>
+            </h1>
+            
+            <p class="text-lg sm:text-2xl text-slate-300 max-w-4xl mb-12 leading-relaxed font-light">
+                PRISM-Edge is a research-grade, offline-first operating ecosystem. By bypassing fragile cloud APIs, it executes critical <b class="text-white font-semibold">clinical triage</b> and <b class="text-white font-semibold">climate telemetry</b> directly on-chip, synchronizing via decentralized P2P meshes.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
+                <a href="#concept" class="bg-brand-primary hover:bg-emerald-400 text-brand-base px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-all transform hover:-translate-y-2">
+                    Explore Architecture ⬇
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Deep Architecture Details Section WITH REAL GRAPHICS -->
-    <section id="concept" class="py-24 border-t-2 border-slate-800">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 max-w-4xl mx-auto">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-6">🏗️ Deep Architecture Visualized</h2>
-                <p class="text-slate-400 text-xl">We replace fragile cloud APIs with mathematically verified, heavily compressed algorithms running directly on your device's CPU/NPU.</p>
+    <!-- SECTION 02: DEEP ARCHITECTURE (3D TILT CARDS + REAL GRAPHICS) -->
+    <section id="concept" class="py-32 border-t border-slate-800 bg-brand-surface relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <span class="section-num">02</span>
+            
+            <div class="mb-20 max-w-4xl" data-aos="fade-right">
+                <h2 class="text-4xl sm:text-6xl font-display font-extrabold text-white mb-6">The 7-Pillar Topology</h2>
+                <p class="text-slate-400 text-xl leading-relaxed">
+                    Cloud servers are a single point of failure in developing regions. PRISM-Edge quantizes massive decision matrices into constant-time ($O(1)$) graphs that run instantly on any ARM edge processor.
+                </p>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <!-- Architecture Card 1 (Medical) -->
-                <div class="soft-card flex flex-col h-full group p-0 relative">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="assets/img/medical.jpg" alt="Edge Medical Device" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <!-- 3D Tilt Card 1 (Medical) -->
+                <div class="glass-card tilt-card flex flex-col h-full group p-0 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="assets/img/medical.jpg" alt="Edge Medical Device" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         <div class="absolute inset-0 image-overlay"></div>
                     </div>
-                    <div class="p-8 -mt-20 relative z-10">
-                        <div class="w-16 h-16 rounded-2xl bg-emerald-500 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(16,185,129,0.5)] text-3xl">
-                            🩺
+                    <div class="p-10 -mt-24 relative z-10" style="transform: translateZ(50px);">
+                        <div class="w-20 h-20 rounded-3xl bg-emerald-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(16,185,129,0.4)] border border-emerald-500/50 backdrop-blur-md">
+                            <svg class="w-10 h-10 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-4">AI for Healthcare Triage</h3>
-                        <p class="text-slate-300 text-base mb-6 leading-relaxed">Extracts fundamental frequencies from voice recordings to detect depression markers. Features WHO EmONC maternal triage operating fully on-chip with zero latency, saving lives in rural clinics globally.</p>
-                        <div class="text-sm font-mono font-bold text-emerald-400 bg-slate-900 px-4 py-2 rounded-xl border border-slate-700 w-fit">📦 core.clinical_triage</div>
+                        <h3 class="text-3xl font-display font-bold text-white mb-4">Clinical Triage Engine</h3>
+                        <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                            Processes raw voice arrays locally to extract fundamental jitter/shimmer biomarkers correlated with PHQ-9 dysphoria. Integrates the WHO EmONC maternal algorithms directly on-silicon.
+                        </p>
+                        <div class="text-sm font-mono font-bold text-emerald-400 bg-black/50 px-4 py-2 rounded-xl border border-slate-700 w-fit backdrop-blur-md">core.clinical_triage</div>
                     </div>
                 </div>
                 
-                <!-- Architecture Card 2 (Climate) -->
-                <div class="soft-card flex flex-col h-full group p-0 relative">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="assets/img/climate.jpg" alt="Climate Sensor IoT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <!-- 3D Tilt Card 2 (Climate) -->
+                <div class="glass-card tilt-card flex flex-col h-full group p-0 relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-72 overflow-hidden relative">
+                        <img src="assets/img/climate.jpg" alt="Climate Sensor IoT" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         <div class="absolute inset-0 image-overlay"></div>
                     </div>
-                    <div class="p-8 -mt-20 relative z-10">
-                        <div class="w-16 h-16 rounded-2xl bg-blue-500 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(59,130,246,0.5)] text-3xl">
-                            ⛈️
+                    <div class="p-10 -mt-24 relative z-10" style="transform: translateZ(50px);">
+                        <div class="w-20 h-20 rounded-3xl bg-blue-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(59,130,246,0.4)] border border-blue-500/50 backdrop-blur-md">
+                            <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-4">Climate & Sensor Resilience</h3>
-                        <p class="text-slate-300 text-base mb-6 leading-relaxed">Uses on-board sensors to run agro-meteorological models for flash flood predictions. Generates adaptive bio-remedies for farmers instantly without an internet connection.</p>
-                        <div class="text-sm font-mono font-bold text-blue-400 bg-slate-900 px-4 py-2 rounded-xl border border-slate-700 w-fit">📦 core.climate_analytics</div>
+                        <h3 class="text-3xl font-display font-bold text-white mb-4">Agro-Climate Resilience</h3>
+                        <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                            Hardened IoT endpoints compute coastal estuarine salinity vectors and Steadman heat matrices. Capable of generating adaptive farming heuristics continuously during prolonged internet blackouts.
+                        </p>
+                        <div class="text-sm font-mono font-bold text-blue-400 bg-black/50 px-4 py-2 rounded-xl border border-slate-700 w-fit backdrop-blur-md">core.climate_analytics</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Clean Corporate Terminal (Simulators) -->
-    <section id="simulators" class="py-24 border-t-2 border-slate-800 bg-brand-surface/50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
-                <div>
-                    <h2 class="text-4xl font-extrabold text-white mb-4">💻 Live Web Dashboard</h2>
-                    <p class="text-slate-300 text-xl">Interact with the core processing units locally in your browser.</p>
-                </div>
-                <div class="flex items-center gap-3 text-sm font-bold text-emerald-400 bg-emerald-900/20 px-6 py-3 rounded-xl border border-emerald-500/30 shadow-lg">
-                    <span class="text-xl">🛡️</span>
-                    Zero Cloud Upload &bull; 100% Local Execution
+    <!-- SECTION 03: 3D GLOBE MESH NETWORK -->
+    <section id="3d-simulation" class="py-32 border-t border-slate-800 relative overflow-hidden bg-brand-base">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col xl:flex-row items-center gap-16">
+            <div class="xl:w-1/2" data-aos="fade-right">
+                <span class="section-num">03</span>
+                <h2 class="text-4xl sm:text-6xl font-display font-extrabold text-white mb-8 mt-4">Global Mesh Routing</h2>
+                <p class="text-slate-400 text-xl mb-10 leading-relaxed">
+                    When backbone infrastructure is destroyed, nodes cannot reach cloud APIs. PRISM-Edge initiates a **Base91 Gossip Protocol**, highly compressing JSON payloads and bouncing them peer-to-peer across the map until they reach a node with uplink capability.
+                </p>
+                
+                <div class="rounded-3xl overflow-hidden border border-slate-700 shadow-[0_0_50px_rgba(59,130,246,0.15)] mb-10 relative tilt-card" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="assets/img/mesh.jpg" alt="Decentralized Mesh Network Concept" class="w-full h-auto object-cover">
+                    <div class="absolute bottom-0 left-0 w-full p-5 bg-black/80 backdrop-blur-md border-t border-slate-700">
+                        <p class="text-sm font-mono font-bold text-emerald-400">Fig 1.0: Real-world structural topology of Base91 offline data flow.</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="soft-card overflow-hidden p-0 border-slate-700 shadow-2xl bg-brand-surface">
-                <!-- Dashboard Navigation -->
-                <div class="flex overflow-x-auto border-b-2 border-slate-700 scrollbar-hide bg-slate-900">
-                    <button onclick="openSim('audio')" id="btn-audio" class="sim-tab px-8 py-5 text-base font-bold whitespace-nowrap text-slate-400 hover:text-white transition sim-tab-active flex items-center gap-2">
+            <div class="xl:w-1/2 w-full flex justify-center items-center relative" data-aos="fade-left" data-aos-delay="400">
+                <!-- 3D Globe Container -->
+                <div id="globe-container" class="w-full aspect-square max-w-[700px] rounded-full shadow-[0_0_120px_rgba(16,185,129,0.15)] bg-slate-900 border border-slate-800 cursor-move relative z-20"></div>
+                
+                <!-- Glowing orb behind globe -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-brand-primary rounded-full blur-[150px] opacity-20 z-10 pointer-events-none"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 04: LIVE TERMINAL -->
+    <section id="simulators" class="py-32 border-t border-slate-800 bg-brand-surface relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <span class="section-num">04</span>
+            <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6 mt-4" data-aos="fade-up">
+                <div>
+                    <h2 class="text-4xl sm:text-6xl font-display font-extrabold text-white mb-4">Edge Interface Terminal</h2>
+                    <p class="text-slate-400 text-xl">Test the quantized logic engines directly. Computations happen 100% in your local browser state.</p>
+                </div>
+                <div class="flex items-center gap-3 text-sm font-bold text-emerald-400 bg-emerald-900/20 px-6 py-3 rounded-2xl border border-emerald-500/30 shadow-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    Zero Cloud Upload
+                </div>
+            </div>
+            
+            <div class="glass-card overflow-hidden p-0 border border-slate-700 shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex overflow-x-auto border-b border-slate-700 scrollbar-hide bg-brand-base">
+                    <button onclick="openSim('audio')" id="btn-audio" class="sim-tab px-10 py-6 text-lg font-bold whitespace-nowrap text-slate-400 hover:text-white transition sim-tab-active flex items-center gap-3">
                         🎙️ Voice Biomarker
                     </button>
-                    <button onclick="openSim('triage')" id="btn-triage" class="sim-tab px-8 py-5 text-base font-bold whitespace-nowrap text-slate-400 hover:text-white transition flex items-center gap-2">
-                        🏥 Clinical Triage
-                    </button>
-                    <button onclick="openSim('mesh')" id="btn-mesh" class="sim-tab px-8 py-5 text-base font-bold whitespace-nowrap text-slate-400 hover:text-white transition flex items-center gap-2">
-                        📡 Base91 Router
+                    <button onclick="openSim('mesh')" id="btn-mesh" class="sim-tab px-10 py-6 text-lg font-bold whitespace-nowrap text-slate-400 hover:text-white transition flex items-center gap-3">
+                        📡 Base91 Gossip
                     </button>
                 </div>
                 
-                <div class="p-8 md:p-12">
+                <div class="p-8 md:p-16">
                     <!-- Audio Simulator -->
-                    <div id="sim-audio" class="sim-content grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div id="sim-audio" class="sim-content grid grid-cols-1 lg:grid-cols-2 gap-16">
                         <div>
-                            <h3 class="text-3xl font-bold text-white mb-4">Real-Time Prosody Analysis 🗣️</h3>
-                            <p class="text-slate-400 text-lg mb-8 leading-relaxed">Extracts fundamental pitch and jitter from raw mic input to compute an objective affective vitality score.</p>
+                            <h3 class="text-3xl font-display font-bold text-white mb-6">Real-Time Prosody Analysis</h3>
+                            <p class="text-slate-400 text-lg mb-10 leading-relaxed">Extracts fundamental pitch and jitter vectors from raw microphone arrays to compute an objective affective vitality score locally.</p>
                             
-                            <div class="bg-brand-base rounded-2xl p-6 border-2 border-slate-700 mb-8 shadow-inner relative">
+                            <div class="bg-brand-base rounded-2xl p-6 border border-slate-700 mb-10 shadow-inner relative tilt-card">
                                 <div class="flex justify-between items-center mb-4">
-                                    <span class="text-xs font-mono text-slate-400 uppercase tracking-widest font-bold">Time-Domain Oscilloscope</span>
+                                    <span class="text-xs font-mono text-slate-400 uppercase tracking-widest font-bold">Oscilloscope (HTML5 WebAudio)</span>
                                 </div>
                                 <canvas id="audioCanvas" class="w-full h-40 rounded-xl bg-black border border-slate-800"></canvas>
                             </div>
                             
-                            <button onclick="demoAudio()" id="recBtn" class="w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-extrabold text-lg py-5 rounded-2xl transition shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-3">
-                                🎤 Initialize Audio Ingress
+                            <button onclick="demoAudio()" id="recBtn" class="w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-extrabold text-xl py-6 rounded-2xl transition shadow-[0_0_30px_rgba(16,185,129,0.3)] flex items-center justify-center gap-3">
+                                Initialize Audio Ingress
                             </button>
                         </div>
-                        <div class="bg-slate-900 rounded-3xl p-10 border border-slate-700 shadow-2xl">
-                            <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8">📊 Diagnostic Telemetry Output</h4>
+                        <div class="bg-slate-900 rounded-3xl p-12 border border-slate-700 shadow-2xl tilt-card">
+                            <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-10">📊 Diagnostic Telemetry</h4>
                             
-                            <div class="space-y-8">
+                            <div class="space-y-10">
                                 <div class="flex justify-between items-center border-b border-slate-800 pb-6">
-                                    <span class="text-lg font-bold text-slate-300">Vitality Index</span>
-                                    <span class="font-mono font-extrabold text-3xl text-brand-primary" id="out-vitality">-- / 100</span>
+                                    <span class="text-xl font-bold text-slate-300">Vitality Index</span>
+                                    <span class="font-mono font-extrabold text-4xl text-brand-primary" id="out-vitality">-- / 100</span>
                                 </div>
                                 <div class="flex justify-between items-center border-b border-slate-800 pb-6">
-                                    <span class="text-lg font-bold text-slate-300">Dysphoria Risk (PHQ-9)</span>
-                                    <span class="font-mono font-extrabold text-2xl text-blue-400" id="out-risk">-- %</span>
+                                    <span class="text-xl font-bold text-slate-300">Dysphoria Risk</span>
+                                    <span class="font-mono font-extrabold text-3xl text-blue-400" id="out-risk">-- %</span>
                                 </div>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-lg font-bold text-slate-300">Clinical Stratification</span>
-                                    <span class="text-sm font-bold px-4 py-2 bg-slate-800 text-slate-400 rounded-xl border border-slate-700" id="out-status">Awaiting Input</span>
+                                    <span class="text-xl font-bold text-slate-300">Status</span>
+                                    <span class="text-base font-bold px-5 py-2 bg-slate-800 text-slate-400 rounded-xl border border-slate-700" id="out-status">Standby</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Clinical Triage Simulator -->
-                    <div id="sim-triage" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <!-- Content remains same as V6 but with emojis added via script below for brevity if needed. Let's just keep audio focused for length -->
-                        <div class="col-span-full text-center py-20">
-                            <h3 class="text-3xl font-bold text-white mb-4">🏥 Clinical Triage Protocol Engine</h3>
-                            <p class="text-slate-400 text-lg">Use the Voice Biomarker tab (🎙️) for the primary interactive demo.</p>
-                        </div>
-                    </div>
 
                     <!-- Mesh Simulator -->
-                    <div id="sim-mesh" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div id="sim-mesh" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-16">
                         <div class="col-span-full text-center py-20">
-                            <h3 class="text-3xl font-bold text-white mb-4">📡 Base91 Gossip Router</h3>
-                            <p class="text-slate-400 text-lg">Use the Voice Biomarker tab (🎙️) for the primary interactive demo.</p>
+                            <h3 class="text-4xl font-display font-bold text-white mb-6">Base91 Gossip Router</h3>
+                            <p class="text-slate-400 text-xl">The Voice Biomarker tab contains the primary interactive edge-processing demonstration.</p>
                         </div>
                     </div>
                 </div>
@@ -325,39 +315,83 @@
         </div>
     </section>
 
-    <!-- Professional Cryptography Section -->
-    <section id="research" class="py-24 border-t-2 border-slate-800 relative overflow-hidden bg-slate-950">
+    <!-- SECTION 05: CRYPTOGRAPHY & PRIVACY -->
+    <section id="research" class="py-32 border-t border-slate-800 relative overflow-hidden bg-brand-base">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 max-w-4xl mx-auto">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-6">🔐 Cryptographic Privacy Formulation</h2>
-                <p class="text-slate-400 text-xl">Detailed mathematical proofs: Implementing Laplace Differential Privacy ($\epsilon = 0.5$) combined with Merkle Tree auditing.</p>
+            <span class="section-num text-slate-800">05</span>
+            <div class="text-center mb-20 max-w-4xl mx-auto mt-4" data-aos="fade-up">
+                <h2 class="text-4xl sm:text-6xl font-display font-extrabold text-white mb-8">Cryptographic Formulation</h2>
+                <p class="text-slate-400 text-xl leading-relaxed">Mathematical guarantees: Implementing Laplace Differential Privacy ($\epsilon = 0.5$) combined with Merkle Tree auditing.</p>
             </div>
             
-            <div class="bg-slate-900 p-12 rounded-3xl overflow-x-auto border-2 border-slate-700 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                <p class="text-lg text-slate-300 mb-10 text-center">The probability ratio of generating any output $S$ from adjacent databases $D$ and $D'$ is strictly mathematically bounded at the edge.</p>
-                <div class="text-3xl text-center py-8 text-brand-primary font-mono overflow-x-auto">
+            <div class="glass-card p-16 overflow-x-auto tilt-card" data-aos="zoom-in" data-aos-delay="200">
+                <p class="text-xl text-slate-300 mb-12 text-center leading-relaxed">The probability ratio of generating any output $S$ from adjacent databases $D$ and $D'$ is strictly mathematically bounded at the edge level, injecting controlled noise before routing:</p>
+                <div class="text-3xl sm:text-4xl text-center py-8 text-emerald-400 font-mono overflow-x-auto font-bold tracking-tight">
                     $$\text{Pr}[M(D) \in S] \le \exp(\epsilon) \times \text{Pr}[M(D') \in S]$$
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Solid Footer -->
-    <footer class="bg-black border-t border-slate-800 py-16">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col text-center justify-center items-center gap-6">
-            <div class="flex items-center justify-center gap-4 mb-4">
-                <div class="w-12 h-12 rounded-2xl bg-brand-primary flex items-center justify-center text-brand-base font-bold text-2xl">
-                    🌍
-                </div>
-                <span class="font-extrabold text-white text-3xl tracking-tight">PRISM-Edge Ecosystem</span>
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-slate-800 py-20">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col text-center justify-center items-center gap-8">
+            <div class="w-16 h-16 rounded-3xl bg-brand-primary flex items-center justify-center text-brand-base font-bold text-3xl shadow-[0_0_30px_rgba(16,185,129,0.5)]">
+                ⬢
             </div>
-            <p class="text-lg font-medium text-slate-500">Lead Architect: Rudra Sarker &bull; Built for Global Resilience 🛡️</p>
-            <p class="text-sm text-slate-600">Copyright &copy; 2026. Graphics and Engine Open Source under MIT.</p>
+            <span class="font-display font-extrabold text-white text-4xl tracking-tight">PRISM-Edge Architecture</span>
+            <p class="text-xl font-medium text-slate-500 max-w-2xl">Lead Architect: Rudra Sarker &bull; Built for Global Resilience. Ecosystem fully decentralized.</p>
+            <p class="text-sm text-slate-600 font-mono mt-4">V2.4.0-PROD MIT LICENSE 2026</p>
         </div>
     </footer>
 
+    <!-- Three.js (Required for Vanta and Globe) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    
+    <!-- Vanta.js for Advanced 3D Network Background -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    
+    <!-- AOS Animate on Scroll -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Vanilla Tilt for 3D Cards -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
     <!-- Interactive Scripts -->
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+        });
+
+        // Initialize Vanta.js 3D Background on Hero
+        VANTA.NET({
+            el: "#hero",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x10b981, // brand-primary
+            backgroundColor: 0x030712, // brand-base
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00,
+            showDots: true
+        });
+
+        // Initialize 3D Tilt Cards
+        VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.1,
+        });
+
         // MASSIVE MOBILE MENU TOGGLE
         function toggleMobileNav() {
             const menu = document.getElementById('mobile-menu');
@@ -367,16 +401,6 @@
                 menu.classList.add('hidden');
             }
         }
-
-        // Smooth Sticky Navbar Shadow
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 20) {
-                nav.classList.add('shadow-2xl', 'bg-slate-950');
-            } else {
-                nav.classList.remove('shadow-2xl', 'bg-slate-950');
-            }
-        });
 
         // Tab Switching
         function openSim(tab) {
@@ -398,7 +422,7 @@
             const ctx = canvas.getContext('2d');
             let frame;
             
-            btn.innerHTML = '<span class="animate-spin text-2xl">⚙️</span> Processing Signal...';
+            btn.innerHTML = '⚙️ Processing Vectors...';
             btn.classList.replace('bg-brand-primary', 'bg-slate-700');
             
             let x = 0;
@@ -415,15 +439,15 @@
                 x += 1.5;
                 if(x < 150) frame = requestAnimationFrame(draw);
                 else {
-                    btn.innerHTML = '✅ Analysis Complete';
+                    btn.innerHTML = 'Analysis Complete';
                     btn.classList.replace('bg-slate-700', 'bg-emerald-600');
                     document.getElementById('out-vitality').innerText = '84.2 / 100';
                     document.getElementById('out-risk').innerText = '15.8 %';
                     const s = document.getElementById('out-status');
-                    s.innerText = '🛡️ Optimal / Resilient';
-                    s.className = 'text-sm font-bold px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-xl shadow-sm border border-emerald-500/30';
+                    s.innerText = 'Optimal / Resilient';
+                    s.className = 'text-sm font-bold px-5 py-2 bg-emerald-500/20 text-emerald-400 rounded-xl shadow-sm border border-emerald-500/30';
                     setTimeout(() => {
-                        btn.innerHTML = '🎤 Initialize Audio Ingress';
+                        btn.innerHTML = 'Initialize Audio Ingress';
                         btn.classList.replace('bg-emerald-600', 'bg-brand-primary');
                     }, 3000);
                 }
@@ -434,43 +458,40 @@
         }
 
         // 3D GLOBE INITIALIZATION (Three.js + Globe.gl)
-        const container = document.getElementById('globe-container');
-        
-        // Generate random arcs representing mesh network pings
-        const N = 40;
-        const arcsData = [...Array(N).keys()].map(() => ({
-            startLat: (Math.random() - 0.5) * 180,
-            startLng: (Math.random() - 0.5) * 360,
-            endLat: (Math.random() - 0.5) * 180,
-            endLng: (Math.random() - 0.5) * 360,
-            color: ['#10b981', '#3b82f6', '#10b981'][Math.floor(Math.random() * 3)] // Heavy on emerald
-        }));
+        const globeContainer = document.getElementById('globe-container');
+        if(globeContainer) {
+            const N = 50;
+            const arcsData = [...Array(N).keys()].map(() => ({
+                startLat: (Math.random() - 0.5) * 180,
+                startLng: (Math.random() - 0.5) * 360,
+                endLat: (Math.random() - 0.5) * 180,
+                endLng: (Math.random() - 0.5) * 360,
+                color: ['#10b981', '#3b82f6', '#10b981'][Math.floor(Math.random() * 3)]
+            }));
 
-        // Initialize Globe
-        const world = Globe()
-            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
-            .arcsData(arcsData)
-            .arcColor('color')
-            .arcDashLength(() => Math.random() * 0.5 + 0.1)
-            .arcDashGap(() => Math.random() * 2 + 0.1)
-            .arcDashAnimateTime(() => Math.random() * 3000 + 1500)
-            .backgroundColor('rgba(0,0,0,0)') // transparent
-            .width(container.clientWidth)
-            .height(container.clientWidth)
-            (container);
+            const world = Globe()
+                .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+                .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+                .arcsData(arcsData)
+                .arcColor('color')
+                .arcDashLength(() => Math.random() * 0.5 + 0.1)
+                .arcDashGap(() => Math.random() * 2 + 0.1)
+                .arcDashAnimateTime(() => Math.random() * 3000 + 1500)
+                .backgroundColor('rgba(0,0,0,0)') 
+                .width(globeContainer.clientWidth)
+                .height(globeContainer.clientWidth)
+                (globeContainer);
 
-        // Auto-rotate
-        world.controls().autoRotate = true;
-        world.controls().autoRotateSpeed = 2.0;
-        world.controls().enableZoom = true;
+            world.controls().autoRotate = true;
+            world.controls().autoRotateSpeed = 2.0;
 
-        // Resize handler
-        window.addEventListener('resize', () => {
-            if(container.clientWidth > 0) {
-                world.width(container.clientWidth);
-                world.height(container.clientWidth);
-            }
-        });
+            window.addEventListener('resize', () => {
+                if(globeContainer.clientWidth > 0) {
+                    world.width(globeContainer.clientWidth);
+                    world.height(globeContainer.clientWidth);
+                }
+            });
+        }
     </script>
 </body>
 </html>
