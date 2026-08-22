@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRISM-Edge | Autonomous Edge-AI & Decentralized Social Resilience</title>
-    <meta name="description" content="Research-grade, zero-cloud-dependent edge AI operating ecosystem for healthcare, climate resilience, digital inclusion, and privacy in emerging markets.">
+    <title>PRISM-Edge | Autonomous Edge-AI Resilience</title>
+    <meta name="description" content="Research-grade, zero-cloud-dependent edge AI operating ecosystem.">
     <meta name="author" content="Rudra Sarker">
 
-    <!-- Fonts: Inter & Plus Jakarta Sans -->
+    <!-- Fonts: Inter & Space Grotesk -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,750 +21,579 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            400: '#34d399',
-                            500: '#10b981',
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
-                            900: '#064e3b',
-                            teal: '#0d9488',
-                            cyan: '#06b6d4',
-                            dark: '#030712',
-                            card: '#0b1329',
-                            border: '#1e293b'
+                            base: '#020617', // slate-950
+                            surface: '#0f172a', // slate-900
+                            border: '#1e293b', // slate-800
+                            primary: '#10b981', // emerald-500
+                            accent: '#06b6d4', // cyan-500
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
 
-    <!-- Chart.js CDN -->
+    <!-- Chart.js & KaTeX -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- KaTeX CDN for Academic LaTeX Formatting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
-        .glow-emerald { box-shadow: 0 0 40px rgba(16, 185, 129, 0.22); }
-        .glow-teal { box-shadow: 0 0 40px rgba(13, 148, 136, 0.22); }
-        .glow-cyan { box-shadow: 0 0 40px rgba(6, 182, 212, 0.22); }
-        .glass-card { background: rgba(11, 19, 41, 0.75); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glass-card-hover:hover { border-color: rgba(16, 185, 129, 0.4); transform: translateY(-2px); transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-        .gradient-text { background: linear-gradient(135deg, #34d399 0%, #06b6d4 50%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .gradient-border { border-image: linear-gradient(to right, #10b981, #06b6d4) 1; }
-        .tab-btn-active { background: linear-gradient(135deg, #059669 0%, #0d9488 100%) !important; color: #ffffff !important; box-shadow: 0 4px 18px rgba(5, 150, 105, 0.35); }
+        /* Professional Grid Background & Glows */
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            position: relative;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+            transform: translateY(-1px);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        
+        .tab-active { border-bottom: 2px solid #10b981; color: #10b981; }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-100 min-h-screen flex flex-col font-sans selection:bg-emerald-500 selection:text-black antialiased">
+<body class="antialiased font-sans selection:bg-brand-primary selection:text-white relative overflow-x-hidden">
 
-    <!-- Top Navigation Header -->
-    <header class="border-b border-slate-800/80 bg-brand-dark/90 backdrop-blur-xl sticky top-0 z-50 px-6 py-3.5 flex flex-wrap justify-between items-center transition-all">
-        <div class="flex items-center space-x-3.5">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-400 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-emerald-500/20">
-                P
+    <!-- Fixed Top Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-brand-base font-bold font-display shadow-lg shadow-brand-primary/20 group-hover:shadow-brand-primary/40 transition">
+                    P
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-sm tracking-wide text-white">PRISM-Edge</span>
+                    <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest">Research Division</span>
+                </div>
+            </a>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#concept" class="text-sm font-medium text-slate-300 hover:text-white transition">Architecture</a>
+                <a href="#simulators" class="text-sm font-medium text-slate-300 hover:text-white transition">Simulators</a>
+                <a href="#research" class="text-sm font-medium text-slate-300 hover:text-white transition">Research</a>
+                <a href="#security" class="text-sm font-medium text-slate-300 hover:text-white transition">Security</a>
             </div>
+            
+            <!-- CTAs -->
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition">
+                    <i class="ph ph-github-logo text-lg"></i>
+                    <span>Repository</span>
+                </a>
+                <a href="https://github.com/rudra496/prism-edge/releases/tag/v2.4.0-PROD" target="_blank" class="flex items-center gap-2 bg-white text-brand-base px-4 py-1.5 rounded-full text-sm font-semibold hover:bg-slate-200 transition shadow-lg">
+                    <i class="ph ph-download-simple"></i>
+                    <span>Dossiers (PDF)</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Background Layers -->
+    <div class="fixed inset-0 z-[-1] bg-grid pointer-events-none opacity-40"></div>
+    <canvas id="meshCanvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-30"></canvas>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-primary/30 bg-brand-primary/10 mb-8 backdrop-blur-sm">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary"></span>
+            </span>
+            <span class="text-xs font-mono text-brand-primary font-medium tracking-wide">SYSTEM ONLINE &bull; v2.4.0-PROD</span>
+        </div>
+        
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] mb-6">
+            Decentralized Intelligence<br/>
+            <span class="gradient-text">Beyond the Grid.</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mb-10 leading-relaxed font-light">
+            When networks collapse and infrastructure fails, PRISM-Edge delivers <strong class="text-white font-medium">zero-latency clinical triage</strong>, <strong class="text-white font-medium">climate early warnings</strong>, and <strong class="text-white font-medium">encrypted mesh communications</strong> directly on everyday edge devices. 100% offline. Zero cloud dependency.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <a href="#simulators" class="glow-button bg-brand-primary text-white px-8 py-3.5 rounded-full font-semibold text-sm flex items-center justify-center gap-2">
+                <i class="ph-fill ph-play-circle text-lg"></i>
+                Initialize Simulators
+            </a>
+            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="glass-card text-white px-8 py-3.5 rounded-full font-semibold text-sm flex items-center justify-center gap-2 hover:bg-slate-800/50">
+                <i class="ph ph-code text-lg"></i>
+                View Architecture
+            </a>
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-20 w-full max-w-4xl border-t border-slate-800/50 pt-8">
+            <div class="text-center sm:text-left">
+                <div class="text-2xl font-mono font-bold text-white mb-1">4.2<span class="text-brand-primary">ms</span></div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-wider">Inference Latency</div>
+            </div>
+            <div class="text-center sm:text-left">
+                <div class="text-2xl font-mono font-bold text-white mb-1">78<span class="text-brand-accent">%</span></div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-wider">Base91 Compression</div>
+            </div>
+            <div class="text-center sm:text-left">
+                <div class="text-2xl font-mono font-bold text-white mb-1">0.5<span class="text-brand-primary">&epsilon;</span></div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-wider">Laplace Privacy</div>
+            </div>
+            <div class="text-center sm:text-left">
+                <div class="text-2xl font-mono font-bold text-white mb-1">100<span class="text-brand-accent">%</span></div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-wider">Offline Capable</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture / Concept Section -->
+    <section id="concept" class="py-24 relative border-t border-slate-800/50 bg-slate-900/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 md:w-2/3">
+                <h2 class="text-3xl font-display font-bold text-white mb-4">The Unified 7-Pillar Architecture</h2>
+                <p class="text-slate-400">Engineered specifically for low-resource environments, aligning mathematically with WHO, UNICEF, and UN SDG frameworks.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition">
+                        <i class="ph-fill ph-stethoscope text-6xl text-brand-primary"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-brand-primary/20 flex items-center justify-center text-brand-primary mb-6">
+                        <i class="ph-bold ph-heartbeat text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">AI for Healthcare</h3>
+                    <p class="text-sm text-slate-400 mb-6 flex-grow">Acoustic speech biomarkers for mental wellbeing (PHQ-9 correlated) and WHO EmONC maternal triage operating fully on-chip.</p>
+                    <div class="text-xs font-mono text-brand-primary border-t border-slate-800 pt-4">core_engine.clinical_triage</div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition">
+                        <i class="ph-fill ph-plant text-6xl text-brand-accent"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-brand-accent/20 flex items-center justify-center text-brand-accent mb-6">
+                        <i class="ph-bold ph-cloud-warning text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Climate Resilience</h3>
+                    <p class="text-sm text-slate-400 mb-6 flex-grow">Agro-meteorological modeling for flash floods and coastal groundwater salinity. Generates adaptive bio-remedies for farmers instantly.</p>
+                    <div class="text-xs font-mono text-brand-accent border-t border-slate-800 pt-4">core_engine.climate_analytics</div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition">
+                        <i class="ph-fill ph-graph text-6xl text-purple-500"></i>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6">
+                        <i class="ph-bold ph-handshake text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Inclusive Livelihoods</h3>
+                    <p class="text-sm text-slate-400 mb-6 flex-grow">Blind competency matching prioritizing rural female artisans. Zero-knowledge escrow payments bypass exploitative supply chain middlemen.</p>
+                    <div class="text-xs font-mono text-purple-400 border-t border-slate-800 pt-4">inclusion.skill_graph</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Simulators Section -->
+    <section id="simulators" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
+                <div>
+                    <h2 class="text-3xl font-display font-bold text-white mb-4">Live Scientific Simulators</h2>
+                    <p class="text-slate-400 max-w-2xl">Execute real client-side algorithms. Data never leaves your browser.</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono text-brand-primary bg-brand-primary/10 px-3 py-1.5 rounded-full border border-brand-primary/20">
+                    <i class="ph-fill ph-lock-key"></i> Client-Side Processing Active
+                </div>
+            </div>
+            
+            <div class="glass-card rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl">
+                <!-- Simulator Navigation -->
+                <div class="flex overflow-x-auto border-b border-slate-700/50 bg-slate-900/50 scrollbar-hide">
+                    <button onclick="openSim('audio')" id="btn-audio" class="sim-tab px-6 py-4 text-sm font-medium whitespace-nowrap text-slate-400 hover:text-white transition tab-active border-b-2 border-brand-primary">
+                        <i class="ph ph-waveform mr-2"></i>Acoustic Biomarker
+                    </button>
+                    <button onclick="openSim('triage')" id="btn-triage" class="sim-tab px-6 py-4 text-sm font-medium whitespace-nowrap text-slate-400 hover:text-white transition">
+                        <i class="ph ph-first-aid mr-2"></i>Clinical Triage (APGAR)
+                    </button>
+                    <button onclick="openSim('mesh')" id="btn-mesh" class="sim-tab px-6 py-4 text-sm font-medium whitespace-nowrap text-slate-400 hover:text-white transition">
+                        <i class="ph ph-plugs-connected mr-2"></i>Base91 Mesh Router
+                    </button>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <!-- Audio Simulator -->
+                    <div id="sim-audio" class="sim-content grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">Web Audio API Spectrograph</h3>
+                            <p class="text-sm text-slate-400 mb-6">Records 3 seconds of voice to extract pitch perturbation ($J_{rel}$) and compute an affective vitality index.</p>
+                            
+                            <div class="bg-brand-base rounded-xl p-4 border border-slate-800 mb-6 relative overflow-hidden">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-mono text-slate-500">Time-Domain Oscilloscope</span>
+                                    <span class="text-xs font-mono text-brand-primary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></span> Standby</span>
+                                </div>
+                                <canvas id="audioCanvas" class="w-full h-32 rounded-lg bg-slate-900/50"></canvas>
+                            </div>
+                            
+                            <button onclick="demoAudio()" id="recBtn" class="w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-bold py-3 rounded-xl transition shadow-lg shadow-brand-primary/20">
+                                <i class="ph-fill ph-microphone mr-2"></i>Initialize Audio Ingress
+                            </button>
+                        </div>
+                        <div class="bg-slate-900/50 rounded-xl p-6 border border-slate-700/50">
+                            <h4 class="text-sm font-mono text-slate-400 uppercase tracking-wider mb-6">Diagnostic Output</h4>
+                            
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                                    <span class="text-sm text-slate-300">Vitality Index</span>
+                                    <span class="font-mono font-bold text-lg text-brand-primary" id="out-vitality">-- / 100</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                                    <span class="text-sm text-slate-300">Dysphoria Risk (PHQ-9 corr.)</span>
+                                    <span class="font-mono font-bold text-lg text-brand-accent" id="out-risk">-- %</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                                    <span class="text-sm text-slate-300">Clinical Stratification</span>
+                                    <span class="text-xs font-bold px-2 py-1 bg-slate-800 text-slate-400 rounded" id="out-status">Awaiting Input</span>
+                                </div>
+                                <div class="pt-2">
+                                    <span class="text-xs text-slate-500 block mb-1">Latency Profile</span>
+                                    <span class="text-xs font-mono text-brand-primary">Edge Processing Time: <span id="out-time">0</span> ms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Clinical Triage Simulator -->
+                    <div id="sim-triage" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">WHO Neonatal APGAR</h3>
+                            <p class="text-sm text-slate-400 mb-6">Calculates newborn resuscitation requirements based on the Helping Babies Breathe (HBB) protocol.</p>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Heart Rate</label>
+                                    <select id="apgar-hr" class="w-full bg-brand-base border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-brand-primary outline-none">
+                                        <option value="2">> 100 BPM (2 pts)</option>
+                                        <option value="1">< 100 BPM (1 pt)</option>
+                                        <option value="0">Absent (0 pts)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Respiration</label>
+                                    <select id="apgar-resp" class="w-full bg-brand-base border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-brand-primary outline-none">
+                                        <option value="1">Slow/Irregular (1 pt)</option>
+                                        <option value="2">Vigorous Cry (2 pts)</option>
+                                        <option value="0">Absent (0 pts)</option>
+                                    </select>
+                                </div>
+                                <button onclick="calcApgar()" class="w-full mt-4 bg-brand-accent hover:bg-cyan-400 text-brand-base font-bold py-3 rounded-xl transition shadow-lg shadow-brand-accent/20">
+                                    Execute Triage Protocol
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/50 rounded-xl p-6 border border-slate-700/50">
+                            <h4 class="text-sm font-mono text-slate-400 uppercase tracking-wider mb-6">Clinical Action</h4>
+                            <div class="flex items-center justify-center mb-6">
+                                <div id="apgar-circle" class="w-24 h-24 rounded-full border-4 border-slate-700 flex items-center justify-center text-3xl font-display font-bold text-slate-500">
+                                    -
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h5 class="text-lg font-bold text-white mb-2" id="apgar-diag">Pending Evaluation</h5>
+                                <p class="text-sm text-slate-400" id="apgar-desc">Provide physiological inputs to determine resuscitation protocol.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mesh Simulator -->
+                    <div id="sim-mesh" class="sim-content hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Base91 Gossip Compression</h3>
+                                <p class="text-sm text-slate-400 mb-6">Simulates packing JSON telemetry into high-density ASCII for 140-octet SMS channels.</p>
+                                <textarea id="mesh-in" class="w-full h-32 bg-brand-base border border-slate-700 rounded-lg p-3 text-sm text-brand-primary font-mono outline-none focus:border-brand-primary" placeholder="Enter JSON...">{ "patient_id": "a93bc", "status": "critical", "bp_sys": 165, "hr": 110 }</textarea>
+                                <button onclick="demoMesh()" class="w-full mt-4 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-purple-600/20">
+                                    Compress & Route
+                                </button>
+                            </div>
+                            <div class="bg-slate-900/50 rounded-xl p-6 border border-slate-700/50 flex flex-col">
+                                <h4 class="text-sm font-mono text-slate-400 uppercase tracking-wider mb-4">Base91 Output Stream</h4>
+                                <div id="mesh-out" class="flex-grow bg-brand-base border border-slate-800 rounded-lg p-4 text-xs font-mono text-slate-500 break-all flex items-center justify-center">
+                                    Waiting for data...
+                                </div>
+                                <div class="flex justify-between items-center mt-4 pt-4 border-t border-slate-800">
+                                    <span class="text-xs text-slate-400">Payload Reduction:</span>
+                                    <span id="mesh-ratio" class="text-sm font-bold font-mono text-purple-400">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Tech / Math Section -->
+    <section id="research" class="py-24 relative border-t border-slate-800/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-display font-bold text-white mb-4">Cryptographic Privacy Formulation</h2>
+                <p class="text-slate-400 max-w-3xl">We implement Laplace Differential Privacy ($\epsilon = 0.5$) combined with Merkle Tree auditing to guarantee zero PII leakage while enabling verifiable public goods.</p>
+            </div>
+            
+            <div class="glass-card p-8 rounded-2xl overflow-x-auto">
+                <p class="text-sm text-slate-300 mb-6">The probability ratio of generating any output $S$ from adjacent databases $D$ and $D'$ is strictly bounded:</p>
+                <div class="text-xl text-center py-6 text-brand-primary font-mono overflow-x-auto">
+                    $$\text{Pr}[M(D) \in S] \le \exp(\epsilon) \times \text{Pr}[M(D') \in S]$$
+                </div>
+                <div class="text-xl text-center py-4 text-brand-accent font-mono overflow-x-auto">
+                    $$\text{Lap}(x | \mu, b) = \frac{1}{2b} \exp\left(-\frac{|x - \mu|}{b}\right)$$
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-base border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-                <div class="flex items-center gap-2">
-                    <h1 class="text-lg font-bold tracking-tight text-white font-mono">PRISM-Edge</h1>
-                    <span class="text-[10px] px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full font-mono font-semibold border border-emerald-500/30">v2.4.0-PROD</span>
-                    <span class="hidden md:inline-block text-[10px] px-2 py-0.5 bg-cyan-500/10 text-cyan-300 rounded font-mono border border-cyan-500/20">Autonomous Edge Fabric</span>
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                    <div class="w-6 h-6 rounded bg-gradient-to-tr from-brand-primary to-brand-accent flex items-center justify-center text-brand-base font-bold font-display text-xs">P</div>
+                    <span class="font-display font-bold text-white">PRISM-Edge Ecosystem</span>
                 </div>
-                <p class="text-xs text-slate-400">Decentralized AI & Social Resilience Operating System</p>
+                <p class="text-xs text-slate-500">Lead Architect: Rudra Sarker &bull; &copy; 2026</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="https://github.com/rudra496/prism-edge" class="text-slate-400 hover:text-white transition"><i class="ph ph-github-logo text-2xl"></i></a>
+                <a href="https://rudra496.github.io/site" class="text-slate-400 hover:text-white transition"><i class="ph ph-globe text-2xl"></i></a>
+                <a href="https://www.linkedin.com/in/rudrasarker" class="text-slate-400 hover:text-white transition"><i class="ph ph-linkedin-logo text-2xl"></i></a>
             </div>
         </div>
-
-        <div class="flex items-center space-x-3 mt-3 sm:mt-0">
-            <a href="#how-it-works" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 transition hidden sm:inline-block">How It Works</a>
-            <a href="#pillars" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 transition hidden sm:inline-block">7 Pillars</a>
-            <a href="#instruments" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-1.5 transition hidden sm:inline-block">Live Instruments</a>
-            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-xl text-xs transition font-semibold text-slate-200">
-                <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                <span>GitHub</span>
-            </a>
-            <a href="https://github.com/rudra496/prism-edge/releases/tag/v2.4.0-PROD" target="_blank" class="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-600/20">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                <span>Get PDF Dossier</span>
-            </a>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section class="relative overflow-hidden pt-12 pb-16 px-6 border-b border-slate-800/80">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/20 via-brand-dark to-brand-dark pointer-events-none"></div>
-        <div class="max-w-6xl mx-auto text-center relative z-10 space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>The Definitive Grand-Championship Architecture</span>
-            </div>
-
-            <h2 class="text-4xl sm:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
-                Autonomous Intelligence for the <span class="gradient-text">Next Billion</span>
-            </h2>
-
-            <p class="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-                When cellular towers flood, power grids fail, and clinics are miles away, <b class="text-white">PRISM-Edge</b> delivers zero-latency on-device medical triage, voice mental health screening, hyper-local climate disaster alerts, and fair-wage livelihood escrow—<b class="text-emerald-400">100% offline with zero cloud dependency</b>.
-            </p>
-
-            <div class="flex flex-wrap justify-center items-center gap-3 pt-2">
-                <a href="#instruments" class="px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-xl shadow-emerald-500/25 transition text-sm flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>Launch Live Interactive Instruments</span>
-                </a>
-                <a href="https://github.com/rudra496/prism-edge" target="_blank" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold rounded-xl transition text-sm flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    <span>Review Source Code</span>
-                </a>
-            </div>
-
-            <!-- 4 Quick Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-4xl mx-auto text-left">
-                <div class="glass-card p-4 rounded-xl">
-                    <p class="text-xs text-slate-400 font-mono">INFERENCE SPEED</p>
-                    <p class="text-2xl font-black text-emerald-400 font-mono mt-1">4.2 ms</p>
-                    <p class="text-[11px] text-slate-400">On-device discrete audio DSP</p>
-                </div>
-                <div class="glass-card p-4 rounded-xl">
-                    <p class="text-xs text-slate-400 font-mono">SMS COMPRESSION</p>
-                    <p class="text-2xl font-black text-teal-300 font-mono mt-1">78% Less</p>
-                    <p class="text-[11px] text-slate-400">Base91 binary bundle protocol</p>
-                </div>
-                <div class="glass-card p-4 rounded-xl">
-                    <p class="text-xs text-slate-400 font-mono">PRIVACY BOUND</p>
-                    <p class="text-2xl font-black text-cyan-300 font-mono mt-1">&epsilon; = 0.5</p>
-                    <p class="text-[11px] text-slate-400">Laplace Differential Privacy</p>
-                </div>
-                <div class="glass-card p-4 rounded-xl">
-                    <p class="text-xs text-slate-400 font-mono">CONNECTIVITY</p>
-                    <p class="text-2xl font-black text-amber-300 font-mono mt-1">0 KB Req.</p>
-                    <p class="text-[11px] text-slate-400">100% Offline P2P mesh network</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: HOW IT WORKS & WHY IT IS THE BEST -->
-    <section id="how-it-works" class="py-16 px-6 border-b border-slate-800/80 max-w-7xl mx-auto space-y-12">
-        <div class="text-center max-w-3xl mx-auto space-y-3">
-            <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">Under The Hood</span>
-            <h3 class="text-3xl sm:text-4xl font-extrabold text-white">How PRISM-Edge Works & Why It Wins</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-                Traditional solutions fail because they depend on costly cloud APIs, require high literacy, and leak sensitive biometrics. PRISM-Edge fundamentally redesigns social technology from the edge up.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Step 1 -->
-            <div class="glass-card glass-card-hover p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-emerald-400 text-xl">
-                    01
-                </div>
-                <h4 class="text-lg font-bold text-white">Local Ingress & Edge AI Diagnostics</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    Voice prosody, maternal vital signs, and soil/weather sensors are processed locally on the chip in <b class="text-emerald-400">&lt; 15 milliseconds</b>. No raw voice or medical records ever touch the cloud.
-                </p>
-                <div class="pt-2 text-xs font-mono text-emerald-400 flex items-center gap-1.5">
-                    <span>✓ WHO IMCI / EmONC Standard</span>
-                </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="glass-card glass-card-hover p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center font-mono font-bold text-teal-300 text-xl">
-                    02
-                </div>
-                <h4 class="text-lg font-bold text-white">Resilient Mesh & Base91 Fallback</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    When cellular internet drops during floods or blackouts, phones automatically form a local <b class="text-teal-300">Bluetooth/WiFi Direct gossip mesh</b>. Critical emergency alerts compress into a single 140-octet SMS via Base91.
-                </p>
-                <div class="pt-2 text-xs font-mono text-teal-300 flex items-center gap-1.5">
-                    <span>✓ Store-and-Forward Gossip</span>
-                </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="glass-card glass-card-hover p-6 rounded-2xl space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-mono font-bold text-cyan-300 text-xl">
-                    03
-                </div>
-                <h4 class="text-lg font-bold text-white">Autonomous Action & Livelihood Escrow</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    Automated protocols trigger ambulance routing, flood sirens, crop remedies, and <b class="text-cyan-300">direct escrow payouts to rural women</b> with zero middleman fees and strict &epsilon;=0.5 Differential Privacy.
-                </p>
-                <div class="pt-2 text-xs font-mono text-cyan-300 flex items-center gap-1.5">
-                    <span>✓ Merkle Tree Cryptographic Audit</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comparative Superiority Matrix -->
-        <div class="glass-card p-6 rounded-2xl space-y-4">
-            <h4 class="text-lg font-bold text-white flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                <span>Why PRISM-Edge Beats Conventional Cloud Competitors</span>
-            </h4>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs sm:text-sm text-slate-300">
-                    <thead class="text-xs text-slate-400 uppercase bg-slate-900/80 border-b border-slate-800 font-mono">
-                        <tr>
-                            <th class="p-3">Architectural Dimension</th>
-                            <th class="p-3 text-red-400">Conventional Cloud App</th>
-                            <th class="p-3 text-emerald-400 font-bold">PRISM-Edge Innovation</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-800 text-xs sm:text-sm">
-                        <tr>
-                            <td class="p-3 font-semibold text-white">Network Failure Resilience</td>
-                            <td class="p-3 text-slate-400">Completely inoperable without active 4G/5G signal</td>
-                            <td class="p-3 text-emerald-400 font-semibold">100% Offline-native with P2P mesh & Base91 SMS fallback</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-semibold text-white">Data Privacy & Biometric Safety</td>
-                            <td class="p-3 text-slate-400">Raw voice & health sent to centralized cloud servers</td>
-                            <td class="p-3 text-emerald-400 font-semibold">&epsilon;=0.5 Laplace Differential Privacy on-device; 0 raw audio sent</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-semibold text-white">Literacy & Inclusion Barrier</td>
-                            <td class="p-3 text-slate-400">Text-heavy forms that alienate non-literate citizens</td>
-                            <td class="p-3 text-emerald-400 font-semibold">Voice-first vernacular audio interface in regional dialects</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-semibold text-white">Economic & Gender Parity</td>
-                            <td class="p-3 text-slate-400">Centralized job boards with human hiring bias</td>
-                            <td class="p-3 text-emerald-400 font-semibold">Cryptographically blind competency matching with affirmative female priority</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: 7-PILLAR INTERACTIVE SCIENTIFIC SUITE -->
-    <section id="instruments" class="py-16 px-6 max-w-7xl mx-auto space-y-8">
-        <div class="text-center max-w-3xl mx-auto space-y-2">
-            <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">Live Scientific Instruments</span>
-            <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Interactive Research & Simulation Lab</h3>
-            <p class="text-xs sm:text-sm text-slate-400">
-                Test the real-world client-side signal processing algorithms, clinical decision trees, and cryptographic vault in real-time.
-            </p>
-        </div>
-
-        <!-- 7-Tab Navigation Bar -->
-        <div class="flex overflow-x-auto space-x-2 pb-2 scrollbar-thin border-b border-slate-800">
-            <button onclick="switchTab('biomarker')" id="tab-biomarker" class="tab-btn tab-btn-active px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-300">
-                1. Voice Biomarker (Mic)
-            </button>
-            <button onclick="switchTab('clinical')" id="tab-clinical" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                2. Clinical EmONC & APGAR
-            </button>
-            <button onclick="switchTab('climate')" id="tab-climate" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                3. Agro-Climate & Salinity
-            </button>
-            <button onclick="switchTab('upskill')" id="tab-upskill" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                4. Blind Livelihood Escrow
-            </button>
-            <button onclick="switchTab('privacy')" id="tab-privacy" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                5. Differential Privacy & Duress
-            </button>
-            <button onclick="switchTab('mesh')" id="tab-mesh" class="tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition bg-slate-900 text-slate-400 hover:text-white">
-                6. Base91 Mesh Protocol
-            </button>
-        </div>
-
-        <!-- INSTRUMENT 1: LIVE VOICE BIOMARKER -->
-        <div id="panel-biomarker" class="tab-panel space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h4 class="text-base font-bold text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Live Web Audio Oscilloscope & Biomarker Screener
-                        </h4>
-                        <span class="text-xs font-mono px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full">Web Audio API</span>
-                    </div>
-                    <p class="text-xs text-slate-300">
-                        Click below to record your voice. The browser extracts fundamental pitch ($F_0$), vocal jitter ($J_{rel}$), and pause ratio to compute an objective Affective Vitality Index in $4.2\text{ ms}$.
-                    </p>
-
-                    <!-- Waveform Canvas -->
-                    <div class="bg-slate-950 rounded-xl p-3 border border-slate-800 space-y-2">
-                        <div class="flex justify-between text-xs font-mono text-slate-500">
-                            <span>Time-Domain Oscilloscope Waveform</span>
-                            <span id="canvas-status">Status: Standby</span>
-                        </div>
-                        <canvas id="audio-visualizer" class="w-full h-32 rounded-lg bg-slate-950 border border-slate-900"></canvas>
-                    </div>
-
-                    <button id="btn-record" onclick="toggleAudioRecording()" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-xl transition flex items-center justify-center gap-2.5 text-sm">
-                        <span id="rec-dot" class="w-3 h-3 rounded-full bg-red-500"></span>
-                        <span id="rec-text">Start Live Microphone Recording (3s Sample)</span>
-                    </button>
-
-                    <div class="border-t border-slate-800 pt-3 space-y-3">
-                        <p class="text-xs font-bold text-slate-300">Or Calibrate Synthetic Parameters:</p>
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>Fundamental Pitch ($F_0$ Hz):</span>
-                                <span id="f0-val" class="font-mono text-emerald-400 font-bold">220 Hz</span>
-                            </div>
-                            <input type="range" min="100" max="400" value="220" class="w-full mt-1 accent-emerald-500" oninput="document.getElementById('f0-val').innerText = this.value + ' Hz'" id="f0-slider">
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs text-slate-400">
-                                <span>Vocal Jitter Perturbation ($J_{rel}$):</span>
-                                <span id="jitter-val" class="font-mono text-teal-400 font-bold">0.018</span>
-                            </div>
-                            <input type="range" min="0.005" max="0.06" step="0.002" value="0.018" class="w-full mt-1 accent-emerald-500" oninput="document.getElementById('jitter-val').innerText = this.value" id="jitter-slider">
-                        </div>
-                        <button onclick="runManualBiomarker()" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-xs rounded-xl transition">
-                            Evaluate Synthetic Signal Biomarkers
-                        </button>
-                    </div>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <h4 class="text-base font-bold text-white">Diagnostic Affective Triage Report</h4>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <div>
-                                <p class="text-xs text-slate-400 font-medium">Affective Vitality Index</p>
-                                <p class="text-[11px] text-slate-500">Normal Range: 70.0 – 100.0</p>
-                            </div>
-                            <span class="text-3xl font-black text-emerald-400 font-mono" id="res-vitality">82.4 / 100</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <div>
-                                <p class="text-xs text-slate-400 font-medium">Dysphoria Risk Index</p>
-                                <p class="text-[11px] text-slate-500">PHQ-9 Correlated Clinical Metric</p>
-                            </div>
-                            <span class="text-lg font-bold text-teal-300 font-mono" id="res-dysphoria">17.6 %</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <div>
-                                <p class="text-xs text-slate-400 font-medium">Clinical Stratification</p>
-                                <p class="text-[11px] text-slate-500">On-Device Triage</p>
-                            </div>
-                            <span class="text-sm font-bold text-white px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-lg" id="res-status">Optimal / Resilient</span>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
-                            <p class="text-xs font-bold text-slate-300">Care Directive:</p>
-                            <p class="text-xs text-slate-400" id="res-action">Routine wellbeing maintenance; deliver proactive mindfulness prompts and sleep hygiene audio in regional dialect.</p>
-                        </div>
-                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono text-slate-400 space-y-1">
-                            <div class="flex justify-between">
-                                <span>Signal Extraction Latency:</span>
-                                <span class="text-emerald-400 font-bold">4.2 ms (ARM64)</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Privacy Guarantee:</span>
-                                <span class="text-teal-300 font-bold">Zero Audio Leaves Device</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- INSTRUMENT 2: CLINICAL EmONC & NEONATAL APGAR -->
-        <div id="panel-clinical" class="tab-panel hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Maternal EmONC -->
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h4 class="text-base font-bold text-white">Maternal EmONC Emergency Decision Tree</h4>
-                        <span class="text-xs px-2 py-0.5 bg-red-500/20 text-red-300 rounded font-mono">WHO Standard</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 text-xs">
-                        <div>
-                            <label class="text-slate-400">Systolic BP (mmHg)</label>
-                            <input type="number" id="mat-sbp" value="165" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white font-mono mt-1">
-                        </div>
-                        <div>
-                            <label class="text-slate-400">Diastolic BP (mmHg)</label>
-                            <input type="number" id="mat-dbp" value="115" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white font-mono mt-1">
-                        </div>
-                    </div>
-                    <div class="text-xs">
-                        <label class="text-slate-400">Gestational Age (Weeks)</label>
-                        <input type="number" id="mat-gw" value="32" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white font-mono mt-1">
-                    </div>
-                    <div class="text-xs space-y-1.5 text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="symp-headache" checked class="accent-emerald-500"> Severe Headache / Scotomata</label>
-                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="symp-bleeding" class="accent-emerald-500"> Antepartum Vaginal Hemorrhage</label>
-                    </div>
-                    <button onclick="runMaternalTriage()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-xs font-mono shadow-md">
-                        EXECUTE WHO EmONC TRIAGE
-                    </button>
-                    <div id="maternal-output" class="bg-slate-950 p-4 rounded-xl border border-red-500/40 space-y-2 mt-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-400">Clinical Severity:</span>
-                            <span class="text-sm font-black text-red-400 font-mono" id="mat-urgency">EMERGENCY (Critical Preeclampsia)</span>
-                        </div>
-                        <p class="text-xs text-slate-300" id="mat-proto">Immediate emergency ambulance dispatch to tertiary referral center; administer loading dose of Magnesium Sulfate (4g IV + 10g IM) under CHW supervision.</p>
-                    </div>
-                </div>
-
-                <!-- Neonatal APGAR -->
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h4 class="text-base font-bold text-white">Neonatal APGAR Resuscitation Screener</h4>
-                        <span class="text-xs px-2 py-0.5 bg-teal-500/20 text-teal-300 rounded font-mono">WHO HBB Protocol</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 text-xs">
-                        <div>
-                            <label class="text-slate-400">Heart Rate (Pulse)</label>
-                            <select id="apgar-hr" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white mt-1">
-                                <option value="2">> 100 BPM (2 pts)</option>
-                                <option value="1">< 100 BPM (1 pt)</option>
-                                <option value="0">Absent (0 pts)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-slate-400">Respiration</label>
-                            <select id="apgar-resp" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white mt-1">
-                                <option value="2">Vigorous Cry (2 pts)</option>
-                                <option value="1">Slow / Irregular (1 pt)</option>
-                                <option value="0">Absent (0 pts)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-slate-400">Muscle Tone (Activity)</label>
-                            <select id="apgar-tone" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white mt-1">
-                                <option value="2">Active Motion (2 pts)</option>
-                                <option value="1">Some Flexion (1 pt)</option>
-                                <option value="0">Flaccid (0 pts)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-slate-400">Color (Appearance)</label>
-                            <select id="apgar-color" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white mt-1">
-                                <option value="2">Completely Pink (2 pts)</option>
-                                <option value="1">Acrocyanosis (1 pt)</option>
-                                <option value="0">Pale / Blue (0 pts)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button onclick="runApgarTriage()" class="w-full py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl transition text-xs font-mono shadow-md">
-                        EVALUATE APGAR RESUSCITATION INDEX
-                    </button>
-                    <div id="apgar-output" class="bg-slate-950 p-4 rounded-xl border border-teal-500/40 space-y-2 mt-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-400">Calculated APGAR Score:</span>
-                            <span class="text-base font-black text-teal-400 font-mono" id="apgar-score">8 / 10 (Reassuring)</span>
-                        </div>
-                        <p class="text-xs text-slate-300" id="apgar-action">Dry infant thoroughly, provide immediate skin-to-skin warmth, initiate exclusive breastfeeding within first hour.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- INSTRUMENT 3: AGRO-CLIMATE & SALINITY -->
-        <div id="panel-climate" class="tab-panel hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <h4 class="text-base font-bold text-white">Agro-Ecological Telemetry</h4>
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <div class="flex justify-between text-slate-400">
-                                <span>Ambient Temperature:</span>
-                                <span id="clim-temp-val" class="font-mono text-emerald-400 font-bold">34°C</span>
-                            </div>
-                            <input type="range" min="15" max="48" value="34" class="w-full mt-1 accent-emerald-500" oninput="document.getElementById('clim-temp-val').innerText = this.value + '°C'" id="clim-temp">
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-slate-400">
-                                <span>3-Hour Precipitation (mm):</span>
-                                <span id="clim-rain-val" class="font-mono text-teal-400 font-bold">65 mm</span>
-                            </div>
-                            <input type="range" min="0" max="120" value="65" class="w-full mt-1 accent-emerald-500" oninput="document.getElementById('clim-rain-val').innerText = this.value + ' mm'" id="clim-rain">
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-slate-400">
-                                <span>Coastal Estuarine Salinity EC:</span>
-                                <span id="clim-sal-val" class="font-mono text-amber-400 font-bold">4.2 dS/m</span>
-                            </div>
-                            <input type="range" min="0.2" max="12.0" step="0.2" value="4.2" class="w-full mt-1 accent-emerald-500" oninput="document.getElementById('clim-sal-val').innerText = this.value + ' dS/m'" id="clim-sal">
-                        </div>
-                        <button onclick="runClimateEval()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-xs font-mono shadow-md">
-                            COMPUTE CLIMATE & SALINITY RISK
-                        </button>
-                    </div>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl lg:col-span-2 space-y-4">
-                    <h4 class="text-base font-bold text-white">Micro-Meteorological Directives & Bio-Remedies</h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-xs px-2 py-0.5 bg-amber-500/20 text-amber-400 rounded font-mono">Disaster Early Warning</span>
-                            <h5 class="text-sm font-bold text-amber-400" id="clim-status">CRITICAL: FLASH FLOOD ALERT</h5>
-                            <p class="text-xs text-slate-300" id="clim-directive">Activate village sirens, evacuate livestock to elevated flood-shelters, reinforce earthen embankments.</p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono">Saline Intrusion Mitigation</span>
-                            <h5 class="text-sm font-bold text-emerald-400" id="sal-status">Critical Saline Ingress (4.2 dS/m)</h5>
-                            <p class="text-xs text-slate-300" id="sal-advisory">Deploy solar reverse-osmosis pumps; switch to saline-tolerant rice cultivars (BRRI dhan 67 / BINA dhan 10).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- INSTRUMENT 4: BLIND LIVELIHOOD ESCROW -->
-        <div id="panel-upskill" class="tab-panel hidden space-y-6">
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <div class="flex flex-wrap justify-between items-center gap-3">
-                    <div>
-                        <h4 class="text-base font-bold text-white">Blind Merit & Affirmative Gig Matcher</h4>
-                        <p class="text-xs text-slate-400">Decouples skill evaluation from demographic identifiers, prioritizing certified rural female artisans.</p>
-                    </div>
-                    <button onclick="fetchJobsAndMatch()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs font-mono transition shadow-md">
-                        MATCH TOP CANDIDATES
-                    </button>
-                </div>
-                <div id="jobs-container" class="space-y-3">
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-wrap justify-between items-center gap-3">
-                        <div>
-                            <span class="text-xs px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded font-mono font-semibold">JOB-201</span>
-                            <h5 class="text-sm font-bold text-white mt-1">Handloom Jute & Jamdani Apparel Weaving</h5>
-                            <p class="text-xs text-slate-400">Required Skills: embroidery, textiles, quality_audit | Affirmative Priority: Female Rural Artisans</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-emerald-400 font-bold text-lg font-mono">100% Match</span>
-                            <p class="text-xs text-slate-400">Candidate: <b class="text-white font-mono">Token #914e7b84b62e</b> (৳5,500 BDT Escrow)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- INSTRUMENT 5: DIFFERENTIAL PRIVACY & DURESS PIN -->
-        <div id="panel-privacy" class="tab-panel hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <h4 class="text-base font-bold text-white">Duress-Aware Covert Panic Simulator</h4>
-                    <p class="text-xs text-slate-400">Test authentication under physical coercion scenarios (Normal PIN: 1234 | Duress PIN: 9999).</p>
-                    <div>
-                        <input type="password" id="pin-input" value="9999" class="w-full bg-slate-950 border border-slate-700 p-3.5 rounded-xl text-white text-2xl font-mono text-center tracking-widest">
-                    </div>
-                    <button onclick="testPinAuth()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition text-xs font-mono shadow-md">
-                        AUTHENTICATE PIN ENTRY
-                    </button>
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Disguised View State:</span>
-                            <span class="font-bold text-emerald-400">Normal Safe Screen Rendered</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Silent Panic Beacon:</span>
-                            <span class="font-bold text-red-400 animate-pulse font-mono" id="sos-dispatch-status">DISPATCHED TO MESH POLICE (COVERT)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card p-6 rounded-2xl space-y-4">
-                    <h4 class="text-base font-bold text-white">Differential Privacy Mechanism ($\epsilon = 0.5$)</h4>
-                    <p class="text-xs text-slate-400">Mathematically guarantees zero individual record reconstruction by injecting calibrated Laplace noise:</p>
-                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 font-mono text-xs text-teal-300">
-                        $$\text{Pr}(M(D) \in S) \le \exp(\epsilon) \cdot \text{Pr}(M(D') \in S)$$
-                    </div>
-                    <p class="text-xs text-slate-400">Even if an adversary possesses complete auxiliary knowledge of all other village members, individual medical and demographic records remain mathematically confidential.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- INSTRUMENT 6: BASE91 MESH ROUTER -->
-        <div id="panel-mesh" class="tab-panel hidden space-y-6">
-            <div class="glass-card p-6 rounded-2xl space-y-4">
-                <h4 class="text-base font-bold text-white">Base91 Binary Mesh Compression (SMS / USSD Channels)</h4>
-                <p class="text-xs text-slate-400">Serializes full structured JSON clinical reports into high-density Base91 ASCII symbols ($1.23\text{ bytes/char}$), achieving a 78% payload reduction to guarantee single-SMS ($<140\text{ octets}$) delivery.</p>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-teal-300 break-all select-all">
-                    PRISM:H&y9#L0!W92z8Kx$LqP09mZ17#sKlOpQ9xMzN01kL#9Za8vBcDeFgHjKlMnOpQrStUvWxYz0123456789
-                </div>
-                <div class="flex justify-between text-xs font-mono text-slate-400">
-                    <span>Original Structured JSON: 385 bytes</span>
-                    <span class="text-emerald-400 font-bold">Base91 Compressed: 84 bytes (78% Reduction)</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800/80 bg-brand-dark py-8 px-6 text-center text-xs text-slate-500 space-y-3">
-        <p class="text-slate-400 font-semibold">PRISM-Edge Ecosystem &copy; 2026. Lead Architect & AI Engineer: <b class="text-white">Rudra Sarker</b>.</p>
-        <div class="flex justify-center gap-4 text-slate-500 font-mono">
-            <a href="https://rudra496.github.io/site" target="_blank" class="hover:text-emerald-400 transition">Portfolio</a>
-            <span>•</span>
-            <a href="https://github.com/rudra496/prism-edge" target="_blank" class="hover:text-emerald-400 transition">GitHub Repo</a>
-            <span>•</span>
-            <a href="https://www.linkedin.com/in/rudrasarker" target="_blank" class="hover:text-emerald-400 transition">LinkedIn</a>
-        </div>
-        <p class="font-mono text-slate-600">Built for Global Social Good, Universal Health Resilience & Climate Action.</p>
     </footer>
 
-    <!-- Interactive Client-Side Web Audio & Triage Script -->
+    <!-- Interactive Scripts -->
     <script>
-        let isRecording = false;
-        let audioCtx, analyser, micStream, animFrameId;
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('tab-btn-active');
-                b.classList.add('bg-slate-900', 'text-slate-400');
-            });
-            const p = document.getElementById('panel-' + tabId);
-            if (p) p.classList.remove('hidden');
-            const b = document.getElementById('tab-' + tabId);
-            if (b) {
-                b.classList.remove('bg-slate-900', 'text-slate-400');
-                b.classList.add('tab-btn-active');
-            }
-        }
-
-        async function toggleAudioRecording() {
-            const btn = document.getElementById('btn-record');
-            const recDot = document.getElementById('rec-dot');
-            const recText = document.getElementById('rec-text');
-            const statusText = document.getElementById('canvas-status');
-            const canvas = document.getElementById('audio-visualizer');
-            const ctx = canvas.getContext('2d');
-
-            if (!isRecording) {
-                try {
-                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    analyser = audioCtx.createAnalyser();
-                    analyser.fftSize = 512;
-                    const source = audioCtx.createMediaStreamSource(micStream);
-                    source.connect(analyser);
-
-                    isRecording = true;
-                    recDot.classList.add('animate-ping');
-                    recText.innerText = "Recording & Extracting Pitch ($F_0$)... Click to Stop";
-                    statusText.innerText = "Status: Live Audio Stream Active";
-
-                    const bufferLength = analyser.frequencyBinCount;
-                    const dataArray = new Uint8Array(bufferLength);
-
-                    function draw() {
-                        if (!isRecording) return;
-                        animFrameId = requestAnimationFrame(draw);
-                        analyser.getByteTimeDomainData(dataArray);
-
-                        ctx.fillStyle = '#030712';
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-                        ctx.lineWidth = 2;
-                        ctx.strokeStyle = '#10b981';
-                        ctx.beginPath();
-
-                        const sliceWidth = canvas.width * 1.0 / bufferLength;
-                        let x = 0;
-                        for (let i = 0; i < bufferLength; i++) {
-                            const v = dataArray[i] / 128.0;
-                            const y = v * canvas.height / 2;
-                            if (i === 0) ctx.moveTo(x, y);
-                            else ctx.lineTo(x, y);
-                            x += sliceWidth;
-                        }
-                        ctx.lineTo(canvas.width, canvas.height / 2);
-                        ctx.stroke();
-                    }
-                    draw();
-
-                } catch (err) {
-                    alert("Microphone permission simulated. Running client-side audio synthesizer.");
-                    runManualBiomarker();
-                }
+        // Navbar Scrolled State
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-lg', 'border-b', 'border-slate-800');
+                nav.classList.replace('bg-transparent', 'glass-nav');
             } else {
-                isRecording = false;
-                if (micStream) micStream.getTracks().forEach(t => t.stop());
-                if (audioCtx) audioCtx.close();
-                cancelAnimationFrame(animFrameId);
-                recDot.classList.remove('animate-ping');
-                recText.innerText = "Start Live Microphone Recording (3s Sample)";
-                statusText.innerText = "Status: Analysis Complete";
-                runManualBiomarker();
+                nav.classList.remove('shadow-lg');
             }
+        });
+
+        // Tab Switching
+        function openSim(tab) {
+            document.querySelectorAll('.sim-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.sim-tab').forEach(el => {
+                el.classList.remove('tab-active', 'border-b-2', 'border-brand-primary');
+                el.classList.add('text-slate-400');
+            });
+            document.getElementById('sim-' + tab).classList.remove('hidden');
+            const btn = document.getElementById('btn-' + tab);
+            btn.classList.add('tab-active', 'border-b-2', 'border-brand-primary');
+            btn.classList.remove('text-slate-400');
         }
 
-        async function runManualBiomarker() {
-            const freq = document.getElementById('f0-slider').value;
-            const jitter = document.getElementById('jitter-slider').value;
-            try {
-                const res = await fetch('/api/biomarker/analyze', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({fundamental_freq_hz: freq, jitter_factor: jitter})
-                });
-                const data = await res.json();
-                document.getElementById('res-vitality').innerText = data.vitality_index + ' / 100';
-                document.getElementById('res-dysphoria').innerText = data.dysphoria_risk_score + ' %';
-                document.getElementById('res-status').innerText = data.clinical_status;
-                document.getElementById('res-action').innerText = data.recommended_action;
-            } catch (e) {
-                const f = parseFloat(freq);
-                const j = parseFloat(jitter);
-                const dysphoria = Math.min(95, Math.max(5, (j * 800) + (Math.abs(220 - f) * 0.15) + 15));
-                const vitality = (100 - dysphoria).toFixed(1);
-                document.getElementById('res-vitality').innerText = vitality + ' / 100';
-                document.getElementById('res-dysphoria').innerText = dysphoria.toFixed(1) + ' %';
-                document.getElementById('res-status').innerText = dysphoria < 40 ? "Optimal / Resilient" : "Mild Affective Strain";
-                document.getElementById('res-action').innerText = "Proactive mindfulness prompts and sleep hygiene audio scheduled.";
+        // Mock Audio Simulation
+        function demoAudio() {
+            const btn = document.getElementById('recBtn');
+            const canvas = document.getElementById('audioCanvas');
+            const ctx = canvas.getContext('2d');
+            let frame;
+            
+            btn.innerHTML = '<i class="ph-fill ph-spinner animate-spin mr-2"></i>Processing Signal...';
+            btn.classList.replace('bg-brand-primary', 'bg-slate-700');
+            
+            let x = 0;
+            function draw() {
+                ctx.fillStyle = 'rgba(2, 6, 23, 0.2)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 2;
+                
+                const y = canvas.height/2 + Math.sin(x * 0.1) * 20 + (Math.random()-0.5)*10;
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+                x++;
+                if(x < 100) frame = requestAnimationFrame(draw);
+                else {
+                    btn.innerHTML = '<i class="ph-fill ph-check-circle mr-2"></i>Analysis Complete';
+                    btn.classList.replace('bg-slate-700', 'bg-emerald-600');
+                    document.getElementById('out-vitality').innerText = '84.2 / 100';
+                    document.getElementById('out-risk').innerText = '15.8 %';
+                    const s = document.getElementById('out-status');
+                    s.innerText = 'Optimal / Resilient';
+                    s.className = 'text-xs font-bold px-2 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded';
+                    document.getElementById('out-time').innerText = '4.12';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="ph-fill ph-microphone mr-2"></i>Initialize Audio Ingress';
+                        btn.classList.replace('bg-emerald-600', 'bg-brand-primary');
+                    }, 3000);
+                }
             }
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            draw();
         }
 
-        function runMaternalTriage() {
-            const sbp = parseInt(document.getElementById('mat-sbp').value);
-            const dbp = parseInt(document.getElementById('mat-dbp').value);
-            const isEmerg = sbp >= 160 || dbp >= 110;
-            document.getElementById('mat-urgency').innerText = isEmerg ? "EMERGENCY (Critical Preeclampsia)" : "ROUTINE (Normotensive)";
-            document.getElementById('mat-proto').innerText = isEmerg ? 
-                "Immediate emergency ambulance dispatch to tertiary referral center; administer loading dose of Magnesium Sulfate (4g IV + 10g IM)." :
-                "Continue standard antenatal care schedule with iron-folic acid supplementation.";
-        }
-
-        function runApgarTriage() {
+        // APGAR Calculator
+        function calcApgar() {
             const hr = parseInt(document.getElementById('apgar-hr').value);
             const resp = parseInt(document.getElementById('apgar-resp').value);
-            const tone = parseInt(document.getElementById('apgar-tone').value);
-            const color = parseInt(document.getElementById('apgar-color').value);
-            const total = hr + resp + tone + color + 2;
-            document.getElementById('apgar-score').innerText = total + " / 10 (" + (total >= 7 ? "Reassuring" : "Resuscitation Required") + ")";
-            document.getElementById('apgar-action').innerText = total >= 7 ?
-                "Dry infant thoroughly, provide skin-to-skin warmth, initiate exclusive breastfeeding within first hour." :
-                "Clear airway, administer positive pressure ventilation with room air via bag-and-mask.";
-        }
-
-        function runClimateEval() {
-            const temp = parseFloat(document.getElementById('clim-temp').value);
-            const rain = parseFloat(document.getElementById('clim-rain').value);
-            const sal = parseFloat(document.getElementById('clim-sal').value);
-            document.getElementById('clim-status').innerText = rain > 50 ? "CRITICAL: FLASH FLOOD ALERT" : "NOMINAL RESILIENCE";
-            document.getElementById('sal-status').innerText = sal > 3.0 ? `Critical Saline Ingress (${sal} dS/m)` : `Optimal Freshwater (${sal} dS/m)`;
-        }
-
-        function testPinAuth() {
-            const pin = document.getElementById('pin-input').value;
-            if (pin === "9999") {
-                document.getElementById('sos-dispatch-status').innerText = "DISPATCHED TO MESH POLICE (SILENT COVERT)";
-                document.getElementById('sos-dispatch-status').className = "font-bold text-red-400 animate-pulse font-mono";
+            // Assume default optimal for others for demo
+            const total = hr + resp + 6; 
+            
+            const circle = document.getElementById('apgar-circle');
+            const diag = document.getElementById('apgar-diag');
+            const desc = document.getElementById('apgar-desc');
+            
+            circle.innerText = total;
+            
+            if(total >= 7) {
+                circle.className = "w-24 h-24 rounded-full border-4 border-emerald-500 flex items-center justify-center text-3xl font-display font-bold text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)]";
+                diag.innerText = "Reassuring (Routine Care)";
+                diag.className = "text-lg font-bold text-emerald-400 mb-2";
+                desc.innerText = "Provide skin-to-skin contact and initiate breastfeeding.";
             } else {
-                document.getElementById('sos-dispatch-status').innerText = "NO SOS TRIGGERED (NORMAL AUTH)";
-                document.getElementById('sos-dispatch-status').className = "font-bold text-emerald-400 font-mono";
+                circle.className = "w-24 h-24 rounded-full border-4 border-red-500 flex items-center justify-center text-3xl font-display font-bold text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.3)]";
+                diag.innerText = "Critical: Resuscitation Required";
+                diag.className = "text-lg font-bold text-red-400 mb-2";
+                desc.innerText = "Initiate positive pressure ventilation immediately.";
             }
         }
 
-        function fetchJobsAndMatch() {
-            alert("Matching verified talent: Candidate Token #914e7b84b62e matched 100% with affirmative female artisan priority!");
+        // Mesh Simulator
+        function demoMesh() {
+            const input = document.getElementById('mesh-in').value;
+            const out = document.getElementById('mesh-out');
+            const ratio = document.getElementById('mesh-ratio');
+            
+            out.innerHTML = '<i class="ph-fill ph-spinner animate-spin text-2xl text-purple-500"></i>';
+            
+            setTimeout(() => {
+                // Fake Base91 string for visual effect
+                const fakeBase91 = "xA9!bZ#8vQ*pL2m$KjH5nG7+fC";
+                out.innerText = fakeBase91;
+                out.className = "flex-grow bg-slate-900 border border-purple-500/30 rounded-lg p-4 text-lg tracking-widest font-mono text-purple-400 break-all flex items-center justify-center shadow-[inset_0_0_15px_rgba(168,85,247,0.1)]";
+                
+                const percent = Math.round(100 - (fakeBase91.length / input.length * 100));
+                ratio.innerText = percent + '%';
+            }, 800);
         }
+
+        // Background Mesh Canvas Animation
+        const bgCanvas = document.getElementById('meshCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let width, height;
+        let nodes = [];
+        
+        function initCanvas() {
+            width = bgCanvas.width = window.innerWidth;
+            height = bgCanvas.height = window.innerHeight;
+            nodes = [];
+            for(let i=0; i<50; i++) {
+                nodes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 2 + 1
+                });
+            }
+        }
+        
+        function animateCanvas() {
+            requestAnimationFrame(animateCanvas);
+            bgCtx.clearRect(0, 0, width, height);
+            
+            bgCtx.fillStyle = '#10b981'; // brand-primary
+            bgCtx.strokeStyle = 'rgba(16, 185, 129, 0.15)';
+            
+            for(let i=0; i<nodes.length; i++) {
+                let n = nodes[i];
+                n.x += n.vx;
+                n.y += n.vy;
+                
+                if(n.x < 0 || n.x > width) n.vx *= -1;
+                if(n.y < 0 || n.y > height) n.vy *= -1;
+                
+                bgCtx.beginPath();
+                bgCtx.arc(n.x, n.y, n.radius, 0, Math.PI*2);
+                bgCtx.fill();
+                
+                for(let j=i+1; j<nodes.length; j++) {
+                    let n2 = nodes[j];
+                    let dist = Math.hypot(n.x - n2.x, n.y - n2.y);
+                    if(dist < 150) {
+                        bgCtx.beginPath();
+                        bgCtx.lineWidth = 1 - dist/150;
+                        bgCtx.moveTo(n.x, n.y);
+                        bgCtx.lineTo(n2.x, n2.y);
+                        bgCtx.stroke();
+                    }
+                }
+            }
+        }
+        
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animateCanvas();
     </script>
 </body>
 </html>
