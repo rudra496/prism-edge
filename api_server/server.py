@@ -1,3 +1,4 @@
+import socket
 """
 PRISM-Edge: Unified REST & Simulation API Server
 Provides high-performance lightweight endpoints for all 7 competition pillars.
@@ -190,14 +191,18 @@ class ReusableTCPServer(socketserver.TCPServer):
     allow_reuse_address = True
     daemon_threads = True
 
+    def server_bind(self):
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        super().server_bind()
+
 def run_server(port: int = 8080):
-    server_address = ('0.0.0.0', port)
+    server_address = ('127.0.0.1', port)
     httpd = ReusableTCPServer(server_address, PrismAPIHandler)
-    print(f'[PRISM-Edge] Production API Server active at http://localhost:{port}')
+    print(f"[PRISM-Edge] Production API Server active at http://localhost:{port}")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print('[PRISM-Edge] Server stopped gracefully.')
+        print("[PRISM-Edge] Server stopped gracefully.")
         httpd.server_close()
 
 if __name__ == "__main__":
