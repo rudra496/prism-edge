@@ -92,3 +92,14 @@ Please see `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md` for details on submitting 
 
 ## 📄 License
 This project is licensed under the MIT License - see the `LICENSE` file for details.
+
+---
+
+## 📈 Market & Business Viability
+PRISM-Edge operates on a **B2B2G (Business-to-Business-to-Government)** revenue model.
+
+- **TAM (Total Addressable Market):** $14.5B (Global NGO tech, Rural Health IT, Disaster Resilience).
+- **Revenue Streams:** 
+  1. Protocol Licensing (Telecom fallback systems).
+  2. NGO SaaS Subscriptions (Accessing encrypted dashboard analytics).
+  3. OEM Hardware Integration (Pre-flashing Base91 on rugged edge devices).
