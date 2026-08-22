@@ -186,14 +186,18 @@ class PrismAPIHandler(SimpleHTTPRequestHandler):
         else:
             self._send_json(404, {"error": f"Endpoint {path} not found"})
 
+class ReusableTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
 def run_server(port: int = 8080):
     server_address = ('0.0.0.0', port)
-    httpd = socketserver.TCPServer(server_address, PrismAPIHandler)
-    print(f"[PRISM-Edge] Production API Server active at http://localhost:{port}")
+    httpd = ReusableTCPServer(server_address, PrismAPIHandler)
+    print(f'[PRISM-Edge] Production API Server active at http://localhost:{port}')
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("[PRISM-Edge] Server stopped gracefully.")
+        print('[PRISM-Edge] Server stopped gracefully.')
         httpd.server_close()
 
 if __name__ == "__main__":
