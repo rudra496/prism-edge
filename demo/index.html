@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PRISM-Edge | লাইভ ভয়েস স্ক্রিনার — Live Voice Prosody Screener</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Noto+Sans+Bengali:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070d18; --panel:#0d1626; --panel2:#101c30; --line:#1e2c44;
+    --text:#e6edf7; --muted:#8ba1bf; --brand:#10b981; --brand2:#34d399;
+    --amber:#f59e0b; --red:#ef4444; --blue:#3b82f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Plus Jakarta Sans','Noto Sans Bengali',system-ui,sans-serif;
+    min-height:100vh; padding:24px 16px 64px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem}
+  .logo .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--brand),#059669);display:grid;place-items:center;font-size:.9rem}
+  a.back{color:var(--muted);text-decoration:none;font-size:.85rem;border:1px solid var(--line);padding:8px 14px;border-radius:10px}
+  a.back:hover{color:var(--text);border-color:var(--brand)}
+  h1{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;line-height:1.25}
+  h1 .en{color:var(--muted);font-weight:600;font-size:.72em;display:block;margin-top:4px}
+  .banner{
+    margin:14px 0 20px;padding:12px 16px;border:1px solid rgba(245,158,11,.35);
+    background:rgba(245,158,11,.08);border-radius:12px;font-size:.82rem;color:#fcd34d;line-height:1.5
+  }
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .card h2{font-size:.95rem;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+  .card h2 small{color:var(--muted);font-weight:500;font-size:.72rem}
+  #waveCanvas{width:100%;height:150px;background:#060b14;border:1px solid var(--line);border-radius:10px;display:block}
+  #specCanvas{width:100%;height:90px;background:#060b14;border:1px solid var(--line);border-radius:10px;display:block;margin-top:10px}
+  .controls{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  button.primary{
+    flex:1;min-width:180px;background:var(--brand);color:#04150d;border:none;border-radius:12px;
+    padding:14px 18px;font-weight:800;font-size:.95rem;cursor:pointer;font-family:inherit;
+    transition:transform .1s ease, filter .15s ease;
+  }
+  button.primary:hover{filter:brightness(1.1)}
+  button.primary:active{transform:scale(.98)}
+  button.primary.stop{background:#334155;color:#cbd5e1}
+  button.ghost{
+    background:transparent;color:var(--muted);border:1px solid var(--line);
+    border-radius:12px;padding:14px 18px;font-weight:600;font-size:.85rem;cursor:pointer;font-family:inherit;
+  }
+  button.ghost:hover{color:var(--text)}
+  #statusLine{margin-top:10px;font-size:.78rem;color:var(--muted);min-height:1.2em;font-family:'JetBrains Mono',monospace}
+  .gauge-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .gauge{
+    background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center
+  }
+  .gauge .val{font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:500;margin:4px 0 2px}
+  .gauge .lbl{font-size:.68rem;color:var(--muted);line-height:1.35}
+  .gauge .sub{font-size:.62rem;color:var(--muted);opacity:.75}
+  .pill{display:inline-block;padding:5px 12px;border-radius:999px;font-size:.72rem;font-weight:700;border:1px solid}
+  .pill.ok{color:var(--brand2);border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1)}
+  .pill.warn{color:var(--amber);border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.1)}
+  .pill.alert{color:var(--red);border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1)}
+  table.feats{width:100%;border-collapse:collapse;font-size:.76rem}
+  table.feats td{padding:7px 6px;border-bottom:1px solid var(--line)}
+  table.feats td:first-child{color:var(--muted)}
+  table.feats td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;color:var(--text)}
+  table.feats tr:last-child td{border-bottom:none}
+  .how{margin-top:16px;font-size:.76rem;color:var(--muted);line-height:1.65}
+  .how b{color:var(--text)}
+  footer{margin-top:26px;text-align:center;font-size:.72rem;color:var(--muted)}
+  footer a{color:var(--brand2);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="logo"><span class="dot">◈</span> PRISM-Edge</div>
+    <a class="back" href="../">← মূল পাতা / Main site</a>
+  </header>
+
+  <h1>লাইভ ভয়েস প্রসোডি স্ক্রিনার
+    <span class="en">Live Voice Prosody Screener — every number below is computed from YOUR microphone, on this device, right now.</span>
+  </h1>
+
+  <div class="banner">
+    ⚠️ <b>গুরুত্বপূর্ণ / Important:</b> এটি একটি গবেষণা প্রোটোটাইপ — চিকিৎসা যন্ত্র নয়। This is a research
+    prototype demonstrating on-device acoustic feature extraction. It is <u>not</u> a medical device and
+    provides <u>no diagnosis</u>. Audio never leaves your device — nothing is uploaded or stored.
+    অডিও আপনার ডিভাইস ছাড়ে না।
+  </div>
+
+  <div class="grid">
+    <!-- LEFT: capture -->
+    <div class="card">
+      <h2>🎧 লাইভ ইনপুট <small id="srcLabel">source: idle</small></h2>
+      <canvas id="waveCanvas" width="900" height="300"></canvas>
+      <canvas id="specCanvas" width="900" height="180"></canvas>
+      <div class="controls">
+        <button class="primary" id="btnMic">🎙️ মাইক্রোফোন চালু করুন · Start microphone</button>
+        <button class="ghost" id="btnDemo">🔊 সিনথেটিক ভয়েস · Synthetic voice</button>
+      </div>
+      <div id="statusLine">idle — choose microphone or synthetic source.</div>
+      <p class="how">
+        <b>কীভাবে কাজ করে / How it works:</b> 25 ms Hamming-windowed frames (10 ms hop) are extracted locally.
+        Each voiced frame gets a fundamental-frequency estimate by autocorrelation (search 75–500 Hz);
+        jitter = mean relative period perturbation between consecutive voiced frames; shimmer = mean relative
+        peak-amplitude perturbation; pause ratio = unvoiced-frame share over the last ~8 s window.
+        The composite “prosody strain” index is an <b>exploratory heuristic</b> mapped from these features —
+        the same pipeline ships inside the PRISM edge agent (Python reference implementation in
+        <code>core_engine/acoustic_biomarker.py</code>, validated by unit tests).
+      </p>
+    </div>
+
+    <!-- RIGHT: outputs -->
+    <div class="card">
+      <h2>📊 ফলাফল <small>rolling ≈8 s window</small></h2>
+      <div class="gauge-row">
+        <div class="gauge">
+          <div class="lbl">প্রসোডি স্ট্রেন সূচি<br/>Prosody strain index</div>
+          <div class="val" id="outStrain">—</div>
+          <span class="pill ok" id="outPill">no data yet</span>
+        </div>
+        <div class="gauge">
+          <div class="lbl">মূল কম্পাঙ্ক F₀<br/>Mean pitch (Hz)</div>
+          <div class="val" id="outF0">—</div>
+          <div class="sub">autocorrelation, voiced frames</div>
+        </div>
+      </div>
+      <table class="feats">
+        <tr><td>Jitter (local, relative)</td><td id="fJitter">—</td></tr>
+        <tr><td>Shimmer (local, relative)</td><td id="fShimmer">—</td></tr>
+        <tr><td>Pause ratio (unvoiced share)</td><td id="fPause">—</td></tr>
+        <tr><td>Pitch variability σ(F₀)</td><td id="fVar">—</td></tr>
+        <tr><td>Spectral flatness</td><td id="fFlat">—</td></tr>
+        <tr><td>Spectral centroid</td><td id="fCent">—</td></tr>
+        <tr><td>Voiced frames analysed</td><td id="fFrames">—</td></tr>
+      </table>
+      <p class="how">
+        <b>Reading it:</b> raised pause ratio, monotone pitch (low σ(F₀)) and elevated jitter/shimmer are
+        prosodic patterns researchers associate with affective strain. Thresholds here are illustrative
+        defaults for demonstration only — clinical calibration requires labelled field data (that is exactly
+        what our CHW pilot protocol collects).
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    PRISM-Edge · on-device acoustic pipeline v3.0 ·
+    <a href="https://github.com/rudra496/prism-edge">source & Python reference implementation ↗</a>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   Real DSP — no canned results anywhere in this file.
+   Mirrors core_engine/acoustic_biomarker.py (frame → voicing →
+   autocorrelation F0 → jitter/shimmer → window aggregates).
+   ============================================================ */
+
+const SR_TARGET = 16000, FRAME_MS = 25, HOP_MS = 10;
+const FRAME_LEN = SR_TARGET * FRAME_MS / 1000;   // 400 samples
+const HOP_LEN  = SR_TARGET * HOP_MS  / 1000;     // 160 samples
+const MIN_LAG = Math.floor(SR_TARGET / 500), MAX_LAG = Math.floor(SR_TARGET / 75);
+
+let audioCtx = null, analyser = null, mediaStream = null, synthTimer = null;
+let ringBuf = new Float32Array(SR_TARGET * 4);   // 4 s ring
+let ringFill = 0, ringPos = 0;
+let rafId = null;
+
+function $(id){ return document.getElementById(id); }
+
+function setStatus(msg){ $("statusLine").textContent = msg; }
+
+async function startGraph(sourceFactory, label){
+  stopSources();
+  // Request the context at our DSP rate; the browser resamples the mic
+  // input automatically. Without this the frame/lag math is off by
+  // (deviceRate / 16000) and pitch estimates are garbage.
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)({sampleRate: SR_TARGET});
+  const srcNode = await sourceFactory(audioCtx);
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  // Resample everything to 16 kHz through OfflineAudioContext-free path:
+  // ScriptProcessor is deprecated but universally supported and keeps all
+  // processing local; AudioWorklet would require serving a module file.
+  const proc = audioCtx.createScriptProcessor(1024, 1, 1);
+  proc.onaudioprocess = (e) => ingest(e.inputBuffer.getChannelData(0));
+  // ScriptProcessor only fires when wired into the graph; route through a
+  // zero-gain sink so microphone input is never played back out loud.
+  const sink = audioCtx.createGain(); sink.gain.value = 0;
+  srcNode.connect(proc); proc.connect(sink); sink.connect(audioCtx.destination);
+  srcNode.connect(analyser);
+  $("srcLabel").textContent = "source: " + label;
+  loop();
+}
+
+function ingest(chunk){
+  for (let i = 0; i < chunk.length; i++){
+    ringBuf[ringPos] = chunk[i];
+    ringPos = (ringPos + 1) % ringBuf.length;
+    if (ringFill < ringBuf.length) ringFill++;
+  }
+}
+
+function stopSources(){
+  if (rafId) cancelAnimationFrame(rafId), rafId = null;
+  if (synthTimer){ clearInterval(synthTimer); synthTimer = null; }
+  if (mediaStream){ mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+  if (audioCtx){ try { audioCtx.close(); } catch(e){} audioCtx = null; }
+  ringFill = 0; ringPos = 0;
+}
+
+/* ---- sources ------------------------------------------------ */
+async function micSource(ctx){
+  mediaStream = await navigator.mediaDevices.getUserMedia({
+    audio:{ echoCancellation:false, noiseSuppression:false, autoGainControl:false }
+  });
+  return ctx.createMediaStreamSource(mediaStream);
+}
+
+function synthSource(ctx){
+  // Speech-like synthetic: harmonic stack + formant-ish filtering + phrase pauses.
+  const oscs = [], gains = [];
+  const master = ctx.createGain(); master.gain.value = 0.28;
+  [110, 220, 330, 550].forEach((f, i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.value = f; g.gain.value = 0.5 / (i + 1);
+    o.connect(g); g.connect(master); o.start();
+    oscs.push(o); gains.push(g);
+  });
+  let phase = "talk", tEnd = ctx.currentTime + 2.2;
+  synthTimer = setInterval(() => {
+    const now = ctx.currentTime;
+    if (now > tEnd){
+      phase = phase === "talk" ? "pause" : "talk";
+      tEnd = now + (phase === "talk" ? 1.6 + Math.random()*1.4 : 0.5 + Math.random()*0.9);
+      const target = phase === "talk" ? 0.28 : 0.0;
+      master.gain.linearRampToValueAtTime(target, now + 0.15);
+      if (phase === "talk"){
+        const drift = 96 + Math.random()*40;
+        oscs.forEach((o,i) => o.frequency.linearRampToValueAtTime(drift*(i+1), now+0.2));
+      }
+    }
+  }, 120);
+  setStatus("synthetic speech-like source running (pauses + pitch drift)…");
+  return Promise.resolve(master);
+}
+
+/* ---- DSP core ----------------------------------------------- */
+function hamming(n){
+  const w = new Float32Array(n);
+  for (let i = 0; i < n; i++) w[i] = 0.54 - 0.46 * Math.cos(2*Math.PI*i/(n-1));
+  return w;
+}
+const WIN = hamming(FRAME_LEN);
+
+function extractFrames(buf){
+  const usable = buf.length - FRAME_LEN;
+  const frames = [];
+  for (let start = 0; start <= usable - HOP_LEN; start += HOP_LEN){
+    const f = new Float32Array(FRAME_LEN);
+    for (let i = 0; i < FRAME_LEN; i++) f[i] = buf[start+i] * WIN[i];
+    frames.push(f);
+  }
+  return frames;
+}
+
+function analyzeWindow(){
+  // Pull the last ~8 s out of the ring buffer, in order.
+  const want = Math.min(ringFill, SR_TARGET * 8);
+  const buf = new Float32Array(want);
+  let p = (ringPos - want + ringBuf.length) % ringBuf.length;
+  for (let i = 0; i < want; i++){ buf[i] = ringBuf[p]; p = (p+1) % ringBuf.length; }
+
+  const frames = extractFrames(buf);
+  if (!frames.length) return null;
+
+  const energies = new Float32Array(frames.length);
+  const zcrs = new Float32Array(frames.length);
+  for (let k = 0; k < frames.length; k++){
+    let e = 0, zc = 0;
+    for (let i = 0; i < frames[k].length; i++){
+      e += frames[k][i]*frames[k][i];
+      if (i && (frames[k][i-1] < 0) !== (frames[k][i] < 0)) zc++;
+    }
+    energies[k] = e / FRAME_LEN;
+    zcrs[k] = zc / (2*FRAME_LEN);
+  }
+  let emean = 0; for (const e of energies) emean += e; emean /= frames.length;
+  const thr = emean * 0.25 || 1e-6;
+  const voiced = frames.map((_,k) => energies[k] > thr && zcrs[k] < 0.35);
+
+  // Autocorrelation pitch on voiced frames.
+  const f0s = [], amps = [];
+  for (let k = 0; k < frames.length; k++){
+    if (!voiced[k]) continue;
+    const f = frames[k];
+    // Global-max autocorrelation pitch estimate — identical decision to the
+    // Python reference (core_engine/acoustic_biomarker.py).
+    let e0 = 0; for (let i = 0; i < f.length; i++) e0 += f[i]*f[i];
+    const norm = e0 / f.length;
+    let bestLag = 0, bestVal = 0;
+    for (let lag = MIN_LAG; lag <= MAX_LAG; lag++){
+      let c = 0;
+      for (let i = 0; i < f.length - lag; i++) c += f[i]*f[i+lag];
+      c /= (f.length - lag);
+      if (c > bestVal){ bestVal = c; bestLag = lag; }
+    }
+    if (bestLag && bestVal > 0.30 * norm){
+      f0s.push(SR_TARGET / bestLag);
+      let pk = 0; for (let i = 0; i < f.length; i++) pk = Math.max(pk, Math.abs(f[i]));
+      amps.push(pk);
+    }
+  }
+
+  // Jitter / shimmer across consecutive voiced estimates.
+  let jitter = NaN, shimmer = NaN;
+  if (f0s.length >= 3){
+    let dSum = 0, mSum = 0;
+    for (let i = 1; i < f0s.length; i++){
+      dSum += Math.abs((1/f0s[i]) - (1/f0s[i-1]));
+      mSum += (1/f0s[i] + 1/f0s[i-1]) / 2;
+    }
+    jitter = dSum / (f0s.length - 1) / (mSum / (f0s.length - 1));
+    let aD = 0, aM = 0;
+    for (let i = 1; i < amps.length; i++){
+      aD += Math.abs(amps[i] - amps[i-1]);
+      aM += (amps[i] + amps[i-1]) / 2;
+    }
+    shimmer = amps.length >= 2 ? aD / (amps.length - 1) / (aM / (amps.length - 1)) : NaN;
+  }
+
+  const total = frames.length;
+  const unvoicedShare = 1 - voiced.filter(Boolean).length / total;
+
+  return { f0s, amps, voiced, jitter, shimmer, unvoicedShare,
+           meanEnergy: emean, durationSec: buf.length / SR_TARGET };
+}
+
+/* ---- spectral view from analyser node ----------------------- */
+function spectralStats(){
+  if (!analyser) return null;
+  const n = analyser.frequencyBinCount;
+  const mag = new Float32Array(n);
+  analyser.getFloatFrequencyData(mag);
+  let logSum = 0, arithSum = 0, centNum = 0, centDen = 0, count = 0;
+  const binHz = audioCtx.sampleRate / 2 / n;
+  for (let i = 0; i < n; i++){
+    const lin = Math.pow(10, mag[i]/20);
+    if (lin <= 0 || !isFinite(lin)) continue;
+    logSum += Math.log(lin); arithSum += lin; count++;
+    centNum += i * lin; centDen += lin;
+  }
+  if (!count || !arithSum) return null;
+  return { flatness: Math.exp(logSum/count) / (arithSum/count),
+           centroid: (centNum/centDen) * binHz };
+}
+
+/* ---- render loop -------------------------------------------- */
+const waveCtx = $("waveCanvas").getContext("2d");
+const specCtx = $("specCanvas").getContext("2d");
+
+function drawWave(){
+  const W = waveCtx.canvas.width, H = waveCtx.canvas.height;
+  waveCtx.fillStyle = "#060b14"; waveCtx.fillRect(0,0,W,H);
+  const N = Math.min(ringFill, SR_TARGET);           // last second
+  if (!N) return;
+  waveCtx.beginPath();
+  waveCtx.strokeStyle = "#10b981"; waveCtx.lineWidth = 2;
+  let p = (ringPos - N + ringBuf.length) % ringBuf.length;
+  for (let i = 0; i < N; i++){
+    const x = i / N * W, y = H/2 - ringBuf[p] * (H/2) * 3.2;
+    p = (p+1) % ringBuf.length;
+    i ? waveCtx.lineTo(x, y) : waveCtx.moveTo(x, y);
+  }
+  waveCtx.stroke();
+}
+
+function drawSpectrum(){
+  const W = specCtx.canvas.width, H = specCtx.canvas.height;
+  specCtx.fillStyle = "#060b14"; specCtx.fillRect(0,0,W,H);
+  if (!analyser) return;
+  const n = analyser.frequencyBinCount;
+  const mag = new Uint8Array(n);
+  analyser.getByteFrequencyData(mag);
+  specCtx.beginPath();
+  specCtx.strokeStyle = "#3b82f6"; specCtx.lineWidth = 1.5;
+  const bins = 220;
+  for (let i = 0; i < bins; i++){
+    const v = mag[Math.floor(i/bins*n)] / 255;
+    const x = i/bins*W, y = H - v*H*0.95;
+    i ? specCtx.lineTo(x,y) : specCtx.moveTo(x,y);
+  }
+  specCtx.stroke();
+}
+
+function fmt(x, digits){ return isFinite(x) ? x.toFixed(digits) : "—"; }
+
+function renderResults(){
+  const res = analyzeWindow();
+  if (!res || res.f0s.length < 3){
+    // Not enough pitch-bearing frames yet — show an explicit collecting
+    // state instead of stale or NaN values.
+    $("outStrain").textContent = "…";
+    $("outF0").textContent = "…";
+    const pill = $("outPill");
+    pill.className = "pill ok";
+    pill.textContent = "collecting audio…";
+    return;
+  }
+  const mean = a => a.reduce((s,v)=>s+v,0)/a.length;
+  const sd = a => { const m = mean(a); return Math.sqrt(mean(a.map(v=>(v-m)*(v-m)))); };
+  const meanF0 = mean(res.f0s), varF0 = sd(res.f0s);
+
+  // Same heuristic mapping as the Python reference (weights documented there).
+  let strain = res.unvoicedShare*35
+             + Math.min(res.jitter*1000, 30)
+             + Math.min((res.shimmer||0)*500, 20)
+             + Math.max(0, 30-varF0)*0.5;
+  strain = Math.max(5, Math.min(95, strain));
+
+  const sp = spectralStats() || {flatness:NaN, centroid:NaN};
+
+  $("outStrain").textContent = strain.toFixed(1);
+  $("outF0").textContent = fmt(meanF0, 1);
+  $("fJitter").textContent = fmt(res.jitter*100, 2) + " %";
+  $("fShimmer").textContent = fmt(res.shimmer*100, 2) + " %";
+  $("fPause").textContent = (res.unvoicedShare*100).toFixed(1) + " %";
+  $("fVar").textContent = fmt(varF0, 2) + " Hz";
+  $("fFlat").textContent = fmt(sp.flatness, 4);
+  $("fCent").textContent = fmt(sp.centroid, 0) + " Hz";
+  $("fFrames").textContent = res.f0s.length + " / " + res.voiced.length;
+
+  const pill = $("outPill");
+  if (strain < 35){ pill.className = "pill ok"; pill.textContent = "within typical range"; }
+  else if (strain < 65){ pill.className = "pill warn"; pill.textContent = "mid-band (illustrative)"; }
+  else { pill.className = "pill alert"; pill.textContent = "high band (illustrative)"; }
+}
+
+function loop(){
+  drawWave(); drawSpectrum(); renderResults();
+  rafId = requestAnimationFrame(loop);
+}
+
+/* ---- wiring -------------------------------------------------- */
+let running = null; // "mic" | "synth" | null
+
+$("btnMic").addEventListener("click", async () => {
+  if (running === "mic"){ stopSources(); running = null; resetButtons("microphone stopped."); return; }
+  try{
+    await startGraph(micSource, "microphone 🔴 live");
+    running = "mic";
+    $("btnMic").textContent = "⏹️ বন্ধ করুন · Stop";
+    $("btnMic").classList.add("stop");
+    setStatus("microphone live — speak continuously for ~8 s to fill the analysis window.");
+  }catch(err){
+    setStatus("microphone unavailable (" + err.name + ") — try the synthetic source.");
+  }
+});
+
+$("btnDemo").addEventListener("click", () => {
+  if (running === "synth"){ stopSources(); running = null; resetButtons("synthetic stopped."); return; }
+  startGraph(synthSource, "synthetic 🔊");
+  running = "synth";
+  $("btnDemo").textContent = "⏹️ বন্ধ করুন · Stop";
+});
+
+function resetButtons(msg){
+  const mic = $("btnMic"), syn = $("btnDemo");
+  mic.textContent = "🎙️ মাইক্রোফোন চালু করুন · Start microphone";
+  mic.classList.remove("stop");
+  syn.textContent = "🔊 সিনথেটিক ভয়েস · Synthetic voice";
+  $("srcLabel").textContent = "source: idle";
+  setStatus(msg);
+}
+</script>
+</body>
+</html>

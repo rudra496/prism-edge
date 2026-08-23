@@ -1,0 +1,13 @@
+{
+  "name": "PRISM-Edge — Offline Maternal & Newborn Safety",
+  "short_name": "PRISM-Edge",
+  "description": "Offline-first maternal & newborn health companion: on-device voice screening and SMS/BLE mesh alerts that work when mobile networks go down.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070d18",
+  "theme_color": "#10b981",
+  "lang": "bn",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

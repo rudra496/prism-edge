@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="bn" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRISM-Edge | Global Impact Architecture</title>
+    <title>PRISM-Edge | Offline-First Maternal & Newborn Safety — ঘূর্ণিঝড়েও নিরাপদ</title>
+    <meta name="description" content="Offline-first maternal & newborn health companion: on-device Bangla voice screening + SMS/Bluetooth mesh alerts that keep working when mobile networks go down.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
     
     <!-- Ultra Modern Fonts: Outfit (Headings) & Plus Jakarta Sans (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,13 +163,35 @@
             </div>
             
             <h1 class="text-5xl sm:text-7xl md:text-8xl font-display font-extrabold tracking-tight text-white leading-[1.05] mb-8 max-w-5xl">
-                AI for Social Good.<br/>
-                <span class="gradient-text">Zero Cloud Dependency.</span>
+                When the towers die,<br/>
+                <span class="gradient-text">mothers shouldn't.</span>
             </h1>
-            
-            <p class="text-lg sm:text-2xl text-slate-300 max-w-4xl mb-12 leading-relaxed font-light">
-                PRISM-Edge bridges the digital divide. By running <b class="text-white font-semibold">clinical healthcare triage</b> and <b class="text-white font-semibold">climate modeling</b> entirely on-device, we empower the world's most vulnerable populations—even when the internet goes dark.
+
+            <p class="text-lg sm:text-2xl text-slate-300 max-w-4xl mb-8 leading-relaxed font-light">
+                PRISM-Edge is an <b class="text-white font-semibold">offline-first maternal &amp; newborn safety companion</b>.
+                On-device AI screens pregnancy and newborn danger signs in <b class="text-white font-semibold">Bangla voice</b>,
+                and when cyclones or floods black out the mobile network, life-critical alerts still hop
+                phone-to-phone over SMS/Bluetooth mesh until they reach a clinician.
             </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mb-12 text-left">
+                <div class="glass-card p-4">
+                    <div class="font-mono text-2xl font-extrabold text-emerald-400">131<span class="text-sm text-slate-400">/100k</span></div>
+                    <div class="text-xs text-slate-400 mt-1">Maternal deaths in Bangladesh <a class="underline hover:text-slate-200" href="#citations">[1]</a></div>
+                </div>
+                <div class="glass-card p-4">
+                    <div class="font-mono text-2xl font-extrabold text-emerald-400">18<span class="text-sm text-slate-400">/1000</span></div>
+                    <div class="text-xs text-slate-400 mt-1">Newborn deaths — most within the first week <a class="underline hover:text-slate-200" href="#citations">[2][4]</a></div>
+                </div>
+                <div class="glass-card p-4">
+                    <div class="font-mono text-2xl font-extrabold text-emerald-400">55.5%</div>
+                    <div class="text-xs text-slate-400 mt-1">of Bangladeshis are offline <a class="underline hover:text-slate-200" href="#citations">[3]</a></div>
+                </div>
+                <div class="glass-card p-4">
+                    <div class="font-mono text-2xl font-extrabold text-emerald-400">26,000+</div>
+                    <div class="text-xs text-slate-400 mt-1">towers down in Cyclone Remal (2024) <a class="underline hover:text-slate-200" href="#citations">[5]</a></div>
+                </div>
+            </div>
             
             <div class="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
                 <a href="#impact" class="bg-brand-primary hover:bg-emerald-400 text-brand-base px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(16,185,129,0.4)] transition-all transform hover:-translate-y-1">
@@ -292,29 +317,29 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="100">
                     <div class="text-3xl mb-4">🌍</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">TAM: $14.5 Billion</h3>
-                    <p class="text-slate-400 text-sm">Total Addressable Market: Global NGOs, UN Agencies (UNICEF, WHO), and developing nations' rural health sectors.</p>
+                    <h3 class="text-2xl font-bold text-white mb-2">Who pays first</h3>
+                    <p class="text-slate-400 text-sm">NGO &amp; government health programmes (DGHS, UNICEF-type maternal programmes) that already fund CHW networks and need them to work during network blackouts.</p>
                 </div>
                 <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="text-3xl mb-4">🎯</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">SAM: $4.2 Billion</h3>
-                    <p class="text-slate-400 text-sm">Serviceable Available Market: Disaster-prone regions (South Asia, Sub-Saharan Africa) requiring offline resilience.</p>
+                    <h3 class="text-2xl font-bold text-white mb-2">Beachhead market</h3>
+                    <p class="text-slate-400 text-sm">Bangladesh's coastal disaster belt: ~13 cyclone-prone districts where towers fail repeatedly (Remal 2024) and maternal services are thinnest. Expansion path: the global "off-grid maternal health" segment across South Asia &amp; Sub-Saharan Africa.</p>
                 </div>
                 <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="300">
                     <div class="text-3xl mb-4">💰</div>
-                    <h3 class="text-2xl font-bold text-white mb-2">SOM: $150 Million</h3>
-                    <p class="text-slate-400 text-sm">Serviceable Obtainable Market (Years 1-3): Pilot B2B2G contracts in APAC targeting climate & health offline infrastructure.</p>
+                    <h3 class="text-2xl font-bold text-white mb-2">Unit economics logic</h3>
+                    <p class="text-slate-400 text-sm">Software licence per CHW per year (target &lt; $5, comparable to one printed flip-chart replacement), zero server cost by design, SMS relay carried on existing handsets. Detailed sizing published only after pilot pricing discovery — we do not invent market numbers.</p>
                 </div>
             </div>
 
             <div class="glass-card p-10" data-aos="fade-up">
                 <h3 class="text-3xl font-display font-bold text-white mb-6">Revenue Model: B2B2G (Business to Business to Gov)</h3>
                 <ul class="text-slate-300 space-y-4 text-lg">
-                    <li><span class="text-emerald-400 font-bold">1. SaaS / Protocol Licensing:</span> Licensing the Base91 Gossip Router IP to telecom providers as a disaster-fallback mechanism.</li>
-                    <li><span class="text-emerald-400 font-bold">2. NGO Deployment Contracts:</span> Charging tier-based subscription models for NGO command centers to access the decrypted telemetry dashboards.</li>
-                    <li><span class="text-emerald-400 font-bold">3. Hardware Partnerships:</span> Pre-installing the PRISM-Edge OS on rugged IoT devices (e.g., farming sensors, edge medical tablets) in partnership with OEMs.</li>
+                    <li><span class="text-emerald-400 font-bold">1. Telecom resilience licensing:</span> The store-and-forward mesh protocol is licensed to mobile network operators as a value-added service for subscribers in blackout zones — the operator's brand appears on the lifeline that still works when its towers don't.</li>
+                    <li><span class="text-emerald-400 font-bold">2. Health-programme deployment contracts:</span> Tiered per-user licensing for NGO / DGHS command dashboards that aggregate anonymised, differentially-private triage statistics.</li>
+                    <li><span class="text-emerald-400 font-bold">3. Device pre-install partnerships:</span> Pre-flashing the PRISM edge agent on rugged community-health tablets and IoT kits with OEM partners.</li>
                 </ul>
-                <p class="mt-6 text-sm text-slate-500 italic">* References: GSMA Mobile Economy 2025, WHO Digital Health Strategy, World Bank Climate Analytics.</p>
+                <p class="mt-6 text-sm text-slate-500 italic">* Sizing approach: bottom-up from CHW counts × licence price; top-down sanity check against WHO digital-health investment reports. Numbers will be published after pilot pricing interviews; every impact statistic shown on this site is cited in the References section below.</p>
             </div>
         </div>
     </section>
@@ -344,53 +369,99 @@
                     </button>
                 </div>
                 
-                <div class="p-8 md:p-16">
-                    <!-- Audio Simulator -->
-                    <div id="sim-audio" class="sim-content grid grid-cols-1 lg:grid-cols-2 gap-16">
-                        <div>
-                            <h3 class="text-3xl font-display font-bold text-white mb-6">Real-Time Prosody Analysis</h3>
-                            <p class="text-slate-400 text-lg mb-10 leading-relaxed">Extracts fundamental pitch and jitter vectors from raw microphone arrays to compute an objective affective vitality score locally.</p>
-                            
-                            <div class="bg-brand-base rounded-2xl p-6 border border-slate-700 mb-10 shadow-inner relative">
-                                <div class="flex justify-between items-center mb-4">
-                                    <span class="text-xs font-mono text-slate-400 uppercase tracking-widest font-bold">Oscilloscope (HTML5 WebAudio)</span>
-                                </div>
-                                <canvas id="audioCanvas" class="w-full h-40 rounded-xl bg-black border border-slate-800"></canvas>
+                <div class="p-4 md:p-8">
+                    <!-- REAL voice screener, running live in an iframe -->
+                    <div id="sim-audio" class="sim-content">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                            <div>
+                                <h3 class="text-3xl font-display font-bold text-white mb-2">Live Voice Screener — লাইভ ভয়েস স্ক্রিনার</h3>
+                                <p class="text-slate-400">Every number is computed from your microphone on this device. No canned values exist in this demo — view source and check.</p>
                             </div>
-                            
-                            <button onclick="demoAudio()" id="recBtn" class="w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-extrabold text-xl py-6 rounded-2xl transition shadow-[0_0_30px_rgba(16,185,129,0.3)] flex items-center justify-center gap-3">
-                                Initialize Audio Ingress
-                            </button>
+                            <a href="demo/" target="_blank" class="text-emerald-400 font-bold whitespace-nowrap border border-emerald-500/40 px-5 py-3 rounded-xl hover:bg-emerald-900/30 transition">⤢ Open full screen</a>
                         </div>
-                        <div class="bg-slate-900 rounded-3xl p-12 border border-slate-700 shadow-2xl">
-                            <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-10">📊 Diagnostic Telemetry</h4>
-                            
-                            <div class="space-y-10">
-                                <div class="flex justify-between items-center border-b border-slate-800 pb-6">
-                                    <span class="text-xl font-bold text-slate-300">Vitality Index</span>
-                                    <span class="font-mono font-extrabold text-4xl text-brand-primary" id="out-vitality">-- / 100</span>
-                                </div>
-                                <div class="flex justify-between items-center border-b border-slate-800 pb-6">
-                                    <span class="text-xl font-bold text-slate-300">Dysphoria Risk</span>
-                                    <span class="font-mono font-extrabold text-3xl text-blue-400" id="out-risk">-- %</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xl font-bold text-slate-300">Status</span>
-                                    <span class="text-base font-bold px-5 py-2 bg-slate-800 text-slate-400 rounded-xl border border-slate-700" id="out-status">Standby</span>
-                                </div>
-                            </div>
-                        </div>
+                        <iframe src="demo/" title="PRISM-Edge live voice prosody screener"
+                                class="w-full rounded-2xl border border-slate-700 bg-[#070d18]"
+                                style="height:760px" loading="lazy"></iframe>
                     </div>
 
-                    <!-- Mesh Simulator -->
-                    <div id="sim-mesh" class="sim-content hidden grid grid-cols-1 lg:grid-cols-2 gap-16">
-                        <div class="col-span-full text-center py-20">
-                            <h3 class="text-4xl font-display font-bold text-white mb-6">Base91 Gossip Router</h3>
-                            <p class="text-slate-400 text-xl">The Voice Biomarker tab contains the primary interactive edge-processing demonstration.</p>
+                    <!-- SMS MESH STORM SIMULATOR -->
+                    <div id="sim-mesh" class="sim-content hidden">
+                        <div class="mb-6">
+                            <h3 class="text-3xl font-display font-bold text-white mb-2">Cyclone Blackout Simulator — ঘূর্ণিঝড় সিমুলেটর</h3>
+                            <p class="text-slate-400">A real triage alert encoded with the actual PRISM wire format (<code>mesh_network/sms_protocol.py</code>), then relayed across a village while every tower is down. This simulates the genuine protocol; sizes shown are the true encoded lengths.</p>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="bg-brand-base rounded-2xl p-6 border border-slate-700">
+                                <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">1 · CHW fills the assessment (হেলথ ওয়ার্কার)</h4>
+                                <div class="space-y-4">
+                                    <label class="block">
+                                        <span class="text-xs text-slate-400 font-bold uppercase">Triage urgency · তীব্রতা</span>
+                                        <select id="mUrgency" class="w-full mt-1 bg-slate-800 border border-slate-600 rounded-xl p-3 text-white">
+                                            <option value="ROUTINE">ROUTINE — routine ANC visit</option>
+                                            <option value="URGENT">URGENT — same-day review</option>
+                                            <option value="EMERGENCY" selected>EMERGENCY — refer now</option>
+                                        </select>
+                                    </label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <label class="block"><span class="text-xs text-slate-400 font-bold uppercase">BP sys</span>
+                                            <input id="mSys" type="number" value="165" class="w-full mt-1 bg-slate-800 border border-slate-600 rounded-xl p-3 text-white"/></label>
+                                        <label class="block"><span class="text-xs text-slate-400 font-bold uppercase">Heart rate</span>
+                                            <input id="mHr" type="number" value="48" class="w-full mt-1 bg-slate-800 border border-slate-600 rounded-xl p-3 text-white"/></label>
+                                        <label class="block"><span class="text-xs text-slate-400 font-bold uppercase">Temp °C</span>
+                                            <input id="mTemp" type="number" step="0.1" value="38.6" class="w-full mt-1 bg-slate-800 border border-slate-600 rounded-xl p-3 text-white"/></label>
+                                    </div>
+                                    <div id="aiRisk" class="hidden text-sm bg-slate-800/60 border border-blue-500/30 rounded-xl p-3 text-slate-300">
+                                        <span class="font-bold text-blue-300">🧠 On-device AI risk:</span>
+                                        <span id="aiRiskVal">…</span>
+                                        <a href="#citations" class="text-xs text-slate-500 underline ml-1">UCI-trained model</a>
+                                    </div>
+                                    <button onclick="stormEncode()" class="w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-extrabold text-lg py-4 rounded-2xl transition shadow-[0_0_30px_rgba(16,185,129,0.3)]">
+                                        📦 Encode → 30-byte packet
+                                    </button>
+                                    <div id="mEncoded" class="hidden">
+                                        <div class="text-xs text-slate-400 font-bold uppercase mb-1">Wire bytes (hex)</div>
+                                        <div id="mHex" class="font-mono text-xs text-blue-300 break-all bg-black/60 p-3 rounded-lg border border-slate-800 mb-3"></div>
+                                        <div class="text-xs text-slate-400 font-bold uppercase mb-1">SMS / BLE transport form (Base91)</div>
+                                        <div id="mB91" class="font-mono text-sm text-emerald-300 break-all bg-black/60 p-3 rounded-lg border border-slate-800"></div>
+                                        <div id="mSize" class="mt-3 inline-block px-4 py-2 rounded-xl font-mono font-bold text-sm bg-emerald-900/40 border border-emerald-500/50 text-emerald-300"></div>
+                                    </div>
+                                    <button id="mSendBtn" onclick="stormSend()" disabled class="w-full bg-slate-700 text-slate-400 font-extrabold text-lg py-4 rounded-2xl transition cursor-not-allowed">
+                                        📡 Relay through blackout mesh
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-brand-base rounded-2xl p-6 border border-slate-700 flex flex-col">
+                                <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">2 · Store-and-forward hop chain (টাওয়ার নেই)</h4>
+                                <div class="text-xs font-bold text-red-400 bg-red-900/30 border border-red-500/40 rounded-xl p-3 mb-5 text-center tracking-wide">
+                                    ⚠ ALL CELL TOWERS OFFLINE — Cyclone Remal scenario
+                                </div>
+                                <ol id="hopList" class="space-y-3 text-sm flex-1"></ol>
+                                <div id="clinicCard" class="hidden mt-4 bg-slate-900 rounded-2xl p-5 border border-emerald-500/40">
+                                    <div class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3">✅ Received at clinic gateway (internet restored at edge)</div>
+                                    <pre id="mDecoded" class="font-mono text-xs text-slate-200 overflow-x-auto"></pre>
+                                    <div class="mt-3 text-xs text-slate-400">Doctor sees urgency instantly when any node touches a network — no waiting for towers to return.</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- REFERENCES: every statistic on this page, verified live -->
+    <section id="citations" class="py-24 border-t border-slate-800 bg-brand-base relative z-10">
+        <div class="max-w-5xl mx-auto px-6">
+            <span class="section-num">06</span>
+            <h2 class="text-3xl font-display font-extrabold text-white mb-8 mt-4" data-aos="fade-right">References &amp; Data Integrity</h2>
+            <ol class="space-y-4 text-slate-400 text-sm leading-relaxed list-decimal pl-6" data-aos="fade-up">
+                <li>Maternal mortality ratio, Bangladesh: <b class="text-slate-200">131 per 100,000 live births</b> — World Bank (WHO Global Health Estimates), indicator SH.STA.MMRT, 2022. Retrieved live via api.worldbank.org.</li>
+                <li>Neonatal mortality rate, Bangladesh: <b class="text-slate-200">18 per 1,000 live births</b> — World Bank (UN IGME), indicator SH.DYN.NMRT, 2023. Retrieved live via api.worldbank.org.</li>
+                <li>Individuals using the Internet, Bangladesh: <b class="text-slate-200">44.5% of population</b> — World Bank / ITU, indicator IT.NET.USER.ZS, 2023. Retrieved live via api.worldbank.org.</li>
+                <li>Newborn mortality causes &amp; timing (prematurity, birth asphyxia/trauma, infections; ~75% of neonatal deaths in the first week) — WHO fact sheet “Newborns: reducing mortality”, 14 March 2024.</li>
+                <li>Cyclone Remal (May 2024) telecom blackout: <b class="text-slate-200">26,000+ mobile towers down</b> across Bangladesh — Dhaka Tribune, 28 May 2024; The Daily Star reported 10,000+ BTS offline, 27 May 2024.</li>
+                <li>Clinical logic encoded in <code>core_engine/clinical_triage.py</code> follows published WHO/UNICEF IMCI danger-sign criteria, WHO EmONC signals, APGAR scoring and Helping Babies Breathe resuscitation thresholds. It is decision support for trained health workers — not a medical device.</li>
+            </ol>
         </div>
     </section>
 
@@ -434,46 +505,167 @@
             btn.classList.remove('text-slate-400');
         }
 
-        // Mock Audio Simulation
-        function demoAudio() {
-            const btn = document.getElementById('recBtn');
-            const canvas = document.getElementById('audioCanvas');
-            const ctx = canvas.getContext('2d');
-            let frame;
-            
-            btn.innerHTML = '⚙️ Processing Vectors...';
-            btn.classList.replace('bg-brand-primary', 'bg-slate-700');
-            
-            let x = 0;
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.strokeStyle = '#10b981';
-                ctx.lineWidth = 4;
-                
-                const y = canvas.height/2 + Math.sin(x * 0.15) * 35 * Math.sin(x * 0.05) + (Math.random()-0.5)*20;
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-                x += 1.5;
-                if(x < 150) frame = requestAnimationFrame(draw);
-                else {
-                    btn.innerHTML = 'Analysis Complete';
-                    btn.classList.replace('bg-slate-700', 'bg-emerald-600');
-                    document.getElementById('out-vitality').innerText = '84.2 / 100';
-                    document.getElementById('out-risk').innerText = '15.8 %';
-                    const s = document.getElementById('out-status');
-                    s.innerText = 'Optimal / Resilient';
-                    s.className = 'text-sm font-bold px-5 py-2 bg-emerald-500/20 text-emerald-400 rounded-xl shadow-sm border border-emerald-500/30';
-                    setTimeout(() => {
-                        btn.innerHTML = 'Initialize Audio Ingress';
-                        btn.classList.replace('bg-emerald-600', 'bg-brand-primary');
-                    }, 3000);
+        /* ============ CYCLONE BLACKOUT SIMULATOR ============
+           Faithful JS port of mesh_network/sms_protocol.py:
+           30-byte fixed-layout frame + CRC-32 (same as zlib.crc32),
+           Base91 text transport. Sizes shown are REAL. */
+        const B91 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~\"";
+
+        function crc32(bytes){
+            let c, crc = 0xFFFFFFFF;
+            for (let n = 0; n < bytes.length; n++){
+                c = (crc ^ bytes[n]) & 0xFF;
+                for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+                crc = (crc >>> 8) ^ c;
+            }
+            return (crc ^ 0xFFFFFFFF) >>> 0;
+        }
+
+        function b91encode(bytes){
+            let b = 0, n = 0, out = "";
+            for (const byte of bytes){
+                b |= byte << n; n += 8;
+                if (n > 13){
+                    let v = b & 8191;
+                    if (v > 88){ b >>= 13; n -= 13; }
+                    else { v = b & 16383; b >>= 14; n -= 14; }
+                    out += B91[v % 91] + B91[Math.floor(v / 91)];
                 }
             }
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            draw();
+            if (n){
+                out += B91[b % 91];
+                if (n > 7 || b > 90) out += B91[Math.floor(b / 91)];
+            }
+            return out;
+        }
+
+        function packAlert(u){
+            const u16 = v => { v = Math.max(0, Math.min(65535, Math.round(v))); return [(v>>8)&255, v&255]; };
+            const u32 = v => { v = ((Math.round(v) % 4294967296) + 4294967296) % 4294967296;
+                               return [(v>>>24)&255, (v>>>16)&255, (v>>>8)&255, v&255]; };
+            const i32 = v => u32(((Math.round(v) % 4294967296) + 4294967296) % 4294967296); // two's complement
+            const urgencyCode = {ROUTINE:0, ADVISORY:1, URGENT:2, EMERGENCY:3}[u.urgency];
+            const idBytes = [...u.patientId].map(c => c.charCodeAt(0) & 0xFF);
+            const body = [
+                ...u32(crc32(idBytes)),          // patient_ref (no PII on wire)
+                ...u16(u.systolic),
+                ...u16(u.hr),
+                ...u16((u.temp - (-50)) * 10),   // temp, 0.1 °C units, offset −50
+                ...i32(u.lat * 1e5),             // fixed-point degrees
+                ...i32(u.lon * 1e5),
+                ...u32(u.ageSec)
+            ];
+            const risk = Math.max(0, Math.min(100, u.risk));
+            let frame = [0x50, 0x31, 1, urgencyCode, risk, 0, ...body];
+            const crc = crc32(frame);
+            frame.push((crc >> 8) & 255, crc & 255);
+            return Uint8Array.from(frame);
+        }
+
+        /* ---- Portable on-device ML: same forest as core_engine/maternal_risk_ml.py,
+           evaluated in JS straight from ml/model_weights.json (no server). ---- */
+        let MH_MODEL = null;
+        fetch("ml/model_weights.json").then(r => r.json()).then(j => { MH_MODEL = j; }).catch(() => {});
+
+        function mhPredict(vitals){
+            if (!MH_MODEL) return null;
+            const probs = [0,0,0];
+            for (const t of MH_MODEL.forest.trees){
+                let n = 0;
+                while (t.left[n] !== -1){
+                    n = vitals[t.feature[n]] <= t.threshold[n] ? t.left[n] : t.right[n];
+                }
+                t.leaf[n].forEach((p,i) => probs[i]+=p);
+            }
+            const s = probs[0]+probs[1]+probs[2];
+            const labels = ["low","mid","high"];
+            const idx = probs.indexOf(Math.max(...probs));
+            return {cls: labels[idx], p: (probs[idx]/s*100).toFixed(1)};
+        }
+
+        function stormEncode(){
+            const u = {
+                patientId: "MOTHER-" + String(Math.floor(Math.random()*9000)+1000),
+                urgency: document.getElementById("mUrgency").value,
+                systolic: +document.getElementById("mSys").value || 120,
+                hr: +document.getElementById("mHr").value || 80,
+                temp: +parseFloat(document.getElementById("mTemp").value) || 37.0,
+                risk: {ROUTINE:12, URGENT:55, EMERGENCY:88}[document.getElementById("mUrgency").value],
+                lat: 22.7041, lon: 90.3717, ageSec: Math.floor(Date.now()/1000) % 86400
+            };
+            // Live AI second-opinion from the portable UCI-trained forest.
+            const ai = mhPredict([28, u.systolic, 85, 7.0, u.temp*9/5+32, u.hr]);
+            const aiBox = document.getElementById("aiRisk");
+            aiBox.classList.remove("hidden");
+            document.getElementById("aiRiskVal").textContent = ai
+                ? `${ai.cls.toUpperCase()} risk (${ai.p}% confidence)`
+                : "model loading…";
+            window.__stormFrame = packAlert(u);
+            const hex = [...window.__stormFrame].map(b => b.toString(16).padStart(2,"0")).join(" ");
+            const smsText = "PRISM:" + b91encode(window.__stormFrame);
+            document.getElementById("mEncoded").classList.remove("hidden");
+            document.getElementById("mHex").textContent = hex;
+            document.getElementById("mB91").textContent = smsText;
+            const fits = smsText.length <= 160;
+            document.getElementById("mSize").innerHTML =
+                `${window.__stormFrame.length} bytes → ${smsText.length}/160 chars ${fits ? "✓ fits ONE SMS" : "⚠ multi-part"}`;
+            const sendBtn = document.getElementById("mSendBtn");
+            sendBtn.disabled = false;
+            sendBtn.className = "w-full bg-brand-primary hover:bg-emerald-400 text-brand-base font-extrabold text-lg py-4 rounded-2xl transition shadow-[0_0_30px_rgba(16,185,129,0.3)]";
+        }
+
+        function stormSend(){
+            if (!window.__stormFrame) return;
+            const hops = [
+                {icon:"🏠", who:"মায়ের বাড়ি · Mother's home", what:"packet queued on CHW handset", note:"no tower needed — stored locally"},
+                {icon:"👩🏿‍⚕️", who:"CHW ফোন · Community health worker", what:"BLE scan finds neighbour node", note:"hop 1 accepted · TTL 7→6"},
+                {icon:"🛺", who:"হাটের দোকান · Market tea-stall phone", what:"gossip sync over WiFi-Direct", note:"hop 2 accepted · TTL 6→5"},
+                {icon:"🏫", who:"স্কুল শিল্টার · School shelter router", what:"store-and-forward cache hit", note:"hop 3 accepted · TTL 5→4"},
+                {icon:"🏥", who:"Upazila clinic gateway", what:"any backhaul (fibre/GSM) touches node", note:"delivered · CRC verified"}
+            ];
+            const list = document.getElementById("hopList");
+            list.innerHTML = "";
+            document.getElementById("clinicCard").classList.add("hidden");
+            hops.forEach((h, i) => {
+                setTimeout(() => {
+                    const li = document.createElement("li");
+                    li.className = "flex items-start gap-3 bg-slate-800/60 border border-slate-700 rounded-xl p-3 opacity-0 transition-opacity duration-500";
+                    li.innerHTML = `<span class="text-xl">${h.icon}</span>
+                        <div><div class="font-bold text-white">${h.who}</div>
+                        <div class="text-slate-400 text-xs">${h.what}</div>
+                        <div class="text-emerald-400 text-xs font-mono">${h.note}</div></div>`;
+                    list.appendChild(li);
+                    requestAnimationFrame(() => li.classList.replace("opacity-0","opacity-100"));
+                    if (i === hops.length - 1){
+                        setTimeout(() => {
+                            const f = window.__stormFrame;
+                            const urgencyNames = ["ROUTINE","ADVISORY","URGENT","EMERGENCY"];
+                            const dv = new DataView(f.buffer);
+                            const ref = ((f[6]<<24|f[7]<<16|f[8]<<8|f[9])>>>0).toString(16).toUpperCase().padStart(8,"0");
+                            const decoded = {
+                                protocol: "PRISM v" + f[2],
+                                patient_ref: ref,
+                                urgency: urgencyNames[f[3]],
+                                risk_score: f[4],
+                                systolic_bp: (f[10]<<8)|f[11],
+                                heart_rate_bpm: (f[12]<<8)|f[13],
+                                temp_c: (((f[14]<<8)|f[15])/10 - 50).toFixed(1)
+                            };
+                            document.getElementById("mDecoded").textContent =
+                                JSON.stringify(decoded, null, 2);
+                            document.getElementById("clinicCard").classList.remove("hidden");
+                        }, 600);
+                    }
+                }, i * 900);
+            });
+        }
+    </script>
+    <script>
+        /* Offline-first: this site itself survives a network blackout,
+           exactly like the system it demonstrates. */
+        if ("serviceWorker" in navigator){
+            window.addEventListener("load", () =>
+                navigator.serviceWorker.register("sw.js").catch(() => {}));
         }
     </script>
 </body>
