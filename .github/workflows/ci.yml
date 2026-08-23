@@ -23,9 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install numpy reportlab
 
-      - name: Run Full 7-Pillar Test Suite
+      - name: Run Full Test Suite
         run: |
-          python tests/test_prism_suite.py
+          for f in tests/test_*.py; do
+            echo "== $f =="
+            python "$f" || exit 1
+          done
 
       - name: Test Server Boot & Endpoint Health
         run: |
